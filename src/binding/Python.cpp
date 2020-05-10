@@ -5,6 +5,8 @@
 #include "../async/MutexLock.h"
 #include "../text/String.h"
 
+#include "../util/Debug.h"
+
 #ifdef _WIN32
 #pragma warning( disable : 6285)
 #endif
@@ -126,6 +128,8 @@ void Python::init(std::string const& argv0, PathEntriesList const& pathList)
 
 void Python::shutdown()
 {
+    PRAGMA_TODO("References count deserve a unit test suite");
+
     __pythonGrab();
 
     if (__pythonArgv0)
@@ -331,7 +335,9 @@ Python::ArgsRef Python::arguments(size_t size...)
 
 Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObject, bool keepArguments)
 {
-     __pythonShouldBeInitialized();
+    PRAGMA_TODO("Parameter keepArguments deserve a unit test");
+
+    __pythonShouldBeInitialized();
 
     const auto ret(PyObject_CallObject(callableObject, argumentsObject));
     
@@ -400,7 +406,9 @@ Python::ValueRef Python::list(size_t size, ...)
 
 void Python::addList(ValueRef objList, ValueRef item, bool keepArguments)
 {
-     __pythonShouldBeInitialized();
+    PRAGMA_TODO("Parameter keepArguments deserve a unit test");
+
+    __pythonShouldBeInitialized();
 
     if (PyList_Check(objList))
     {
@@ -435,6 +443,8 @@ Python::ValueRef Python::fromAscii(std::string const& str)
 
 std::string Python::toAscii(ValueRef object, bool keepArgument)
 {
+    PRAGMA_TODO("Parameter keepArguments deserve a unit test");
+
     __pythonShouldBeInitialized();
 
     std::string ret;
