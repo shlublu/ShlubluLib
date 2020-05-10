@@ -21,7 +21,7 @@ This library currently consists in the following modules:
 * **Binding**: interactions with other languages 
   * ***Python*** based on the [standard Python/C API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier
 * **Text**: text content handling
-  * ***Strings***: helper functions that are not included in [*std::string*](http://www.cplusplus.com/reference/string/string/)
+  * ***String***: helper functions that are not included in [*std::string*](http://www.cplusplus.com/reference/string/string/)
 * **Util**: miscellaneous
   * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on
   * ***Exceptions***: Named exceptions derived from [std::exception](http://www.cplusplus.com/reference/exception/exception/) 
