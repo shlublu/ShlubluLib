@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="tests">
+      <UniqueIdentifier>{4522a28f-73e5-412c-a24c-b7e4d895090c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\text">
+      <UniqueIdentifier>{53eae49c-de91-44d5-b4e1-5d5019436331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\binding">
+      <UniqueIdentifier>{3c410281-4bf5-4166-8091-31e72e16fd45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tests\text\TestString.cpp">
+      <Filter>tests\text</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\binding\TestPython.cpp">
+      <Filter>tests\binding</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

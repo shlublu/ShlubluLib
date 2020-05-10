@@ -1,0 +1,46 @@
+# Compiled
+
+*.com
+*.exe
+*.class
+*.jar
+*.apk
+*.a
+*.lib
+*.dll
+*.so
+*.obj
+*.o
+*.bin
+*.zip
+
+# Logs and test data
+
+*.log
+*.csv
+
+# OS specific
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Working dirs
+
+**/.vs/
+**/Debug/
+**/Release/
+**/*.VC.db
+
+**/__pycache__/
+
+
+
+
+
+
+

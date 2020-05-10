@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{fb436496-f019-4223-8129-f49bbd1ec238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{706bf4f4-27ef-4f44-8eff-3194e2294ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\async">
+      <UniqueIdentifier>{a447d76a-812d-4e8b-9297-b966b5a92aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\text">
+      <UniqueIdentifier>{37d5792e-fdc9-4d11-8719-599f39fa8ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\binding">
+      <UniqueIdentifier>{6f4723e3-dbea-4e8c-a480-3077fbaf1d9a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\async\MutexLock.cpp">
+      <Filter>src\async</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\String.cpp">
+      <Filter>src\text</Filter>
+    </ClCompile>
+    <ClCompile Include="src\binding\Python.cpp">
+      <Filter>src\binding</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\util\Debug.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\Exceptions.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\async\MutexLock.h">
+      <Filter>src\async</Filter>
+    </ClInclude>
+    <ClInclude Include="src\text\String.h">
+      <Filter>src\text</Filter>
+    </ClInclude>
+    <ClInclude Include="src\binding\Python.h">
+      <Filter>src\binding</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="EUPL LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+</Project>
