@@ -1,16 +1,12 @@
-ShlubluLib is a modular, general open-source C++ library for Linux and Windows.
+# ShlubluLib
+
+ShlubluLib is a modular, general purpose, open-source C++ library for Linux and Windows.
+
+This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
+warranty of any kind (see license for further details).
 
 ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licence), please
 see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
-
-
-## About
-
-My name is Vincent Poulain ([GitHub](https://github.com/shlublu), 
-[StackOverflow](https://stackoverflow.com/users/840960/shlublu), [Twitter](https://twitter.com/shlublu): @shlublu). 
-
-This library is made of code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
-warranty of any kind (see license for further details).
 
 
 ## Modules
@@ -27,11 +23,13 @@ This library currently consists in the following modules:
   * ***Exceptions***: Named exceptions derived from [std::exception](http://www.cplusplus.com/reference/exception/exception/) 
 
 
-## Prerequisites
+## Getting started
+
+### Prerequisites
 
 The version numbers cited in this section correspond to those used in development and testing.
 
-### Development environment
+#### Development environment
 
 This library is developed under [**Microsoft Visual Studio 2019**](https://visualstudio.microsoft.com/fr/vs/) using the following features and extensions:
 * [**Microsoft Python - C++ projects debugging support**](https://visualstudio.microsoft.com/fr/vs/features/python/?wt.mc_id=aka_ms_python) extension
@@ -41,20 +39,20 @@ This library is developed under [**Microsoft Visual Studio 2019**](https://visua
 **Using Visual Studio is not an absolute prerequisite though**. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are
 specific to Visual Studio.
 
-### Libraries
+#### Libraries
 
 The following libraries are required for ShlubluLib to compile and execute:
 * [**Python** v3.7](https://www.python.org/downloads/release/python-370) or above
 * [**Boost** v1.67](https://www.boost.org/) or above
 
 
-## Installation
+### Installation
 
 There is no binary distribution so far. ShlubluLib has to be built from sources. 
 
-### Filesystem 
+#### Filesystem 
 
-The code is organized as follows on filesystem:
+The code is organized as follows on the filesystem:
 
 	|
 	|____src/
@@ -86,7 +84,9 @@ The code is organized as follows on filesystem:
 
 The file to open with Visual Studio is the main "solution" file ***shlublu.sln***.
 
-### VS projects structure
+#### VS projects structure
+
+The Visual Studio projects structure looks like this:
 
 	|	
 	|____EUPL LICENSE.txt
@@ -121,7 +121,7 @@ The file to open with Visual Studio is the main "solution" file ***shlublu.sln**
 	 
 
 The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built independantly of each other. 
-**00tests-shlublu** depends on **shlublu**.
+**00tests-shlublu**, on its end, depends on **shlublu**.
 
 ***BEFORE YOU BUILD:*** Projects settings have to be modified according to you local environment:
 * **00tests-shlublu**: 
@@ -137,7 +137,7 @@ The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built in
 
 I am still working on making this cleaner and easier to use.
 
-### Build outputs
+#### Build outputs
 
 * **00tests-shlublu** creates a test suite that can be used from the Test Explorer tab of Visual Studio
 * **shlublu** outputs to:
@@ -147,6 +147,18 @@ I am still working on making this cleaner and easier to use.
   * your remote Linux environment: `~/projects/shlublu-linux/bin/x64/<Debug|Release>\libshlublu-linux.lib`
 
 
-## Unit tests
+### Unit tests
 
 Unit tests are available for Windows only. Coverage is not complete but is improving.
+
+
+## About the author
+
+My name is Vincent Poulain ([GitHub](https://github.com/shlublu), 
+[StackOverflow](https://stackoverflow.com/users/840960/shlublu), [Twitter](https://twitter.com/shlublu): @shlublu). 
+
+
+## Acknowledgements
+
+Thank you to so many Stack Overflow contriutors. And to [Stack Overflow](https://stackoverflow.com/) themselves.
+
