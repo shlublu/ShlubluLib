@@ -9,6 +9,21 @@ ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licenc
 see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 
+## Table of content
+
+* [Modules](#modules)
+* [Prerequisites](#prerequisites)
+  * [Development environment](#development-environment)
+  * [Libraries](#libraries)
+* [Installation](#installation)
+  * [Files system](#files-system)
+  * [Visual Studio projects structure](#visual-studio-projects-structure)
+  * [Build outputs](#build-outputs)
+* [Unit tests](#unit-tests)
+* [About the author](#about-the-author)
+* [Acknowledgements](#acknowledgements) 
+
+
 ## Modules
 
 This library currently consists in the following modules:
@@ -23,13 +38,11 @@ This library currently consists in the following modules:
   * ***Exceptions***: Named exceptions derived from [std::exception](http://www.cplusplus.com/reference/exception/exception/) 
 
 
-## Getting started
-
-### Prerequisites
+## Prerequisites
 
 The version numbers cited in this section correspond to those used in development and testing.
 
-#### Development environment
+### Development environment
 
 This library is developed under [**Microsoft Visual Studio 2019**](https://visualstudio.microsoft.com/fr/vs/) using the following features and extensions:
 * [**Microsoft Python - C++ projects debugging support**](https://visualstudio.microsoft.com/fr/vs/features/python/?wt.mc_id=aka_ms_python) extension
@@ -39,21 +52,25 @@ This library is developed under [**Microsoft Visual Studio 2019**](https://visua
 **Using Visual Studio is not an absolute prerequisite though**. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are
 specific to Visual Studio.
 
-#### Libraries
+### Libraries
 
 The following libraries are required for ShlubluLib to compile and execute:
 * [**Python** v3.7](https://www.python.org/downloads/release/python-370) or above
 * [**Boost** v1.67](https://www.boost.org/) or above
 
 
-### Installation
+## Installation
 
 There is no binary distribution so far. ShlubluLib has to be built from sources. 
 
-#### Filesystem 
+### Files system 
 
-The code is organized as follows on the filesystem:
+The code is organized as follows on the files system:
 
+	|
+	|____doc/
+	|	|____(module A).md
+	|	|____(module B).md
 	|
 	|____src/
 	|	|____(module A)/
@@ -84,40 +101,47 @@ The code is organized as follows on the filesystem:
 
 The file to open with Visual Studio is the main "solution" file ***shlublu.sln***.
 
-#### VS projects structure
+### Visual Studio projects structure
 
 The Visual Studio projects structure looks like this:
 
 	|	
+	|____doc/
+	|	|____(module A).md
+	|	|____(module B).md
+	|
 	|____EUPL LICENSE.txt
 	|____README.md
 	|	
 	|____00tests-shlublu
-	|	|____(module A)
-	|	|	|____(tests X.cpp)
-	|	|	
-	|	|____(module B)
-	|		|____(...)
+	|	|____tests/
+	|		|____(module A)
+	|		|	|____(tests X.cpp)
+	|		|	
+	|		|____(module B)
+	|			|____(...)
 	|
 	|____shlublu
-	|	|____(module A)
-	|	|	|____(feature X.h)
-	|	|	|____(feature X.cpp)
-	|	|	|____(feature Y.h)
-	|	|	|____(feature Y.cpp)
-	|	|	
-	|	|____(module B)
-	|		|____(...)
+	|	|____src/
+	|		|____(module A)
+	|		|	|____(feature X.h)
+	|		|	|____(feature X.cpp)
+	|		|	|____(feature Y.h)
+	|		|	|____(feature Y.cpp)
+	|		|	
+	|		|____(module B)
+	|			|____(...)
 	|
 	|____shlublu-linux
-	 	|____(module A)
-	 	|	|____(feature X.h)
-	 	|	|____(feature X.cpp)
-	 	|	|____(feature Y.h)
-	 	|	|____(feature Y.cpp)
-	 	|	
-	 	|____(module B)
-	 		|____(...)
+		|____src/
+	 		|____(module A)
+	 		|	|____(feature X.h)
+	 		|	|____(feature X.cpp)
+	 		|	|____(feature Y.h)
+	 		|	|____(feature Y.cpp)
+	 		|	
+	 		|____(module B)
+				|____(...)
 	 
 
 The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built independantly of each other. 
@@ -137,7 +161,7 @@ The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built in
 
 I am still working on making this cleaner and easier to use.
 
-#### Build outputs
+### Build outputs
 
 * **00tests-shlublu** creates a test suite that can be used from the Test Explorer tab of Visual Studio
 * **shlublu** outputs to:
@@ -146,8 +170,11 @@ I am still working on making this cleaner and easier to use.
   * your local Windows environment: `<\path\to>\ShlubluLib\bin\x64\<Debug|Release>\libshlublu-linux.lib`
   * your remote Linux environment: `~/projects/shlublu-linux/bin/x64/<Debug|Release>\libshlublu-linux.lib`
 
+Client projects should add the following directory to their include path:
+* **Windows**: `<\path\to>\ShlubluLib\src\` 
+* **Linux**: `~/projects/shlublu-linux/src`
 
-### Unit tests
+## Unit tests
 
 Unit tests are available for Windows only. Coverage is not complete but is improving.
 
