@@ -15,6 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{ADFDED00-470E-4A76-AA74-4963B6D5DFF0}"
+	ProjectSection(SolutionItems) = preProject
+		doc\Async.md = doc\Async.md
+		doc\Binding.md = doc\Binding.md
+		doc\Text.md = doc\Text.md
+		doc\Util.md = doc\Util.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -38,6 +46,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ADFDED00-470E-4A76-AA74-4963B6D5DFF0} = {1E05DA20-DA65-4966-BAA9-D36D42A4234A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC531A5D-D503-4469-B4E6-AC6CF4A24AE1}
