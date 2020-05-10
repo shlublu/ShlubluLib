@@ -1,7 +1,7 @@
 ShlubluLib is a modular, general open-source C++ library for Linux and Windows.
 
 ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licence), please
-see the files "EUPL LICENSE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 
 ## About

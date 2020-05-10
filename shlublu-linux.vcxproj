@@ -46,12 +46,6 @@
     <ClInclude Include="src\util\Debug.h" />
     <ClInclude Include="src\util\Exceptions.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="EUPL LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5aeaf00c-be44-406c-88e0-006526b353f5}</ProjectGuid>
     <Keyword>Linux</Keyword>

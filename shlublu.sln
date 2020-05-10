@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "00tests-shlublu", "tests-sh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E05DA20-DA65-4966-BAA9-D36D42A4234A}"
 	ProjectSection(SolutionItems) = preProject
-		EUPL LICENSE.txt = EUPL LICENSE.txt
+		EUPL LICENCE.txt = EUPL LICENCE.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
