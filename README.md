@@ -17,6 +17,7 @@ see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.
   * [Files system](#files-system)
   * [Visual Studio projects structure](#visual-studio-projects-structure)
   * [Build outputs](#build-outputs)
+  * [Documentation](#documentation)
 * [Unit tests](#unit-tests)
 * [About the author](#about-the-author)
 * [Acknowledgements](#acknowledgements) 
