@@ -81,50 +81,56 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(<span class="keyword">const</span> std::string &amp; message) </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html#a7e59383b3a6b6ef608fef0e1ae438bee">ShlubluException</a>(std::string <span class="keyword">const</span>&amp; message)</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        : exception(message.c_str())</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    {}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *message)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html#a7e59383b3a6b6ef608fef0e1ae438bee">ShlubluException</a>(<span class="keywordtype">char</span> <span class="keyword">const</span> *message)</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        : exception(message)</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(<span class="keyword">const</span> std::string &amp; message)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        : exception(),</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;          mWhat(message)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *message)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        : exception(),</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;          mWhat(message)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* what() <span class="keyword">const</span> noexcept </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    { </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> mWhat.c_str();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> std::string mWhat;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_not_implemented_exception.html">   50</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_not_implemented_exception.html">NotImplementedException</a> : <span class="keyword">public</span> <a class="code" href="class_shlublu_exception.html">ShlubluException</a></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_not_implemented_exception.html">NotImplementedException</a>(<span class="keyword">const</span> std::string&amp; message)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        : <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(message.c_str())</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_not_implemented_exception.html">NotImplementedException</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* message)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        : <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(message)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    {}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_shlublu_exception.html#a7e59383b3a6b6ef608fef0e1ae438bee">   30</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html#a7e59383b3a6b6ef608fef0e1ae438bee">ShlubluException</a>(std::string <span class="keyword">const</span>&amp; message)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        : exception(),</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;          mWhat(message)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_shlublu_exception.html#a586f38c01318a33cf34ed0dd1fb43dd1">   39</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_shlublu_exception.html#a586f38c01318a33cf34ed0dd1fb43dd1">ShlubluException</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* message)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        : exception(),</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;          mWhat(message)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_shlublu_exception.html#acfb158740cc70ef2532a7df1d328ad39">   48</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">char</span> <span class="keyword">const</span>* <a class="code" href="class_shlublu_exception.html#acfb158740cc70ef2532a7df1d328ad39">what</a>() const noexcept</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    { </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> mWhat.c_str();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> std::string mWhat;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_not_implemented_exception.html">   62</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_not_implemented_exception.html">NotImplementedException</a> : <span class="keyword">public</span> <a class="code" href="class_shlublu_exception.html">ShlubluException</a></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_not_implemented_exception.html#a6c7c3a701a97daa0c34aba4a15c23433">   69</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_not_implemented_exception.html#a6c7c3a701a97daa0c34aba4a15c23433">NotImplementedException</a>(std::string <span class="keyword">const</span>&amp; message)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        : <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(message.c_str())</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="class_not_implemented_exception.html#ae50a742ea9122d41aa49a7b14f3797e8">   77</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_not_implemented_exception.html#ae50a742ea9122d41aa49a7b14f3797e8">NotImplementedException</a>(<span class="keywordtype">char</span> <span class="keyword">const</span>* message)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        : <a class="code" href="class_shlublu_exception.html">ShlubluException</a>(message)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_shlublu_exception_html"><div class="ttname"><a href="class_shlublu_exception.html">ShlubluException</a></div><div class="ttdoc">All components of this library use this exception when needed.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:15</div></div>
-<div class="ttc" id="aclass_not_implemented_exception_html"><div class="ttname"><a href="class_not_implemented_exception.html">NotImplementedException</a></div><div class="ttdoc">Components of this library that are not implemented under a cetrain platform use this exception at ru...</div><div class="ttdef"><b>Definition:</b> Exceptions.h:51</div></div>
+<div class="ttc" id="aclass_not_implemented_exception_html_ae50a742ea9122d41aa49a7b14f3797e8"><div class="ttname"><a href="class_not_implemented_exception.html#ae50a742ea9122d41aa49a7b14f3797e8">NotImplementedException::NotImplementedException</a></div><div class="ttdeci">NotImplementedException(char const *message)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:77</div></div>
+<div class="ttc" id="aclass_shlublu_exception_html"><div class="ttname"><a href="class_shlublu_exception.html">ShlubluException</a></div><div class="ttdoc">All classes of ShlubluLib use this exception or a derived one when needed.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:15</div></div>
+<div class="ttc" id="aclass_not_implemented_exception_html"><div class="ttname"><a href="class_not_implemented_exception.html">NotImplementedException</a></div><div class="ttdoc">Components of this library that have no implementation for the running platform use this exception at...</div><div class="ttdef"><b>Definition:</b> Exceptions.h:63</div></div>
+<div class="ttc" id="aclass_not_implemented_exception_html_a6c7c3a701a97daa0c34aba4a15c23433"><div class="ttname"><a href="class_not_implemented_exception.html#a6c7c3a701a97daa0c34aba4a15c23433">NotImplementedException::NotImplementedException</a></div><div class="ttdeci">NotImplementedException(std::string const &amp;message)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:69</div></div>
+<div class="ttc" id="aclass_shlublu_exception_html_a586f38c01318a33cf34ed0dd1fb43dd1"><div class="ttname"><a href="class_shlublu_exception.html#a586f38c01318a33cf34ed0dd1fb43dd1">ShlubluException::ShlubluException</a></div><div class="ttdeci">ShlubluException(char const *message)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:39</div></div>
+<div class="ttc" id="aclass_shlublu_exception_html_a7e59383b3a6b6ef608fef0e1ae438bee"><div class="ttname"><a href="class_shlublu_exception.html#a7e59383b3a6b6ef608fef0e1ae438bee">ShlubluException::ShlubluException</a></div><div class="ttdeci">ShlubluException(std::string const &amp;message)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:30</div></div>
+<div class="ttc" id="aclass_shlublu_exception_html_acfb158740cc70ef2532a7df1d328ad39"><div class="ttname"><a href="class_shlublu_exception.html#acfb158740cc70ef2532a7df1d328ad39">ShlubluException::what</a></div><div class="ttdeci">virtual char const  * what() const noexcept</div><div class="ttdoc">Returns the description of the issue carried by this exception.</div><div class="ttdef"><b>Definition:</b> Exceptions.h:48</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

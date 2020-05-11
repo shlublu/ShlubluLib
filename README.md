@@ -27,14 +27,14 @@ see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.
 
 This library currently consists in the following modules:
 * **Async**: threading and asynchronous operations
-  * ***MutexLock***: Recursive mutex helper based on [*std::recursive_mutex*](http://www.cplusplus.com/reference/mutex/recursive_mutex/?kw=recursive_mutex)
+  * ***MutexLock***: Recursive mutex helper based on [*std::recursive_mutex*](https://www.cplusplus.com/reference/mutex/recursive_mutex/)
 * **Binding**: interactions with other languages 
   * ***Python*** based on the [standard Python/C API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier
 * **Text**: text content handling
-  * ***String***: helper functions that are not included in [*std::string*](http://www.cplusplus.com/reference/string/string/)
+  * ***String***: helper functions that are not included in [*std::string*](https://www.cplusplus.com/reference/string/string/)
 * **Util**: miscellaneous
   * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * ***Exceptions***: Named exceptions derived from [std::exception](http://www.cplusplus.com/reference/exception/exception/). 
+  * ***Exceptions***: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
 
 
 ## Prerequisites
@@ -109,6 +109,7 @@ The code is organized as follows on the files system:
 	|____(VS Windows project files)
 	|
 	|____doxygen.conf
+	|____doxygen-structure.txt
 	|____EUPL LICENSE.txt
 	|____README.md
 
@@ -121,6 +122,7 @@ The Visual Studio projects structure looks like this:
 
 	|	
 	|____doxygen.conf
+	|____doxygen-structure.txt
 	|____EUPL LICENSE.txt
 	|____README.md
 	|	

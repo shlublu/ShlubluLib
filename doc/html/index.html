@@ -83,6 +83,7 @@ Table of content</h2>
 <li><a href="#files-system">Files system</a></li>
 <li><a href="#visual-studio-projects-structure">Visual Studio projects structure</a></li>
 <li><a href="#build-outputs">Build outputs</a></li>
+<li><a href="#documentation">Documentation</a></li>
 </ul>
 </li>
 <li><a href="#unit-tests">Unit tests</a></li>
@@ -93,7 +94,7 @@ Table of content</h2>
 Modules</h2>
 <p>This library currently consists in the following modules:</p><ul>
 <li><b>Async</b>: threading and asynchronous operations<ul>
-<li><em><b><a class="el" href="class_mutex_lock.html">MutexLock</a></b></em>: Recursive mutex helper based on <a href="http://www.cplusplus.com/reference/mutex/recursive_mutex/?kw=recursive_mutex"><em>std::recursive_mutex</em></a></li>
+<li><em><b><a class="el" href="class_mutex_lock.html" title="Recursive mutex.">MutexLock</a></b></em>: Recursive mutex helper based on <a href="https://www.cplusplus.com/reference/mutex/recursive_mutex/"><em>std::recursive_mutex</em></a></li>
 </ul>
 </li>
 <li><b>Binding</b>: interactions with other languages<ul>
@@ -101,12 +102,12 @@ Modules</h2>
 </ul>
 </li>
 <li><b>Text</b>: text content handling<ul>
-<li><em><b>String</b></em>: helper functions that are not included in <a href="http://www.cplusplus.com/reference/string/string/"><em>std::string</em></a></li>
+<li><em><b><a class="el" href="namespace_string.html">String</a></b></em>: helper functions that are not included in <a href="https://www.cplusplus.com/reference/string/string/"><em>std::string</em></a></li>
 </ul>
 </li>
 <li><b>Util</b>: miscellaneous<ul>
 <li><em><b>Debug</b></em>: Macros useful for developing and debugging: compilation messages, optimization control, and so on.</li>
-<li><em><b>Exceptions</b></em>: Named exceptions derived from <a href="http://www.cplusplus.com/reference/exception/exception/">std::exception</a>.</li>
+<li><em><b>Exceptions</b></em>: Named exceptions derived from <a href="https://www.cplusplus.com/reference/exception/exception/">std::exception</a>.</li>
 </ul>
 </li>
 </ul>
@@ -118,14 +119,19 @@ Development environment</h3>
 <p>This library is developed under <a href="https://visualstudio.microsoft.com/fr/vs/"><b>Microsoft Visual Studio 2019</b></a> using the following features and extensions:</p><ul>
 <li><a href="https://visualstudio.microsoft.com/fr/vs/features/python/?wt.mc_id=aka_ms_python"><b>Microsoft Python - C++ projects debugging support</b></a> extension</li>
 <li>Integrated <a href="https://docs.microsoft.com/en-us/visualstudio/test/microsoft-visualstudio-testtools-cppunittestframework-api-reference?view=vs-2019"><b>Microsoft CppUnitTest</b></a> framework</li>
-<li>Integrated <a href="https://devblogs.microsoft.com/cppblog/linux-development-with-c-in-visual-studio/"><b>Microsoft Linux Development</b></a> features</li>
+<li>Integrated <a href="https://devblogs.microsoft.com/cppblog/linux-development-with-c-in-visual-studio/"><b>Microsoft Linux Development</b></a> remote build features</li>
 <li><a href="https://www.doxygen.nl/"><b>Doxygen</b></a> documentation generator</li>
 </ul>
-<p><b>Visual Studio is not an absolute prerequisite</b>. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are specific to Visual Studio.</p>
-<p>The same way, <b>Doxygen is not an absolute prerequisite either</b>. You can decide not to regenerate documentation as it is already included in the distribution.</p>
+<p><b>Visual Studio is not an absolute prerequisite</b>. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are specific to Visual Studio. These can be quite easily rewritten for other tools if needed.</p>
+<p>The same way, depending on what you would like to do:</p><ul>
+<li><b>Microsoft Python - C++ projects debugging support</b> is optional. You can build and use Shlublulib as long as you already have a compatible Python library installed (see below).</li>
+<li><b>Microsoft CppUnitTest</b> is a built-in of Visual Studio that is used to build the unit tests suite. You only need it if you would like to build these tests.</li>
+<li><b>Microsoft Linux Development</b> is also a built-in of Visual Studio. You only need it if you would like to remotely build the Linux version of the library.</li>
+<li><b>Doxygen</b> is used to generate the documentation that is included to the distribution. You only need it if you would like to regenerate or modify it.</li>
+</ul>
 <h3><a class="anchor" id="autotoc_md4"></a>
 Libraries</h3>
-<p>The following libraries are required for ShlubluLib to compile and execute:</p><ul>
+<p>The following libraries <b>are required</b> for ShlubluLib to compile and execute:</p><ul>
 <li><a href="https://www.python.org/downloads/release/python-370"><b>Python</b> v3.7</a> or above</li>
 <li><a href="https://www.boost.org/"><b>Boost</b> v1.67</a> or above</li>
 </ul>
@@ -163,13 +169,14 @@ Files system</h3>
 |   |____(module B)/
 |       |____(...)
 |
-|____(VS main "solution" file).sln
+|____shlublu.sln
 |
 |____(VS test project files)
 |____(VS Linux project files)
 |____(VS Windows project files)
 |
 |____doxygen.conf
+|____doxygen-structure.txt
 |____EUPL LICENSE.txt
 |____README.md
 </pre><p>The file to open with Visual Studio is the main "solution" file <em><b>shlublu.sln</b></em>.</p>
@@ -177,6 +184,7 @@ Files system</h3>
 Visual Studio projects structure</h3>
 <p>The Visual Studio projects structure looks like this: </p><pre class="fragment">|   
 |____doxygen.conf
+|____doxygen-structure.txt
 |____EUPL LICENSE.txt
 |____README.md
 |   
@@ -221,7 +229,8 @@ Visual Studio projects structure</h3>
         |   
         |____(module B)
             |____(...)
-</pre><p>The projects <b>shlublu</b> (Windows) and <b>shlublu-linux</b> (Linux) can be built independantly of each other. <b>00tests-shlublu</b>, on its end, depends on <b>shlublu</b>.</p>
+</pre><p>The projects <b>shlublu</b> (Windows) and <b>shlublu-linux</b> (Linux) can be built independantly of each other. You can decide to only build those you are interested in.</p>
+<p>The unit tests project <b>00tests-shlublu</b>, on its end, depends on <b>shlublu</b>. Building it is optional.</p>
 <h3><a class="anchor" id="autotoc_md8"></a>
 Build configuration</h3>
 <p>Projects settings have to be modified according to your local environment:</p><ul>
@@ -232,7 +241,7 @@ Build configuration</h3>
 </ul>
 </li>
 <li><em><b>Build events</b></em>:<ul>
-<li>Pre-build: Doxygen generation command-line takes place here and can be removed if you prefers</li>
+<li>Pre-build: Doxygen generation command-line takes place here and can be removed if you prefer</li>
 </ul>
 </li>
 </ul>
@@ -252,7 +261,7 @@ Build configuration</h3>
 </ul>
 </li>
 </ul>
-<p>I am still working on making this cleaner and easier to use.</p>
+<p>I am working on making this cleaner and easier to use.</p>
 <h3><a class="anchor" id="autotoc_md9"></a>
 Build outputs</h3>
 <ul>
@@ -271,15 +280,18 @@ Build outputs</h3>
 <li><b>Windows</b>: <code>&lt;\path\to&gt;\ShlubluLib\include\</code></li>
 <li><b>Linux</b>: <code>~/projects/shlublu-linux/include</code></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md10"></a>
+Documentation</h3>
+<p>The Doxygen documentation of this library is available under <code>doc/html/index.html</code>.</p>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Unit tests</h2>
 <p>Unit tests are available for Windows only. Coverage is not complete but is improving.</p>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 About the author</h2>
 <p>My name is Vincent Poulain (<a href="https://github.com/shlublu">GitHub</a>, <a href="https://stackoverflow.com/users/840960/shlublu">StackOverflow</a>, <a href="https://twitter.com/shlublu">Twitter</a>: @shlublu).</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Acknowledgements</h2>
-<p>Many thanks to</p><ul>
+<p>Many thanks to:</p><ul>
 <li>so many Stack Overflow contributors,</li>
 <li>the <a href="https://stackoverflow.com/">Stack Overflow</a> team,</li>
 <li>all the <a href="https://www.boost.org/">Boost</a> community,</li>

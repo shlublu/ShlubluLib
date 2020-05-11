@@ -10,7 +10,7 @@
 
 
 MutexLock::MutexLock(bool take)
-	:mLockLevel(0)
+	: mLockLevel(0)
 {
 	if (take)
 	{
