@@ -1,5 +1,3 @@
-# ShlubluLib
-
 ShlubluLib is a modular, general purpose, open-source C++ library for Linux and Windows.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
@@ -34,8 +32,8 @@ This library currently consists in the following modules:
 * **Text**: text content handling
   * ***String***: helper functions that are not included in [*std::string*](http://www.cplusplus.com/reference/string/string/)
 * **Util**: miscellaneous
-  * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on
-  * ***Exceptions***: Named exceptions derived from [std::exception](http://www.cplusplus.com/reference/exception/exception/) 
+  * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
+  * ***Exceptions***: Named exceptions derived from [std::exception](http://www.cplusplus.com/reference/exception/exception/). 
 
 
 ## Prerequisites
@@ -48,9 +46,12 @@ This library is developed under [**Microsoft Visual Studio 2019**](https://visua
 * [**Microsoft Python - C++ projects debugging support**](https://visualstudio.microsoft.com/fr/vs/features/python/?wt.mc_id=aka_ms_python) extension
 * Integrated [**Microsoft CppUnitTest**](https://docs.microsoft.com/en-us/visualstudio/test/microsoft-visualstudio-testtools-cppunittestframework-api-reference?view=vs-2019) framework
 * Integrated [**Microsoft Linux Development**](https://devblogs.microsoft.com/cppblog/linux-development-with-c-in-visual-studio/) features
+* [**Doxygen**](https://www.doxygen.nl/) documentation generator
 
-**Using Visual Studio is not an absolute prerequisite though**. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are
+**Visual Studio is not an absolute prerequisite**. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are
 specific to Visual Studio.
+
+The same way, **Doxygen is not an absolute prerequisite either**. You can decide not to regenerate documentation as it is already included in the distribution.
 
 ### Libraries
 
@@ -69,14 +70,21 @@ The code is organized as follows on the files system:
 
 	|
 	|____doc/
-	|	|____(module A).md
-	|	|____(module B).md
+	|	|____html/
+	|		|____index.html
+	|		|____(other documentation files)
+	|
+	|____include/
+	|	|____(module A)/
+	|	|	|____(feature X.h)
+	|	|	|____(feature Y.h)
+	|	|	
+	|	|____(module B)/
+	|		|____(...)
 	|
 	|____src/
 	|	|____(module A)/
-	|	|	|____(feature X.h)
 	|	|	|____(feature X.cpp)
-	|	|	|____(feature Y.h)
 	|	|	|____(feature Y.cpp)
 	|	|	
 	|	|____(module B)/
@@ -84,7 +92,7 @@ The code is organized as follows on the files system:
 	|
 	|____tests/
 	|	|____(module A)/
-	|	|	|____(tests X.cpp)
+	|	|	|____(tests feature X.cpp)
 	|	|	
 	|	|____(module B)/
 	|		|____(...)
@@ -95,6 +103,7 @@ The code is organized as follows on the files system:
 	|____(VS Linux project files)
 	|____(VS Windows project files)
 	|
+	|____doxygen.conf
 	|____EUPL LICENSE.txt
 	|____README.md
 
@@ -106,10 +115,7 @@ The file to open with Visual Studio is the main "solution" file ***shlublu.sln**
 The Visual Studio projects structure looks like this:
 
 	|	
-	|____doc/
-	|	|____(module A).md
-	|	|____(module B).md
-	|
+	|____doxygen.conf
 	|____EUPL LICENSE.txt
 	|____README.md
 	|	
@@ -122,36 +128,52 @@ The Visual Studio projects structure looks like this:
 	|			|____(...)
 	|
 	|____shlublu
+	|	|____include/
+	|	|	|____(module A)
+	|	|	|	|____(feature X.h)
+	|	|	|	|____(feature Y.h)
+	|	|	|	
+	|	|	|____(module B)
+	|	|		|____(...)
+	|	|
 	|	|____src/
 	|		|____(module A)
-	|		|	|____(feature X.h)
 	|		|	|____(feature X.cpp)
-	|		|	|____(feature Y.h)
 	|		|	|____(feature Y.cpp)
 	|		|	
 	|		|____(module B)
 	|			|____(...)
 	|
 	|____shlublu-linux
+		|____include/
+		|	|____(module A)
+		|	|	|____(feature X.h)
+		|	|	|____(feature Y.h)
+		|	|	
+		|	|____(module B)
+		|		|____(...)
+		|
 		|____src/
-	 		|____(module A)
-	 		|	|____(feature X.h)
-	 		|	|____(feature X.cpp)
-	 		|	|____(feature Y.h)
-	 		|	|____(feature Y.cpp)
-	 		|	
-	 		|____(module B)
+			|____(module A)
+			|	|____(feature X.cpp)
+			|	|____(feature Y.cpp)
+			|	
+			|____(module B)
 				|____(...)
-	 
+
 
 The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built independantly of each other. 
 **00tests-shlublu**, on its end, depends on **shlublu**.
 
-***BEFORE YOU BUILD:*** Projects settings have to be modified according to you local environment:
+### Build configuration
+
+Projects settings have to be modified according to your local environment:
 * **00tests-shlublu**: 
   * ***VC++ directories***: 
     * Includes: paths to the Boost and C-Python include files of your local Windows environment
     * Libraries: path to the Boost library files of your Windows environment
+  * ***Build events***: 
+    * Pre-build: Doxygen generation command-line takes place here and can be removed if you prefers
 * **shlublu**: 
   * ***VC++ directories***: 
     * Includes: paths to the Boost and C-Python include files of your local Windows environment
@@ -170,9 +192,10 @@ I am still working on making this cleaner and easier to use.
   * your local Windows environment: `<\path\to>\ShlubluLib\bin\x64\<Debug|Release>\libshlublu-linux.lib`
   * your remote Linux environment: `~/projects/shlublu-linux/bin/x64/<Debug|Release>\libshlublu-linux.lib`
 
-Client projects should add the following directory to their include path:
-* **Windows**: `<\path\to>\ShlubluLib\src\` 
-* **Linux**: `~/projects/shlublu-linux/src`
+Client projects should also add the following directory to their include path:
+* **Windows**: `<\path\to>\ShlubluLib\include\` 
+* **Linux**: `~/projects/shlublu-linux/include`
+
 
 ## Unit tests
 
@@ -187,5 +210,9 @@ My name is Vincent Poulain ([GitHub](https://github.com/shlublu),
 
 ## Acknowledgements
 
-Thank you to so many Stack Overflow contriutors. And to [Stack Overflow](https://stackoverflow.com/) themselves.
+Many thanks to
+* so many Stack Overflow contributors,
+* the [Stack Overflow](https://stackoverflow.com/) team,
+* all the [Boost](https://www.boost.org/) community,
+* and Dimitri van Heesch for [Doxygen](https://www.doxygen.nl/)
 

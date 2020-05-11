@@ -1,10 +1,10 @@
-#include "String.h"
+#include "../../include/text/String.h"
 
 #include <codecvt>
 #include <cstring>
 #include <functional>
 
-#include "../util/Exceptions.h"
+#include "../../include/util/Exceptions.h"
 
 
 std::vector<std::string> const & String::split(const std::string & s, char delim, std::vector<std::string> & elems)

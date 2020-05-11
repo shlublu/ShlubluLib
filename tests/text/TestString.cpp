@@ -2,9 +2,9 @@
 
 #include "CppUnitTest.h"
 
-#include "../../src/text/String.h"
-#include "../../src/util/Debug.h"
-#include "../../src/util/Exceptions.h"
+#include "../../include/text/String.h"
+#include "../../include/util/Debug.h"
+#include "../../include/util/Exceptions.h"
 PRAGMA_OPTIMIZE_OFF();
 
 

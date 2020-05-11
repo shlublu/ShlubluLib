@@ -2,8 +2,8 @@
 
 #include "CppUnitTest.h"
 
-#include "../../src/binding/Python.h"
-#include "../../src/util/Debug.h"
+#include "../../include/binding/Python.h"
+#include "../../include/util/Debug.h"
 PRAGMA_OPTIMIZE_OFF();
 
 

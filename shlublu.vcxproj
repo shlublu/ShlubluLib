@@ -24,11 +24,11 @@
     <ClCompile Include="src\text\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\async\MutexLock.h" />
-    <ClInclude Include="src\binding\Python.h" />
-    <ClInclude Include="src\text\String.h" />
-    <ClInclude Include="src\util\Debug.h" />
-    <ClInclude Include="src\util\Exceptions.h" />
+    <ClInclude Include="include\async\MutexLock.h" />
+    <ClInclude Include="include\binding\Python.h" />
+    <ClInclude Include="include\text\String.h" />
+    <ClInclude Include="include\util\Debug.h" />
+    <ClInclude Include="include\util\Exceptions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -129,6 +129,17 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>doxygen doxygen.conf</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -168,6 +179,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>doxygen doxygen.conf</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,11 +1,11 @@
 #include <unordered_map>
 
-#include "Python.h"
+#include "../../include/binding/Python.h"
 
-#include "../async/MutexLock.h"
-#include "../text/String.h"
+#include "../../include/async/MutexLock.h"
+#include "../../include/text/String.h"
 
-#include "../util/Debug.h"
+#include "../../include/util/Debug.h"
 
 #ifdef _WIN32
 #pragma warning( disable : 6285)
