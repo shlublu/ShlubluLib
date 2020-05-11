@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['shlubluexception_12',['ShlubluException',['../class_shlublu_exception.html',1,'']]]
+  ['shlubluexception_31',['ShlubluException',['../class_shlublu_exception.html',1,'']]]
 ];

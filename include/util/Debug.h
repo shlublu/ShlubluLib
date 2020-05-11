@@ -1,6 +1,6 @@
 #pragma once
 
-/** @file util/Debug.h
+/** @file 
     Macros useful for developing and debugging: compilation messages, optimization control, and so on.
 */
 
@@ -72,7 +72,9 @@ Example:
     Linux: @code 1>Main.cpp(2,13): warning : PRAGMA_OPTIMIZE_OFF() has no effect with this platform. @endcode
 */
 
+/// @cond INTERNAL
 #define __stringize(x)		#x  
+/// @endcond
 
 #ifdef _WIN32
 #define __makestring(M, L)	M(L)

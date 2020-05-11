@@ -1,7 +1,7 @@
 #pragma once
 
-/** @file util/Exceptions.h
-	Named exceptions derived from <a href="http://www.cplusplus.com/reference/exception/exception/">std::exception</a>.
+/** @file 
+	Named exceptions derived from <a href="https://www.cplusplus.com/reference/exception/exception/">std::exception</a>.
 */
 
 #include <exception>
@@ -9,31 +9,43 @@
 
 
 /** 
-	All components of this library use this exception when needed.
+	All classes of ShlubluLib use this exception or a derived one when needed.
 */
 class ShlubluException : public std::exception
 {
 public:
 #ifdef _WIN32
-	explicit ShlubluException(const std::string & message) 
+	explicit ShlubluException(std::string const& message)
 		: exception(message.c_str())
 	{}
 
-	explicit ShlubluException(const char *message)
+	explicit ShlubluException(char const *message)
 		: exception(message)
 	{}
 #else
-	explicit ShlubluException(const std::string & message)
+	/**
+		Constructor.
+		@param message message that describes the issue
+	*/
+	explicit ShlubluException(std::string const& message)
 		: exception(),
 		  mWhat(message)
 	{}
 
-	explicit ShlubluException(const char *message)
+	/**
+		Constructor.
+		@param message message that describes the issue
+	*/
+	explicit ShlubluException(char const* message)
 		: exception(),
 		  mWhat(message)
 	{}
 
-	virtual const char* what() const noexcept 
+	/**
+		Returns the description of the issue carried by this exception.
+		@return the text description of the issue as a C-string
+	*/	
+	virtual char const* what() const noexcept
 	{ 
 		return mWhat.c_str();
 	}
@@ -45,16 +57,24 @@ private:
 
 
 /**
-	Components of this library that are not implemented under a cetrain platform use this exception at run time.
+	Components of this library that have no implementation for the running platform use this exception at run time.
 */
 class NotImplementedException : public ShlubluException
 {
 public:
-	explicit NotImplementedException(const std::string& message)
+	/**
+		Constructor.
+		@param message message that describes the issue
+	*/
+	explicit NotImplementedException(std::string const& message)
 		: ShlubluException(message.c_str())
 	{}
 
-	explicit NotImplementedException(const char* message)
+	/**
+		Constructor.
+		@param message message that describes the issue
+	*/
+	explicit NotImplementedException(char const* message)
 		: ShlubluException(message)
 	{}
 };

@@ -7,7 +7,7 @@
 #include "../../include/util/Exceptions.h"
 
 
-std::vector<std::string> const & String::split(const std::string & s, char delim, std::vector<std::string> & elems)
+std::vector<std::string> const & String::split(std::string const& s, char delim, std::vector<std::string>& elems)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -25,7 +25,7 @@ std::vector<std::string> const & String::split(const std::string & s, char delim
 }
 
 
-std::vector<std::string> String::split(const std::string & s, char delim)
+std::vector<std::string> String::split(std::string const& s, char delim)
 {
 	std::vector<std::string> elems;
 
@@ -36,7 +36,7 @@ std::vector<std::string> String::split(const std::string & s, char delim)
 
 
 // trim from start (in place)
-std::string& String::ltrim(std::string & s)
+std::string& String::ltrim(std::string& s)
 {
 	s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c); }));
 	return s;
@@ -44,7 +44,7 @@ std::string& String::ltrim(std::string & s)
 
 
 // trim from end (in place)
-std::string& String::rtrim(std::string & s)
+std::string& String::rtrim(std::string& s)
 {
 	s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c); }).base(), s.end());
 	return s;
@@ -52,7 +52,7 @@ std::string& String::rtrim(std::string & s)
 
 
 // trim from both ends (in place)
-std::string& String::trim(std::string & s)
+std::string& String::trim(std::string& s)
 {
 	return rtrim(ltrim(s));
 }

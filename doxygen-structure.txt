@@ -1,0 +1,21 @@
+/** \dir include
+ * Header files of this library live here.
+ * They are organised by modules, each one having its own sub-directory.
+ */
+
+/** \dir include/async
+ * Threading and asynchronous operations.
+ */
+
+/** \dir include/binding
+ * Interactions with other languages.
+ */
+
+/** \dir include/text
+ * Text content handling.
+ */
+
+/** \dir include/util
+ * Miscellaneous.
+ */
+

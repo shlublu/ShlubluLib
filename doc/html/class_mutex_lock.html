@@ -70,6 +70,11 @@ $(function() {
 <div class="title">MutexLock Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Recursive mutex.  
+ <a href="class_mutex_lock.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_mutex_lock_8h_source.html">MutexLock.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -79,20 +84,161 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a916cd678cb961a5e181c3b02ffa5fd61"><td class="memItemLeft" align="right" valign="top"><a id="a916cd678cb961a5e181c3b02ffa5fd61"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MutexLock</b> (<a class="el" href="class_mutex_lock.html">MutexLock</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:a916cd678cb961a5e181c3b02ffa5fd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecd7e8e44b2110470102e1f6c8e26eb5"><td class="memItemLeft" align="right" valign="top"><a id="aecd7e8e44b2110470102e1f6c8e26eb5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MutexLock</b> (bool locked=false)</td></tr>
+<tr class="memitem:aecd7e8e44b2110470102e1f6c8e26eb5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutex_lock.html#aecd7e8e44b2110470102e1f6c8e26eb5">MutexLock</a> (bool locked=false)</td></tr>
+<tr class="memdesc:aecd7e8e44b2110470102e1f6c8e26eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_mutex_lock.html#aecd7e8e44b2110470102e1f6c8e26eb5">More...</a><br /></td></tr>
 <tr class="separator:aecd7e8e44b2110470102e1f6c8e26eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9b6238df8d2d353b5bb882072387f7"><td class="memItemLeft" align="right" valign="top"><a id="a1e9b6238df8d2d353b5bb882072387f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>queueLock</b> ()</td></tr>
+<tr class="memitem:a84ceaac6c2beda059e127403a4dbf1c4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutex_lock.html#a84ceaac6c2beda059e127403a4dbf1c4">~MutexLock</a> ()</td></tr>
+<tr class="memdesc:a84ceaac6c2beda059e127403a4dbf1c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="class_mutex_lock.html#a84ceaac6c2beda059e127403a4dbf1c4">More...</a><br /></td></tr>
+<tr class="separator:a84ceaac6c2beda059e127403a4dbf1c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e9b6238df8d2d353b5bb882072387f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutex_lock.html#a1e9b6238df8d2d353b5bb882072387f7">queueLock</a> ()</td></tr>
+<tr class="memdesc:a1e9b6238df8d2d353b5bb882072387f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking lock.  <a href="class_mutex_lock.html#a1e9b6238df8d2d353b5bb882072387f7">More...</a><br /></td></tr>
 <tr class="separator:a1e9b6238df8d2d353b5bb882072387f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f88bf34b986030e97bdffb64a3255a4"><td class="memItemLeft" align="right" valign="top"><a id="a2f88bf34b986030e97bdffb64a3255a4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>unlock</b> ()</td></tr>
+<tr class="memitem:a2f88bf34b986030e97bdffb64a3255a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutex_lock.html#a2f88bf34b986030e97bdffb64a3255a4">unlock</a> ()</td></tr>
+<tr class="memdesc:a2f88bf34b986030e97bdffb64a3255a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlocks the mutex.  <a href="class_mutex_lock.html#a2f88bf34b986030e97bdffb64a3255a4">More...</a><br /></td></tr>
 <tr class="separator:a2f88bf34b986030e97bdffb64a3255a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Recursive mutex. </p>
+<p>Underlying implementation is based on <a href="https://www.cplusplus.com/reference/mutex/recursive_mutex/">std::recursive_mutex</a></p>
+<p>Example of typical use: </p><div class="fragment"><div class="line"><a class="code" href="class_mutex_lock.html">MutexLock</a> lock; <span class="comment">// shared by MyThreadedTransactionsManager instances</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// ...</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> MyThreadedTransactionsManager::transactionalEnsembleThatDoesNotSupportConcurrency(<span class="keywordtype">int</span> someNumericParameter)</div>
+<div class="line">{</div>
+<div class="line">    lock.<a class="code" href="class_mutex_lock.html#a1e9b6238df8d2d353b5bb882072387f7">queueLock</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// ... operations that do not support concurrency ...</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; someNumericParameter; ++i)</div>
+<div class="line">    {</div>
+<div class="line">        singleTransaction(i);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    lock.<a class="code" href="class_mutex_lock.html#a2f88bf34b986030e97bdffb64a3255a4">unlock</a>();</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> MyThreadedTransactionsManager::singleTransaction(<span class="keywordtype">int</span> someNumericParameter)</div>
+<div class="line">{</div>
+<div class="line">    lock.<a class="code" href="class_mutex_lock.html#a1e9b6238df8d2d353b5bb882072387f7">queueLock</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// ... operations that do not support concurrency ...</span></div>
+<div class="line"> </div>
+<div class="line">    lock.<a class="code" href="class_mutex_lock.html#a2f88bf34b986030e97bdffb64a3255a4">unlock</a>();</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aecd7e8e44b2110470102e1f6c8e26eb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd7e8e44b2110470102e1f6c8e26eb5">&#9670;&nbsp;</a></span>MutexLock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MutexLock::MutexLock </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>locked</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">locked</td><td>Initial state of the mutex. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a84ceaac6c2beda059e127403a4dbf1c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84ceaac6c2beda059e127403a4dbf1c4">&#9670;&nbsp;</a></span>~MutexLock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual MutexLock::~MutexLock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor. </p>
+<p>If the mutex is in locked state, unlocks as many time as it has been previously locked. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_mutex_lock.html#a2f88bf34b986030e97bdffb64a3255a4" title="Unlocks the mutex.">unlock()</a> </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1e9b6238df8d2d353b5bb882072387f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e9b6238df8d2d353b5bb882072387f7">&#9670;&nbsp;</a></span>queueLock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MutexLock::queueLock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blocking lock. </p>
+<p>Queues until the mutex is available for locking. A lock is available if: </p><ul>
+<li>
+it is in released state </li>
+<li>
+it has been previously locked by the thread that is currently attempting to lock </li>
+</ul>
+
+</div>
+</div>
+<a id="a2f88bf34b986030e97bdffb64a3255a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f88bf34b986030e97bdffb64a3255a4">&#9670;&nbsp;</a></span>unlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MutexLock::unlock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unlocks the mutex. </p>
+<p>Throws a <a class="el" href="class_shlublu_exception.html" title="All classes of ShlubluLib use this exception or a derived one when needed.">ShlubluException</a> if: </p><ul>
+<li>
+the mutex is not locked </li>
+<li>
+the mutex is locked by another thread </li>
+</ul>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/async/<a class="el" href="_mutex_lock_8h_source.html">MutexLock.h</a></li>
 </ul>
 </div><!-- contents -->
+<div class="ttc" id="aclass_mutex_lock_html_a2f88bf34b986030e97bdffb64a3255a4"><div class="ttname"><a href="class_mutex_lock.html#a2f88bf34b986030e97bdffb64a3255a4">MutexLock::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Unlocks the mutex.</div></div>
+<div class="ttc" id="aclass_mutex_lock_html"><div class="ttname"><a href="class_mutex_lock.html">MutexLock</a></div><div class="ttdoc">Recursive mutex.</div><div class="ttdef"><b>Definition:</b> MutexLock.h:46</div></div>
+<div class="ttc" id="aclass_mutex_lock_html_a1e9b6238df8d2d353b5bb882072387f7"><div class="ttname"><a href="class_mutex_lock.html#a1e9b6238df8d2d353b5bb882072387f7">MutexLock::queueLock</a></div><div class="ttdeci">void queueLock()</div><div class="ttdoc">Blocking lock.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

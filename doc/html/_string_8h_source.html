@@ -71,71 +71,94 @@ $(function() {
 <div class="title">String.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<a href="_string_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>String</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="comment">// To String function</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">inline</span> std::string xtos(T arg)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        static_assert(std::is_arithmetic&lt;T&gt;::value || std::is_pointer&lt;T&gt;::value, <span class="stringliteral">&quot;Type should be either arithmetic or pointer.&quot;</span>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        std::ostringstream buffer;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        buffer &lt;&lt; arg;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">return</span> buffer.str();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">inline</span> std::string xtofs(T arg)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        static_assert(std::is_floating_point&lt;T&gt;::value, <span class="stringliteral">&quot;Type should be floating point.&quot;</span>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::ostringstream buffer;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        buffer &lt;&lt; std::fixed;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        buffer &lt;&lt; arg;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> buffer.str();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_string.html">String</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespace_string.html#a9041f4d522985c0848980fc88638e54b">   31</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="namespace_string.html#a9041f4d522985c0848980fc88638e54b">xtos</a>(T arg)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        static_assert(std::is_arithmetic&lt;T&gt;::value || std::is_pointer&lt;T&gt;::value, <span class="stringliteral">&quot;Type should be either arithmetic or pointer.&quot;</span>);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// String manipulation functions</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::vector&lt;std::string&gt; <span class="keyword">const</span> &amp; split(<span class="keyword">const</span> std::string &amp; s, <span class="keywordtype">char</span> delim, std::vector&lt;std::string&gt; &amp; elems);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        std::ostringstream buffer;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        buffer &lt;&lt; arg;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::vector&lt;std::string&gt; split(<span class="keyword">const</span> std::string &amp; s, <span class="keywordtype">char</span> delim);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::string&amp; ltrim(std::string &amp; s); <span class="comment">// trim from start</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> buffer.str();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    std::string&amp; rtrim(std::string &amp; s); <span class="comment">// trim from end </span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::string&amp; trim(std::string &amp; s); <span class="comment">// trim from both ends </span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    std::string&amp; replace(std::string &amp; source, std::string <span class="keyword">const</span> &amp; find, std::string <span class="keyword">const</span> &amp; replace);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::string&amp; lower(std::string &amp; s);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::string lower(std::string <span class="keyword">const</span>&amp; s);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::string&amp; upper(std::string &amp; s);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::string upper(std::string <span class="keyword">const</span>&amp; s);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Wide characters</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::wstring toWString(std::string <span class="keyword">const</span>&amp; str);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    std::string fromWString(std::wstring <span class="keyword">const</span>&amp; wstr);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// Diff</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">size_t</span> levenshteinDistance(std::string <span class="keyword">const</span> &amp; s, std::string <span class="keyword">const</span> &amp; t);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="namespace_string.html#a614621b2e6f8b9911ad9a48fd692cece">   54</a></span>&#160;    <span class="keyword">inline</span> std::string <a class="code" href="namespace_string.html#a614621b2e6f8b9911ad9a48fd692cece">xtofs</a>(T arg)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        static_assert(std::is_floating_point&lt;T&gt;::value, <span class="stringliteral">&quot;Type should be floating point.&quot;</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::ostringstream buffer;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        buffer &lt;&lt; std::fixed;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        buffer &lt;&lt; arg;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> buffer.str();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="namespace_string.html#a515a19f7b798401c4cdff9193b8e5b3f">   80</a></span>&#160;    std::vector&lt;std::string&gt; <span class="keyword">const</span> &amp; <a class="code" href="namespace_string.html#a515a19f7b798401c4cdff9193b8e5b3f">split</a>(std::string <span class="keyword">const</span>&amp; s, <span class="keywordtype">char</span> delim, std::vector&lt;std::string&gt;&amp; elems);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="namespace_string.html#aba745906b3e41d73e7d0f43455110b43">   94</a></span>&#160;    std::vector&lt;std::string&gt; <a class="code" href="namespace_string.html#a515a19f7b798401c4cdff9193b8e5b3f">split</a>(std::string <span class="keyword">const</span>&amp; s, <span class="keywordtype">char</span> delim);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="namespace_string.html#a378a7126d15f2da5e86d23b0c2c2ea6a">  109</a></span>&#160;    std::string&amp; <a class="code" href="namespace_string.html#a378a7126d15f2da5e86d23b0c2c2ea6a">ltrim</a>(std::string&amp; s); </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="namespace_string.html#a6ab0a65348bc244fc48d0addffc88494">  124</a></span>&#160;    std::string&amp; <a class="code" href="namespace_string.html#a6ab0a65348bc244fc48d0addffc88494">rtrim</a>(std::string&amp; s); <span class="comment">// </span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    </div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="namespace_string.html#a9f33afd5c8a8636e484ad5736990950a">  139</a></span>&#160;    std::string&amp; <a class="code" href="namespace_string.html#a9f33afd5c8a8636e484ad5736990950a">trim</a>(std::string&amp; s); </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="namespace_string.html#ae2df61d5071e8e8113acb4186476ab64">  155</a></span>&#160;    std::string&amp; <a class="code" href="namespace_string.html#ae2df61d5071e8e8113acb4186476ab64">replace</a>(std::string&amp; source, std::string <span class="keyword">const</span>&amp; find, std::string <span class="keyword">const</span>&amp; replaceBy);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="namespace_string.html#aa9c4a84bd8b285499031433f253428d4">  169</a></span>&#160;    std::string&amp; <a class="code" href="namespace_string.html#aa9c4a84bd8b285499031433f253428d4">lower</a>(std::string&amp; s);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="namespace_string.html#a9029604605484052507341123ba5ac9a">  183</a></span>&#160;    std::string <a class="code" href="namespace_string.html#aa9c4a84bd8b285499031433f253428d4">lower</a>(std::string <span class="keyword">const</span>&amp; s);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="namespace_string.html#a349200af8074c28c73a023f3a7b4c8ff">  197</a></span>&#160;    std::string&amp; <a class="code" href="namespace_string.html#a349200af8074c28c73a023f3a7b4c8ff">upper</a>(std::string&amp; s);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="namespace_string.html#ad9487f880e23c64b06a1b4f787e21e04">  211</a></span>&#160;    std::string <a class="code" href="namespace_string.html#a349200af8074c28c73a023f3a7b4c8ff">upper</a>(std::string <span class="keyword">const</span>&amp; s);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="namespace_string.html#ad51127dbc025ece97cc81e802b6adbd1">  225</a></span>&#160;    std::wstring <a class="code" href="namespace_string.html#ad51127dbc025ece97cc81e802b6adbd1">toWString</a>(std::string <span class="keyword">const</span>&amp; str);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="namespace_string.html#a3bd3603e86ab357a01f7e79bfb7c1118">  239</a></span>&#160;    std::string <a class="code" href="namespace_string.html#a3bd3603e86ab357a01f7e79bfb7c1118">fromWString</a>(std::wstring <span class="keyword">const</span>&amp; wstr);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="namespace_string.html#ad5aa5559584a7324295479d2601ba3e5">  253</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="namespace_string.html#ad5aa5559584a7324295479d2601ba3e5">levenshteinDistance</a>(std::string <span class="keyword">const</span> &amp; s, std::string <span class="keyword">const</span> &amp; t);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="anamespace_string_html_a9041f4d522985c0848980fc88638e54b"><div class="ttname"><a href="namespace_string.html#a9041f4d522985c0848980fc88638e54b">String::xtos</a></div><div class="ttdeci">std::string xtos(T arg)</div><div class="ttdoc">Converts arithmetic values or pointers to std::string.</div><div class="ttdef"><b>Definition:</b> String.h:31</div></div>
+<div class="ttc" id="anamespace_string_html_a6ab0a65348bc244fc48d0addffc88494"><div class="ttname"><a href="namespace_string.html#a6ab0a65348bc244fc48d0addffc88494">String::rtrim</a></div><div class="ttdeci">std::string &amp; rtrim(std::string &amp;s)</div><div class="ttdoc">Trims the trailing blank characters of a string.</div></div>
+<div class="ttc" id="anamespace_string_html_aa9c4a84bd8b285499031433f253428d4"><div class="ttname"><a href="namespace_string.html#aa9c4a84bd8b285499031433f253428d4">String::lower</a></div><div class="ttdeci">std::string &amp; lower(std::string &amp;s)</div><div class="ttdoc">Converts a string to lowercase.</div></div>
+<div class="ttc" id="anamespace_string_html_a378a7126d15f2da5e86d23b0c2c2ea6a"><div class="ttname"><a href="namespace_string.html#a378a7126d15f2da5e86d23b0c2c2ea6a">String::ltrim</a></div><div class="ttdeci">std::string &amp; ltrim(std::string &amp;s)</div><div class="ttdoc">Trims the leading blank characters of a string.</div></div>
+<div class="ttc" id="anamespace_string_html_a515a19f7b798401c4cdff9193b8e5b3f"><div class="ttname"><a href="namespace_string.html#a515a19f7b798401c4cdff9193b8e5b3f">String::split</a></div><div class="ttdeci">std::vector&lt; std::string &gt; const  &amp; split(std::string const &amp;s, char delim, std::vector&lt; std::string &gt; &amp;elems)</div><div class="ttdoc">Splits a string delimited by a given character and stores the substrings in the given target vector.</div></div>
+<div class="ttc" id="anamespace_string_html_ad51127dbc025ece97cc81e802b6adbd1"><div class="ttname"><a href="namespace_string.html#ad51127dbc025ece97cc81e802b6adbd1">String::toWString</a></div><div class="ttdeci">std::wstring toWString(std::string const &amp;str)</div><div class="ttdoc">Returns an UTF-8 wstring version of the given string.</div></div>
+<div class="ttc" id="anamespace_string_html_a9f33afd5c8a8636e484ad5736990950a"><div class="ttname"><a href="namespace_string.html#a9f33afd5c8a8636e484ad5736990950a">String::trim</a></div><div class="ttdeci">std::string &amp; trim(std::string &amp;s)</div><div class="ttdoc">Trims the leading and trailing blank characters of a string.</div></div>
+<div class="ttc" id="anamespace_string_html_ad5aa5559584a7324295479d2601ba3e5"><div class="ttname"><a href="namespace_string.html#ad5aa5559584a7324295479d2601ba3e5">String::levenshteinDistance</a></div><div class="ttdeci">size_t levenshteinDistance(std::string const &amp;s, std::string const &amp;t)</div><div class="ttdoc">Computes the Levenshtein distance between two strings.</div></div>
+<div class="ttc" id="anamespace_string_html_a349200af8074c28c73a023f3a7b4c8ff"><div class="ttname"><a href="namespace_string.html#a349200af8074c28c73a023f3a7b4c8ff">String::upper</a></div><div class="ttdeci">std::string &amp; upper(std::string &amp;s)</div><div class="ttdoc">Converts a string to uppercase.</div></div>
+<div class="ttc" id="anamespace_string_html_a614621b2e6f8b9911ad9a48fd692cece"><div class="ttname"><a href="namespace_string.html#a614621b2e6f8b9911ad9a48fd692cece">String::xtofs</a></div><div class="ttdeci">std::string xtofs(T arg)</div><div class="ttdoc">Converts floating point values to std::string in fixed notation.</div><div class="ttdef"><b>Definition:</b> String.h:54</div></div>
+<div class="ttc" id="anamespace_string_html_a3bd3603e86ab357a01f7e79bfb7c1118"><div class="ttname"><a href="namespace_string.html#a3bd3603e86ab357a01f7e79bfb7c1118">String::fromWString</a></div><div class="ttdeci">std::string fromWString(std::wstring const &amp;wstr)</div><div class="ttdoc">Returns a string version of the given UTF-8 wstring.</div></div>
+<div class="ttc" id="anamespace_string_html_ae2df61d5071e8e8113acb4186476ab64"><div class="ttname"><a href="namespace_string.html#ae2df61d5071e8e8113acb4186476ab64">String::replace</a></div><div class="ttdeci">std::string &amp; replace(std::string &amp;source, std::string const &amp;find, std::string const &amp;replaceBy)</div><div class="ttdoc">Replaces all occurences of a substring in a string.</div></div>
+<div class="ttc" id="anamespace_string_html"><div class="ttname"><a href="namespace_string.html">String</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
