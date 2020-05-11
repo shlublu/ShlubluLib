@@ -45,17 +45,21 @@ The version numbers cited in this section correspond to those used in developmen
 This library is developed under [**Microsoft Visual Studio 2019**](https://visualstudio.microsoft.com/fr/vs/) using the following features and extensions:
 * [**Microsoft Python - C++ projects debugging support**](https://visualstudio.microsoft.com/fr/vs/features/python/?wt.mc_id=aka_ms_python) extension
 * Integrated [**Microsoft CppUnitTest**](https://docs.microsoft.com/en-us/visualstudio/test/microsoft-visualstudio-testtools-cppunittestframework-api-reference?view=vs-2019) framework
-* Integrated [**Microsoft Linux Development**](https://devblogs.microsoft.com/cppblog/linux-development-with-c-in-visual-studio/) features
+* Integrated [**Microsoft Linux Development**](https://devblogs.microsoft.com/cppblog/linux-development-with-c-in-visual-studio/) remote build features
 * [**Doxygen**](https://www.doxygen.nl/) documentation generator
 
 **Visual Studio is not an absolute prerequisite**. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are
-specific to Visual Studio.
+specific to Visual Studio. These can be quite easily rewritten for other tools if needed.
 
-The same way, **Doxygen is not an absolute prerequisite either**. You can decide not to regenerate documentation as it is already included in the distribution.
+The same way, depending on what you would like to do:
+* **Microsoft Python - C++ projects debugging support** is optional. You can build and use Shlublulib as long as you already have a compatible Python library installed (see below).
+* **Microsoft CppUnitTest** is a built-in of Visual Studio that is used to build the unit tests suite. You only need it if you would like to build these tests.
+* **Microsoft Linux Development** is also a built-in of Visual Studio. You only need it if you would like to remotely build the Linux version of the library.
+* **Doxygen** is used to generate the documentation that is included to the distribution. You only need it if you would like to regenerate or modify it.
 
 ### Libraries
 
-The following libraries are required for ShlubluLib to compile and execute:
+The following libraries **are required** for ShlubluLib to compile and execute:
 * [**Python** v3.7](https://www.python.org/downloads/release/python-370) or above
 * [**Boost** v1.67](https://www.boost.org/) or above
 
@@ -97,7 +101,7 @@ The code is organized as follows on the files system:
 	|	|____(module B)/
 	|		|____(...)
 	|
-	|____(VS main "solution" file).sln
+	|____shlublu.sln
 	|
 	|____(VS test project files)
 	|____(VS Linux project files)
@@ -162,8 +166,10 @@ The Visual Studio projects structure looks like this:
 				|____(...)
 
 
-The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built independantly of each other. 
-**00tests-shlublu**, on its end, depends on **shlublu**.
+The projects **shlublu** (Windows) and **shlublu-linux** (Linux) can be built independantly of each other. You can 
+decide to only build those you are interested in. 
+
+The unit tests project **00tests-shlublu**, on its end, depends on **shlublu**. Building it is optional.
 
 ### Build configuration
 
@@ -173,7 +179,7 @@ Projects settings have to be modified according to your local environment:
     * Includes: paths to the Boost and C-Python include files of your local Windows environment
     * Libraries: path to the Boost library files of your Windows environment
   * ***Build events***: 
-    * Pre-build: Doxygen generation command-line takes place here and can be removed if you prefers
+    * Pre-build: Doxygen generation command-line takes place here and can be removed if you prefer
 * **shlublu**: 
   * ***VC++ directories***: 
     * Includes: paths to the Boost and C-Python include files of your local Windows environment
@@ -181,7 +187,7 @@ Projects settings have to be modified according to your local environment:
   * ***VC++ directories***: 
     * Includes: paths to the Boost and C-Python include files of your remote Linux environment
 
-I am still working on making this cleaner and easier to use.
+I am working on making this cleaner and easier to use.
 
 ### Build outputs
 
@@ -210,7 +216,7 @@ My name is Vincent Poulain ([GitHub](https://github.com/shlublu),
 
 ## Acknowledgements
 
-Many thanks to
+Many thanks to:
 * so many Stack Overflow contributors,
 * the [Stack Overflow](https://stackoverflow.com/) team,
 * all the [Boost](https://www.boost.org/) community,
