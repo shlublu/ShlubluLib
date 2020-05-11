@@ -203,6 +203,11 @@ Client projects should also add the following directory to their include path:
 * **Linux**: `~/projects/shlublu-linux/include`
 
 
+### Documentation
+
+The Doxygen documentation of this library is available under `doc/html/index.html`.
+
+
 ## Unit tests
 
 Unit tests are available for Windows only. Coverage is not complete but is improving.
