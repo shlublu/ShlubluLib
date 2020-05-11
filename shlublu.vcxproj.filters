@@ -16,6 +16,21 @@
     <Filter Include="src\binding">
       <UniqueIdentifier>{40a89a7f-8c51-4722-b2cf-43bdd1180b14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{311f9724-917c-40db-ae61-cd57ab47ef9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\async">
+      <UniqueIdentifier>{ede274bb-0260-4dc1-ad76-a261f641bb7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\binding">
+      <UniqueIdentifier>{909630db-91cf-4511-9112-c4683211e915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\text">
+      <UniqueIdentifier>{81d8e14b-304b-4d10-98e9-e9274fa95f46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\util">
+      <UniqueIdentifier>{b05cdd71-4ba2-464b-bc0f-ecd084e09d8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\text\String.cpp">
@@ -29,20 +44,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\util\Debug.h">
-      <Filter>src\util</Filter>
+    <ClInclude Include="include\async\MutexLock.h">
+      <Filter>include\async</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\Exceptions.h">
-      <Filter>src\util</Filter>
+    <ClInclude Include="include\binding\Python.h">
+      <Filter>include\binding</Filter>
     </ClInclude>
-    <ClInclude Include="src\text\String.h">
-      <Filter>src\text</Filter>
+    <ClInclude Include="include\text\String.h">
+      <Filter>include\util</Filter>
     </ClInclude>
-    <ClInclude Include="src\async\MutexLock.h">
-      <Filter>src\async</Filter>
+    <ClInclude Include="include\util\Debug.h">
+      <Filter>include\text</Filter>
     </ClInclude>
-    <ClInclude Include="src\binding\Python.h">
-      <Filter>src\binding</Filter>
+    <ClInclude Include="include\util\Exceptions.h">
+      <Filter>include\text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

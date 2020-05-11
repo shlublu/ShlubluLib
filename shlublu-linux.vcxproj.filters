@@ -16,6 +16,21 @@
     <Filter Include="src\binding">
       <UniqueIdentifier>{6f4723e3-dbea-4e8c-a480-3077fbaf1d9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{25493c6f-c41c-41af-a3a3-b09614eb021f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\async">
+      <UniqueIdentifier>{1eb60bad-f07a-49d3-b0d1-49e3df727850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\binding">
+      <UniqueIdentifier>{80e38890-3182-4805-95f4-8b1b6fd4633e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\util">
+      <UniqueIdentifier>{1dc3c945-2e59-42bb-8d5e-31f1b5af47fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\text">
+      <UniqueIdentifier>{245025ac-9eb3-4822-8d17-f289102bcc1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\async\MutexLock.cpp">
@@ -32,17 +47,20 @@
     <ClInclude Include="src\util\Debug.h">
       <Filter>src\util</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\Exceptions.h">
-      <Filter>src\util</Filter>
+    <ClInclude Include="include\async\MutexLock.h">
+      <Filter>include\async</Filter>
     </ClInclude>
-    <ClInclude Include="src\async\MutexLock.h">
-      <Filter>src\async</Filter>
+    <ClInclude Include="include\binding\Python.h">
+      <Filter>include\binding</Filter>
     </ClInclude>
-    <ClInclude Include="src\text\String.h">
-      <Filter>src\text</Filter>
+    <ClInclude Include="include\text\String.h">
+      <Filter>include\text</Filter>
     </ClInclude>
-    <ClInclude Include="src\binding\Python.h">
-      <Filter>src\binding</Filter>
+    <ClInclude Include="include\util\Debug.h">
+      <Filter>include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\Exceptions.h">
+      <Filter>include\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

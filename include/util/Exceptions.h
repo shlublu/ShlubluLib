@@ -1,14 +1,21 @@
 #pragma once
 
+/** @file util/Exceptions.h
+	Named exceptions derived from <a href="http://www.cplusplus.com/reference/exception/exception/">std::exception</a>.
+*/
+
 #include <exception>
 #include <string>
 
 
+/** 
+	All components of this library use this exception when needed.
+*/
 class ShlubluException : public std::exception
 {
 public:
 #ifdef _WIN32
-	explicit ShlubluException(const std::string & message)
+	explicit ShlubluException(const std::string & message) 
 		: exception(message.c_str())
 	{}
 
@@ -37,6 +44,9 @@ private:
 };
 
 
+/**
+	Components of this library that are not implemented under a cetrain platform use this exception at run time.
+*/
 class NotImplementedException : public ShlubluException
 {
 public:
