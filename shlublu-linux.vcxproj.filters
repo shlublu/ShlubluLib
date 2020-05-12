@@ -44,9 +44,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\util\Debug.h">
-      <Filter>src\util</Filter>
-    </ClInclude>
     <ClInclude Include="include\async\MutexLock.h">
       <Filter>include\async</Filter>
     </ClInclude>

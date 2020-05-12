@@ -51,13 +51,13 @@
       <Filter>include\binding</Filter>
     </ClInclude>
     <ClInclude Include="include\text\String.h">
-      <Filter>include\util</Filter>
+      <Filter>include\text</Filter>
     </ClInclude>
     <ClInclude Include="include\util\Debug.h">
-      <Filter>include\text</Filter>
+      <Filter>include\util</Filter>
     </ClInclude>
     <ClInclude Include="include\util\Exceptions.h">
-      <Filter>include\text</Filter>
+      <Filter>include\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
