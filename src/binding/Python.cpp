@@ -92,26 +92,20 @@ bool Python::isInitialized()
 }
 
 
-void Python::init(std::string const& argv0, PathEntriesList const& pathList)
+void Python::init(std::string const& programName, PathEntriesList const& pathList)
 {
     __pythonGrab();
 
     if (__pythonArgv0 == nullptr)
     {
-        __pythonArgv0 = Py_DecodeLocale(argv0.c_str(), nullptr);
+        __pythonArgv0 = Py_DecodeLocale(programName.c_str(), nullptr);
 
         Py_SetProgramName(__pythonArgv0);
         Py_Initialize();
 
         atexit(shutdown);
 
-        const InstructionsList instructions =
-        {
-            "import sys",
-            "sys.path.append('.')"
-        };
-
-        execute(instructions);
+        execute(Program({ "import sys", "sys.path.append('.')" }));
 
         import(moduleMain);
         import(moduleBuiltins);
@@ -128,7 +122,7 @@ void Python::init(std::string const& argv0, PathEntriesList const& pathList)
 
 void Python::shutdown()
 {
-    PRAGMA_TODO("References count deserve a unit test suite");
+    PRAGMA_TODO("References count deserves a unit test suite");
 
     __pythonGrab();
 
@@ -165,25 +159,29 @@ void Python::shutdown()
 }
 
 
-void Python::execute(Instruction const& instruction)
+void Python::execute(RawCode const& code)
 {
     __pythonShouldBeInitialized();
 
-    if (PyRun_SimpleString((instruction + "\n").c_str()) < 0)
+    if (PyRun_SimpleString(code.c_str()) < 0)
     {
-        __pythonThrowException("Python::execute(): Instruction '" + instruction + "' caused an error");
+        __pythonThrowException("Python::execute(): Instruction '" + code + "' caused an error");
     }
 
     __pythonRelease();
 }
 
 
-void Python::execute(InstructionsList const& instructionsList)
+void Python::execute(Program const& program)
 {
-    for (auto const& instruction : instructionsList)
+    RawCode code;
+
+    for (auto const& line : program)
     {
-        execute(instruction);
+        code += line + '\n';
     }
+
+    execute(code);
 }
 
 
@@ -335,7 +333,7 @@ Python::ArgsRef Python::arguments(size_t size...)
 
 Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObject, bool keepArguments)
 {
-    PRAGMA_TODO("Parameter keepArguments deserve a unit test");
+    PRAGMA_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
 
@@ -406,7 +404,7 @@ Python::ValueRef Python::list(size_t size, ...)
 
 void Python::addList(ValueRef objList, ValueRef item, bool keepArguments)
 {
-    PRAGMA_TODO("Parameter keepArguments deserve a unit test");
+    PRAGMA_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
 
@@ -443,7 +441,7 @@ Python::ValueRef Python::fromAscii(std::string const& str)
 
 std::string Python::toAscii(ValueRef object, bool keepArgument)
 {
-    PRAGMA_TODO("Parameter keepArguments deserve a unit test");
+    PRAGMA_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
 

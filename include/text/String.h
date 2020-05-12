@@ -20,7 +20,7 @@ namespace String
 		@param arg the value to convert
 		@return the string representation of arg
 
-		Example:
+		<b>Example</b>
 		@code
 		const std::string valOf42(String::xtos(42));			// "42"
 		const std::string valOf42AndAHalf(String::xtos(42.5));	// "42.5"
@@ -44,7 +44,7 @@ namespace String
 		@param arg the value to convert
 		@return the string representation of arg in fixed notation
 
-		Example:
+		<b>Example</b>
 		@code
 		const std::string valOfFloat42(String::xtos(42.0f));			// "42.000000"
 		const std::string valOfDouble42AndAHalf(String::xtos(42.5));	// "42.500000"
@@ -71,7 +71,7 @@ namespace String
 		@param elems the vector to store the resulting substrings
 		@return elems
 
-		Example:
+		<b>Example</b>
 		@code
 		std::vector<std::string> res;
 		String::split("my;delimited;string", ';', res);		// res is { "my", "delimited", "string"}
@@ -86,7 +86,7 @@ namespace String
 		@param delim the delimiter
 		@return a vector of strings that stores the substrings
 
-		Example:
+		<b>Example</b>
 		@code
 		const auto res(String::split("my;delimited;string", ';', res));		// res is { "my", "delimited", "string"}
 		@endcode
@@ -100,7 +100,7 @@ namespace String
 		@return s
 		@see <a href="https://www.cplusplus.com/reference/cctype/isspace/">std::isspace</a>
 
-		Example:
+		<b>Example</b>
 		@code
 		std::string s("\t test\t ");
 		String::ltrim(s);	// s is "test\t "
@@ -115,7 +115,7 @@ namespace String
 		@return s
 		@see <a href="https://www.cplusplus.com/reference/cctype/isspace/">std::isspace</a>
 
-		Example:
+		<b>Example</b>
 		@code
 		std::string s("\t test\t ");
 		String::rtrim(s);	// s is "\t test"
@@ -130,7 +130,7 @@ namespace String
 		@return s
 		@see <a href="https://www.cplusplus.com/reference/cctype/isspace/">std::isspace</a>
 
-		Example:
+		<b>Example</b>
 		@code
 		std::string s("\t test\t ");
 		String::trim(s);	// s is "test"
@@ -146,7 +146,7 @@ namespace String
 		@param replaceBy the replacement substring
 		@return source
 
-		Example:
+		<b>Example</b>
 		@code
 		std::string s("Blue is blue");
 		String::replace(s, "blue", "red");	// s is "Blue is red"
@@ -160,7 +160,7 @@ namespace String
 		@param s the string to convert
 		@return source
 
-		Example:
+		<b>Example</b>
 		@code
 		std::string s("BoTh CaSeS !");
 		String::lower(s);	// s is "both cases !"
@@ -174,7 +174,7 @@ namespace String
 		@param s the string to convert
 		@return the lowercase version of source
 
-		Example:
+		<b>Example</b>
 		@code
 		const std::string s("BoTh CaSeS !");
 		const auto res(String::lower(s));	// res is "both cases !"
@@ -188,7 +188,7 @@ namespace String
 		@param s the string to convert
 		@return source
 
-		Example:
+		<b>Example</b>
 		@code
 		std::string s("BoTh CaSeS !");
 		String::upper(s);	// s is "BOTH CASES !"
@@ -202,7 +202,7 @@ namespace String
 		@param s the string to convert
 		@return the uppercase version of source
 
-		Example:
+		<b>Example</b>
 		@code
 		const std::string s("BoTh CaSeS !");
 		const auto res(String::upper(s));	// res is "BOTH CASES !"
@@ -217,7 +217,7 @@ namespace String
 		@return the UTF-8 wstring version of str
 		@see <a href="https://www.cplusplus.com/reference/codecvt/codecvt_utf8/">std::codecvt_utf8<wchar_t></a>
 
-		Example:
+		<b>Example</b>
 		@code
 		const auto res(String::toWString("This is a test string."));	// res is L"This is a test string." 
 		@endcode
@@ -231,7 +231,7 @@ namespace String
 		@return the string version of wstr
 		@see <a href="https://www.cplusplus.com/reference/codecvt/codecvt_utf8/">std::codecvt_utf8<wchar_t></a>
 
-		Example:
+		<b>Example</b>
 		@code
 		const auto res(String::fromWString(L"This is a test string."));	// res is "This is a test string." 
 		@endcode
@@ -245,7 +245,7 @@ namespace String
 		@param t another string
 		@return the Levenshtein distance between the two 
 
-		Example:
+		<b>Example</b>
 		@code
 		const auto res(String::levenshteinDistance("a", "abc"));	// res is 2
 		@endcode

@@ -41,5 +41,6 @@ Thumbs.db
 # Generated documentation
 
 **/doc/html/
-deployDoc.sh
+**/dist/
+makeDist.sh
 

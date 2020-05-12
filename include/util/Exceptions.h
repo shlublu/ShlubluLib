@@ -25,7 +25,7 @@ public:
 #else
 	/**
 		Constructor.
-		@param message message that describes the issue
+		@param message description of the issue
 	*/
 	explicit ShlubluException(std::string const& message)
 		: exception(),
@@ -34,7 +34,7 @@ public:
 
 	/**
 		Constructor.
-		@param message message that describes the issue
+		@param message description of the issue
 	*/
 	explicit ShlubluException(char const* message)
 		: exception(),
@@ -43,7 +43,7 @@ public:
 
 	/**
 		Returns the description of the issue carried by this exception.
-		@return the text description of the issue as a C-string
+		@return the description of the issue as a C-string
 	*/	
 	virtual char const* what() const noexcept
 	{ 
@@ -64,7 +64,7 @@ class NotImplementedException : public ShlubluException
 public:
 	/**
 		Constructor.
-		@param message message that describes the issue
+		@param message description of the issue
 	*/
 	explicit NotImplementedException(std::string const& message)
 		: ShlubluException(message.c_str())
@@ -72,7 +72,7 @@ public:
 
 	/**
 		Constructor.
-		@param message message that describes the issue
+		@param message description of the issue
 	*/
 	explicit NotImplementedException(char const* message)
 		: ShlubluException(message)
