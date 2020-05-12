@@ -20,14 +20,14 @@
 	users to use advanced features of the official API when needed. In particular, this module focuses of making the references count handling simpler
 	and less error-prone than doing it manually as CPython requires.
 
-	@remark All functions below are thread safe. They share a MutexLock to ensure this.
+	@remark All functions of this namespace are thread safe. They share a MutexLock to ensure this.
 
-	<b>Requirements for your program to compile and link:</b><br />
+	<b>This module requires the official `Python3.x` library</b><br />
 	Compiler include path:
 	<ul>
 	<li>`<path/to/your/python/distribution>/include`</li>
 	</ul>
-	Linker libraries, where <x> stands for the minor version of Python installed on your system:
+	Linker - library to add, where <x> stands for the minor version of `Python3.x` installed on your system:
 	<ul>
 	<li>Linux: `libpython3.<x>m.a`</li>
 	<li>Windows: `python3<x>.dll`</li>

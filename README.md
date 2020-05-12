@@ -1,4 +1,5 @@
-ShlubluLib is a modular, general purpose, open-source C++ library for Linux and Windows.
+ShlubluLib is a modular, general purpose, open-source C++ library for Linux and Windows. 
+The current version is v0.0.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
 warranty of any kind (see license for further details).
@@ -38,22 +39,30 @@ This library currently consists in the following modules:
   * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * ***Exceptions***: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
 
-Their Doxygen documentation of the current version is available [online](http://shlublulib.shlublu.org).
+Their Doxygen documentation is available online at [shlublulib.shlublu.org](http://shlublulib.shlublu.org).
 
+Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
+in their documentation.
 
 ## C++ version
 
-This is a C++-17 library. The deprecated <a href="https://www.cplusplus.com/reference/locale/codecvt/">std::codecvt</a> is still used though as it has no 
+This is a C++-17 library. 
+
+The deprecated <a href="https://www.cplusplus.com/reference/locale/codecvt/">std::codecvt</a> is still used though as it has no 
 standardized replacement so far.
 
 
 ## Installation from binaries
 
 Should you just wish to use Shlublulib:
-* Linux version for x86: http://shlublulib.shlublu.org/dist/shlublulib-linux.zip (SHA-256: `103023cac62a4df8fda3d1540d2bb5b0b5908c242811d3e7a3924d97eaf4fc50`)
-* Win64 version for x86: http://shlublulib.shlublu.org/dist/shlublulib-win64.zip (SHA-256: `6f791a4267feeb60e157c880d987f94ec93da7b432eded074be38e075c0b44eb`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.0.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.0.zip.asc) - SHA-256: `72569b87fbbdb163cde3b4d8d704ef302b7f9bc07d2f0caabf898ab15eb97999`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.0.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.0.zip.asc) - SHA-256: `8ecd76a8d9568064466e3e9a2a1bc3cda0684ce3032d7d03c5d6c1b0ab30e80d`)
 
-Linker requirements are documented in the modules.
+These archives contain:
+* the library file to link to your client programs
+* the `include` directory to add to your include path 
+* the license file "EUPL LICENCE.txt"
+
 
 ## Installation from sources
 
@@ -242,9 +251,14 @@ Unit tests are available for Windows only. Coverage is not complete but is impro
 
 ## About the author
 
-My name is Vincent Poulain ([GitHub](https://github.com/shlublu), 
-[StackOverflow](https://stackoverflow.com/users/840960/shlublu), [Twitter](https://twitter.com/shlublu): \@shlublu). 
+My name is Vincent Poulain.
 
+You can reach me \@shlublu on:
+* [GitHub](https://github.com/shlublu)
+* [StackOverflow](https://stackoverflow.com/users/840960/shlublu)
+* [Twitter](https://twitter.com/shlublu)
+
+PGP public key: [0x1412f1e42222f90d](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index)
 
 ## Acknowledgements
 
