@@ -82,14 +82,14 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 				
-			const Python::InstructionsList list = 
+			const Python::Program program = 
 			{
 				"a = 5",
 				"b = 5",
 				"c = a + b"
 			};
 
-			Python::execute(list);
+			Python::execute(program);
 
 			Python::shutdown();
 		}
@@ -109,14 +109,14 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			const Python::InstructionsList list =
+			const Python::Program program =
 			{
 				"a = 5",
 				"wrong(blahblah)",
 				"c = a + b"
 			};
 
-			Assert::ExpectException<Python::BindingException>([&list]() { Python::execute(list); });
+			Assert::ExpectException<Python::BindingException>([&program]() { Python::execute(program); });
 
 			Python::shutdown();
 		}

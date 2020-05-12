@@ -12,7 +12,7 @@
 	Recursive mutex. 
 	Underlying implementation is based on <a href="https://www.cplusplus.com/reference/mutex/recursive_mutex/">std::recursive_mutex</a>
 
-	Example of typical use:
+	<b>Typical examples of use</b>
 	@code
 	MutexLock lock; // shared by MyThreadedTransactionsManager instances
 
@@ -45,8 +45,14 @@
 class MutexLock
 {
 public:
-	MutexLock() = delete;
+	/**
+		Copy constructor is deleted.
+	*/
 	MutexLock(MutexLock const&) = delete;
+
+	/**
+		Move constructor is deleted.
+	*/
 	MutexLock(MutexLock&&) = delete;
 
 	/**

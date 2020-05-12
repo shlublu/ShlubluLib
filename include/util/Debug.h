@@ -7,7 +7,7 @@
 /** \def PRAGMA_TODO(message)
     Displays a compile-time "TODO" message.
 
-    Example:
+    <b>Example</b>
     @code
     #include <util/Debug.h>
 
@@ -28,7 +28,7 @@
 /** \def PRAGMA_DEBUG(message)
     Displays a compile-time "DEBUG" message.
 
-    Example:
+    <b>Example</b>
     @code
     #include <string>
     #include <util/Debug.h>
@@ -53,7 +53,7 @@
     This macro is only useful with Windows as its debug mode is very slow due to the numerous STL checks it performs at run-time.
     It is not implemented for Linux which has a workable debug mode: a warning is displayed instead.
 
-Example:
+    <b>Example</b>
     @code
     #include <util/Debug.h>
     PRAGMA_OPTIMIZE_OFF();
