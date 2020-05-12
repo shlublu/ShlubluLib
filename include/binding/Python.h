@@ -1,5 +1,9 @@
 #pragma once
 
+/** @file
+	Based on the <a href="https://docs.python.org/3/c-api/index.html">standard Python/C API</a>, this module is intended to make Python integration easier.
+*/
+
 #include <string>
 #include <vector>
 
@@ -9,6 +13,9 @@
 #include "../util/Exceptions.h"
 
 
+/** @namespace Python
+	Helper functions for the <a href="https://docs.python.org/3/c-api/index.html">standard Python/C API</a>.
+*/
 namespace Python
 {
 	using PathEntriesList = std::vector<std::string>;

@@ -4,12 +4,13 @@ This library consists in code I wrote for my own use and that might be useful to
 warranty of any kind (see license for further details).
 
 ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licence), please
-see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+see the file "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 
 ## Table of content
 
 * [Modules](#modules)
+* [C++ version](#c-version)
 * [Prerequisites](#prerequisites)
   * [Development environment](#development-environment)
   * [Libraries](#libraries)
@@ -17,7 +18,6 @@ see the files "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.
   * [Files system](#files-system)
   * [Visual Studio projects structure](#visual-studio-projects-structure)
   * [Build outputs](#build-outputs)
-  * [Documentation](#documentation)
 * [Unit tests](#unit-tests)
 * [About the author](#about-the-author)
 * [Acknowledgements](#acknowledgements) 
@@ -36,6 +36,14 @@ This library currently consists in the following modules:
   * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * ***Exceptions***: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
 
+Their Doxygen documentation of the current version is available [online](http://shlublulib.shlublu.org).
+
+
+## C++ version
+
+The C++ version is 17. The deprecated <a href="https://www.cplusplus.com/reference/locale/codecvt/">std::codecvt</a> is still used though as it has no 
+standardized replacement so far.
+
 
 ## Prerequisites
 
@@ -49,14 +57,15 @@ This library is developed under [**Microsoft Visual Studio 2019**](https://visua
 * Integrated [**Microsoft Linux Development**](https://devblogs.microsoft.com/cppblog/linux-development-with-c-in-visual-studio/) remote build features
 * [**Doxygen**](https://www.doxygen.nl/) documentation generator
 
-**Visual Studio is not an absolute prerequisite**. The modules codebase compiles under GCC 7.3 or above. Only makefiles and unit tests are
-specific to Visual Studio. These can be quite easily rewritten for other tools if needed.
+**Visual Studio is not an absolute prerequisite**. The modules codebase compiles with GCC 7.3 or above. Only makefiles and unit tests are
+specific to Visual Studio. These can be quite easily rewritten for other tools if needed. Should you plan to do that please let me know and I'll provide you with
+the compiler command lines I use for Linux.
 
-The same way, depending on what you would like to do:
+The same way, depending on what you would like to do, you do not need all of the above:
 * **Microsoft Python - C++ projects debugging support** is optional. You can build and use Shlublulib as long as you already have a compatible Python library installed (see below).
-* **Microsoft CppUnitTest** is a built-in of Visual Studio that is used to build the unit tests suite. You only need it if you would like to build these tests.
-* **Microsoft Linux Development** is also a built-in of Visual Studio. You only need it if you would like to remotely build the Linux version of the library.
-* **Doxygen** is used to generate the documentation that is included to the distribution. You only need it if you would like to regenerate or modify it.
+* **Microsoft CppUnitTest** is only needed it if you would like to build and run the unit tests tests.
+* **Microsoft Linux Development for Visual Studio** is only needed if you would like to remotely build the Linux version of the library from the Visual Studio GUI.
+* **Doxygen** is only needed it if you would like to generate a local version of the documentation.
 
 ### Libraries
 
@@ -67,7 +76,10 @@ The following libraries **are required** for ShlubluLib to compile and execute:
 
 ## Installation
 
-There is no binary distribution so far. ShlubluLib has to be built from sources. 
+There is no binary distribution so far. ShlubluLib has to be built from sources: 
+* Git clone our repository (recommended as this allows pulling updates): https://github.com/shlublu/ShlubluLib.git
+* or just download the current version: https://github.com/shlublu/ShlubluLib/archive/master.zip
+
 
 ### Files system 
 
@@ -75,9 +87,7 @@ The code is organized as follows on the files system:
 
 	|
 	|____doc/
-	|	|____html/
-	|		|____index.html
-	|		|____(other documentation files)
+	|	|____notice.txt
 	|
 	|____include/
 	|	|____(module A)/
@@ -102,11 +112,11 @@ The code is organized as follows on the files system:
 	|	|____(module B)/
 	|		|____(...)
 	|
-	|____shlublu.sln
+	|____ShlubluLib.sln
 	|
-	|____(VS test project files)
-	|____(VS Linux project files)
-	|____(VS Windows project files)
+	|____(VS unit tests subproject files)
+	|____(VS Linux subproject files)
+	|____(VS Windows subproject files)
 	|
 	|____doxygen.conf
 	|____doxygen-structure.txt
@@ -114,12 +124,13 @@ The code is organized as follows on the files system:
 	|____README.md
 
 
-The file to open with Visual Studio is the main "solution" file ***shlublu.sln***.
+The file to open with Visual Studio is the main project file ***ShlubluLib.sln***.
 
 ### Visual Studio projects structure
 
 The Visual Studio projects structure looks like this:
 
+	ShlubluLib
 	|	
 	|____doxygen.conf
 	|____doxygen-structure.txt
@@ -176,7 +187,7 @@ The unit tests project **00tests-shlublu**, on its end, depends on **shlublu**. 
 
 ### Build configuration
 
-Projects settings have to be modified according to your local environment:
+Projects you plan to use need their settings to be modified according to your local environment:
 * **00tests-shlublu**: 
   * ***VC++ directories***: 
     * Includes: paths to the Boost and C-Python include files of your local Windows environment
@@ -190,25 +201,20 @@ Projects settings have to be modified according to your local environment:
   * ***VC++ directories***: 
     * Includes: paths to the Boost and C-Python include files of your remote Linux environment
 
-I am working on making this cleaner and easier to use.
+I am working on making this cleaner and easier to use. I hope it's ok for now.
 
 ### Build outputs
 
 * **00tests-shlublu** creates a test suite that can be used from the Test Explorer tab of Visual Studio
 * **shlublu** outputs to:
-  * your local Windows environment: `<\path\to>\ShlubluLib\x64\<Debug|Release>\shlublu.lib`
+  * your local Windows environment: `<\path\to\ShlubluLib>\x64\<Debug|Release>\shlublu.lib`
 * **shlublu-linux** outputs to:
-  * your local Windows environment: `<\path\to>\ShlubluLib\bin\x64\<Debug|Release>\libshlublu-linux.lib`
+  * your local Windows environment: `<\path\to\ShlubluLib>\bin\x64\<Debug|Release>\libshlublu-linux.lib`
   * your remote Linux environment: `~/projects/shlublu-linux/bin/x64/<Debug|Release>\libshlublu-linux.lib`
 
-Client projects should also add the following directory to their include path:
+Your client projects should also add the following directory to their include path:
 * **Windows**: `<\path\to>\ShlubluLib\include\` 
 * **Linux**: `~/projects/shlublu-linux/include`
-
-
-### Documentation
-
-The Doxygen documentation of this library is available under `doc/html/index.html`.
 
 
 ## Unit tests
@@ -219,7 +225,7 @@ Unit tests are available for Windows only. Coverage is not complete but is impro
 ## About the author
 
 My name is Vincent Poulain ([GitHub](https://github.com/shlublu), 
-[StackOverflow](https://stackoverflow.com/users/840960/shlublu), [Twitter](https://twitter.com/shlublu): @shlublu). 
+[StackOverflow](https://stackoverflow.com/users/840960/shlublu), [Twitter](https://twitter.com/shlublu): \@shlublu). 
 
 
 ## Acknowledgements

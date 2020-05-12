@@ -38,3 +38,8 @@ Thumbs.db
 
 **/__pycache__/
 
+# Generated documentation
+
+**/doc/html/
+deployDoc.sh
+

@@ -11,7 +11,7 @@
 
 
 /** @namespace String
-	Helper functions for <a href="https://www.cplusplus.com/reference/string/string/">std::string</a>
+	Helper functions for <a href="https://www.cplusplus.com/reference/string/string/">std::string</a>.
 */
 namespace String
 {

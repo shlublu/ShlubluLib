@@ -45,7 +45,6 @@
     <ClInclude Include="include\text\String.h" />
     <ClInclude Include="include\util\Debug.h" />
     <ClInclude Include="include\util\Exceptions.h" />
-    <ClInclude Include="src\util\Debug.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5aeaf00c-be44-406c-88e0-006526b353f5}</ProjectGuid>
