@@ -1,5 +1,5 @@
 **ShlubluLib** is a modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
-The current version is v0.0.
+The current version is v0.1.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
 warranty of any kind (see license for further details).
@@ -55,8 +55,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.0.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.0.zip.asc) - SHA-256: `72569b87fbbdb163cde3b4d8d704ef302b7f9bc07d2f0caabf898ab15eb97999`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.0.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.0.zip.asc) - SHA-256: `8ecd76a8d9568064466e3e9a2a1bc3cda0684ce3032d7d03c5d6c1b0ab30e80d`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip.asc) - SHA-256: `375051c0b548d704e42443b91e063e0d7dea35c1e7360336e45489f4dbc29a4c`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip.asc) - SHA-256: `def5ad1841aa141d9735942ed45aac371d55872a04c85a7587799c8a792ca6f9`)
 
 These archives contain:
 * the library file to link to your client programs
