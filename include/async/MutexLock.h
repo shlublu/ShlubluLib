@@ -2,6 +2,8 @@
 
 /** @file
 	Recursive mutex helper based on <a href="https://www.cplusplus.com/reference/mutex/recursive_mutex/">std::recursive_mutex</a>.
+
+	See MutexLock class documentation for details.
 */
 
 #include <mutex>

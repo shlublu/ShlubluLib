@@ -42,5 +42,6 @@ Thumbs.db
 
 **/doc/html/
 **/dist/
-makeDist.sh
+make*.sh
+email.png
 

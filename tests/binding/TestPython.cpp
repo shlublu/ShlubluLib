@@ -30,6 +30,7 @@ namespace binding_Python
 			Assert::IsFalse(Python::isInitialized());
 		}
 
+
 		TEST_METHOD(initRequiredToWork)
 		{
 			Assert::ExpectException<Python::BindingException>([]() { Python::execute("a = 1"); });
@@ -267,14 +268,14 @@ namespace binding_Python
 	};
 
 
-	TEST_CLASS(variableTest)
+	TEST_CLASS(objectTest)
 	{
-		TEST_METHOD(variableByNamedModuleWorks)
+		TEST_METHOD(objectByNamedModuleWorks)
 		{
 			Python::init("pythonBinding");
 			
 			Python::execute("testVar = 65");
-			const auto var(Python::variable(Python::moduleMain, "testVar"));
+			const auto var(Python::object(Python::moduleMain, "testVar"));
 
 			Assert::IsNotNull(var);
 			Assert::AreEqual(65L, PyLong_AsLong(var));
@@ -282,14 +283,14 @@ namespace binding_Python
 			Python::shutdown();
 		}
 
-		TEST_METHOD(variableByReferencedModuleWorks)
+		TEST_METHOD(objectByReferencedModuleWorks)
 		{
 			Python::init("pythonBinding");
 
 			const auto moduleRef(Python::import(Python::moduleMain));
 
 			Python::execute("testVar = 65");
-			const auto var(Python::variable(moduleRef, "testVar"));
+			const auto var(Python::object(moduleRef, "testVar"));
 
 			Assert::IsNotNull(var);
 			Assert::AreEqual(65L, PyLong_AsLong(var));
@@ -298,13 +299,13 @@ namespace binding_Python
 		}
 
 
-		TEST_METHOD(variableByReferencedObjectWorks)
+		TEST_METHOD(objectByReferencedObjectWorks)
 		{
 			Python::init("pythonBinding");
 
 			Python::execute("class TestClass():\n\tdef __init__(self,x):\n\t\tself.xyz=x");
-			const auto varA(Python::variable(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(55))), "xyz"));
-			const auto varB(Python::variable(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(66))), "xyz"));
+			const auto varA(Python::object(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(55))), "xyz"));
+			const auto varB(Python::object(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(66))), "xyz"));
 
 			Assert::IsNotNull(varA);
 			Assert::AreEqual(55L, PyLong_AsLong(varA));
@@ -316,7 +317,7 @@ namespace binding_Python
 		}
 
 
-		TEST_METHOD(variableInexistingThrows)
+		TEST_METHOD(objectInexistingThrows)
 		{
 			Python::init("pythonBinding");
 
@@ -326,7 +327,7 @@ namespace binding_Python
 		}
 
 
-		TEST_METHOD(variableAfterShutdownThrows)
+		TEST_METHOD(objectAfterShutdownThrows)
 		{
 			const std::string moduleName("os");
 
@@ -542,6 +543,50 @@ namespace binding_Python
 		}
 
 
+		TEST_METHOD(callWorksWithCustomTuple)
+		{
+			Python::init("pythonBinding");
+
+			Python::execute("def sumTest(a, b):\n\treturn a + b");
+
+			const auto resultSum
+			(
+				PyFloat_AsDouble
+				(
+					Python::call
+					(
+						Python::callable(Python::moduleMain, "sumTest"),
+						Python::controlArgument(Python::tuple(2, PyLong_FromLong(1), PyFloat_FromDouble(2.2)))
+					)
+				)
+			);
+
+			Assert::AreEqual(3.2, resultSum);
+
+			Python::shutdown();
+		}
+
+
+		TEST_METHOD(callThrowsWithNonTupleArguments)
+		{
+			Python::init("pythonBinding");
+
+			Assert::ExpectException<Python::BindingException>
+			(
+				[]()
+				{
+					Python::call
+					(
+						Python::callable(Python::moduleBuiltins, "print"),
+						Python::controlArgument(Python::fromAscii("test"))
+					);
+				}
+			);
+
+			Python::shutdown();
+		}
+
+
 		TEST_METHOD(callThrowsAfterShutdown)
 		{
 			Python::init("pythonBinding");
@@ -724,6 +769,17 @@ namespace binding_Python
 			Python::shutdown();
 		}
 
+
+		TEST_METHOD(keepArgumentThrowsIfNotUnderControl)
+		{
+			Python::init("pythonBinding");
+
+			Python::execute("def returnX():\n\treturn 5");
+
+			Assert::ExpectException<Python::BindingException>([]() { Python::keepArgument(Python::fromAscii("test")); });
+
+			Python::shutdown();
+		}
 
 		TEST_METHOD(controlArgumentThrowsIfAlreadyUnderControl)
 		{
