@@ -2,6 +2,8 @@
 
 /** @file 
 	Named exceptions derived from <a href="https://www.cplusplus.com/reference/exception/exception/">std::exception</a>.
+
+	See classes documentation for details.
 */
 
 #include <exception>

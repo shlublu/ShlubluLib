@@ -232,28 +232,28 @@ Python::ScopeRef Python::module(std::string const& moduleName)
 }
 
 
-Python::ValueRef Python::variable(ScopeRef scopeRef, std::string const& variableName)
+Python::ValueRef Python::object(ScopeRef scopeRef, std::string const& objectName)
 {
     __pythonShouldBeInitialized();
 
-    const ValueRef pythonVariable(PyObject_GetAttrString(scopeRef, variableName.c_str()));
+    const ValueRef pythonObject(PyObject_GetAttrString(scopeRef, objectName.c_str()));
 
-    if (!pythonVariable)
+    if (!pythonObject)
     {
-        __pythonThrowException("Python::variable(): Cannot access to variable '" + variableName + "'");
+        __pythonThrowException("Python::object(): Cannot access to object '" + objectName + "'");
     }
 
-    __pythonValues.push_back(pythonVariable);
+    __pythonValues.push_back(pythonObject);
 
     __pythonRelease();
 
-    return pythonVariable;
+    return pythonObject;
 }
 
 
-Python::CallableRef Python::variable(std::string const& moduleName, std::string const& variableName)
+Python::CallableRef Python::object(std::string const& moduleName, std::string const& objectName)
 {
-    return variable(module(moduleName), variableName);
+    return object(module(moduleName), objectName);
 }
 
 
@@ -336,6 +336,11 @@ Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObjec
     PRAGMA_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
+
+    if (argumentsObject && !PyTuple_Check(argumentsObject))
+    {
+        __pythonThrowException("Python::call(): argumentsObject is not a tuple");
+    }
 
     const auto ret(PyObject_CallObject(callableObject, argumentsObject));
     
@@ -474,8 +479,17 @@ Python::ValueRef Python::keepArgument(ValueRef object)
 {
     __pythonShouldBeInitialized();
 
-    Py_INCREF(object);
-    __pythonValues.push_back(object);
+    const auto where(std::find(__pythonValues.begin(), __pythonValues.end(), object));
+
+    if (where == __pythonValues.end())
+    {
+        __pythonThrowException("Python::keepArgument(): Argument is not under control");
+    }
+    else
+    {
+        Py_INCREF(object);
+        __pythonValues.push_back(object);
+    }
 
     __pythonRelease();
 
@@ -517,7 +531,7 @@ void Python::forgetArgument(PyObject* object)
     }
     else
     {
-        __pythonThrowException("Python::forgetArgument(): Trying to forget an object that is not in remind list");
+        __pythonThrowException("Python::forgetArgument(): Trying to forget an object that is not under control");
     }
 
     __pythonRelease();
