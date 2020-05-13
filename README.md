@@ -55,8 +55,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip.asc) - SHA-256: `375051c0b548d704e42443b91e063e0d7dea35c1e7360336e45489f4dbc29a4c`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip.asc) - SHA-256: `def5ad1841aa141d9735942ed45aac371d55872a04c85a7587799c8a792ca6f9`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip.asc) - SHA-256: `9ba6601ffd807d7ab9b75cffcb69fed2f700f0efca91cc049f1aa2193763a625`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip.asc) - SHA-256: `7bfe898987085ab2d8ef6e5a8cb55a399b86e030c5297b8f1f9b402b25e1f62a`)
 
 These archives contain:
 * the library file to link to your client programs
