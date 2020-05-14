@@ -1,5 +1,5 @@
 **ShlubluLib** is a modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
-The current version is v0.1.
+The current version is v0.2.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
 warranty of any kind (see license for further details).
@@ -44,6 +44,9 @@ The Doxygen documentation of these modules is available online at [shlublulib.sh
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
 
+Changes since former versions are tracked in the file `CHANGELOG.md`.
+
+
 ## C++ version
 
 This is a C++17 library. 
@@ -55,13 +58,14 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.1.zip.asc) - SHA-256: `9ba6601ffd807d7ab9b75cffcb69fed2f700f0efca91cc049f1aa2193763a625`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.1.zip.asc) - SHA-256: `7bfe898987085ab2d8ef6e5a8cb55a399b86e030c5297b8f1f9b402b25e1f62a`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip.asc) - SHA-256: `e1e67ca312a66027cd87773e16f5939500872015b6665b32e4fa01e1da0568cd`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip.asc) - SHA-256: `e1e67ca312a66027cd87773e16f5939500872015b6665b32e4fa01e1da0568cd`)
 
 These archives contain:
 * the library file to link to your client programs
 * the `include` directory to add to your include path 
 * the license file "EUPL LICENCE.txt" applicable to this library
+* the changes log
 
 
 ## Installation from sources
@@ -114,12 +118,13 @@ The repository is organized as follows on the files system:
 	|	|____notice.txt
 	|
 	|____include/
-	|	|____(module A)/
-	|	|	|____(feature X.h)
-	|	|	|____(feature Y.h)
-	|	|	
-	|	|____(module B)/
-	|		|____(...)
+	|	|____shlublu/
+	|		|____(module A)/
+	|		|	|____(feature X.h)
+	|		|	|____(feature Y.h)
+	|		|	
+	|		|____(module B)/
+	|			|____(...)
 	|
 	|____src/
 	|	|____(module A)/
@@ -142,6 +147,7 @@ The repository is organized as follows on the files system:
 	|____(VS Linux subproject files)
 	|____(VS Windows subproject files)
 	|
+	|____CHANGELOG.md
 	|____doxygen.conf
 	|____doxygen-structure.txt
 	|____EUPL LICENSE.txt
@@ -157,6 +163,7 @@ The Visual Studio projects structure looks like this:
 
 	ShlubluLib
 	|	
+	|____CHANGELOG.md
 	|____doxygen.conf
 	|____doxygen-structure.txt
 	|____EUPL LICENSE.txt

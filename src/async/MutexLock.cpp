@@ -1,7 +1,7 @@
-#include "../../include/async/MutexLock.h"
+#include <shlublu/async/MutexLock.h>
 
-#include "../../include/text/String.h"
-#include "../../include/util/Exceptions.h"
+#include <shlublu/text/String.h>
+#include <shlublu/util/Exceptions.h>
 
 
 #ifdef _WIN32

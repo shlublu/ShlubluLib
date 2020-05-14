@@ -24,11 +24,11 @@
     <ClCompile Include="src\text\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\async\MutexLock.h" />
-    <ClInclude Include="include\binding\Python.h" />
-    <ClInclude Include="include\text\String.h" />
-    <ClInclude Include="include\util\Debug.h" />
-    <ClInclude Include="include\util\Exceptions.h" />
+    <ClInclude Include="include\shlublu\async\MutexLock.h" />
+    <ClInclude Include="include\shlublu\binding\Python.h" />
+    <ClInclude Include="include\shlublu\text\String.h" />
+    <ClInclude Include="include\shlublu\util\Debug.h" />
+    <ClInclude Include="include\shlublu\util\Exceptions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -89,7 +89,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../../../lib/boost_1_67_0;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../../../lib/boost_1_67_0;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\include;include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -97,7 +97,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../../../lib/boost_1_67_0;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../../../lib/boost_1_67_0;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\include;include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

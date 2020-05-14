@@ -2,9 +2,9 @@
 
 #include "CppUnitTest.h"
 
-#include "../../include/binding/Python.h"
-#include "../../include/util/Debug.h"
-PRAGMA_OPTIMIZE_OFF();
+#include <shlublu/binding/Python.h>
+#include <shlublu/util/Debug.h>
+SHLUBLU_OPTIMIZE_OFF();
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

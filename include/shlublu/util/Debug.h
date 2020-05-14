@@ -4,7 +4,7 @@
     Macros useful for developing and debugging: compilation messages, optimization control, and so on.
 */
 
-/** \def PRAGMA_TODO(message)
+/** \def SHLUBLU_TODO(message)
     Displays a compile-time "TODO" message.
 
     <b>Example</b>
@@ -13,7 +13,7 @@
 
     int main(void)
     {
-        PRAGMA_TODO("Doing something useful is needed here.");
+        SHLUBLU_TODO("Doing something useful is needed here.");
 
         return 0;
     }
@@ -25,7 +25,7 @@
    @endcode
 */
 
-/** \def PRAGMA_DEBUG(message)
+/** \def SHLUBLU_DEBUG(message)
     Displays a compile-time "DEBUG" message.
 
     <b>Example</b>
@@ -35,7 +35,7 @@
 
     std::string const& myBogusString()
     {
-        PRAGMA_DEBUG("Check this out, a bug has been reported around here.");
+        SHLUBLU_DEBUG("Check this out, a bug has been reported around here.");
         return "reference to temporary, this is likely to fail";
     }
     @endcode
@@ -46,7 +46,7 @@
     @endcode
 */
 
-/** \def PRAGMA_OPTIMIZE_OFF()
+/** \def SHLUBLU_OPTIMIZE_OFF()
     Prevent any compiler optimization from being performed in the current file after this statement. 
     
     This allows doing step-by-step debugging in release mode.
@@ -56,7 +56,7 @@
     <b>Example</b>
     @code
     #include <util/Debug.h>
-    PRAGMA_OPTIMIZE_OFF();
+    SHLUBLU_OPTIMIZE_OFF();
 
     int main(void)
     {
@@ -69,7 +69,7 @@
     Output at compile time:
     
     Windows: @code 1>Main.cpp(2) : DEBUG: All optimizations disabled @endcode
-    Linux: @code 1>Main.cpp(2,13): warning : PRAGMA_OPTIMIZE_OFF() has no effect with this platform. @endcode
+    Linux: @code 1>Main.cpp(2,13): warning : SHLUBLU_OPTIMIZE_OFF() has no effect with this platform. @endcode
 */
 
 /// @cond INTERNAL
@@ -81,8 +81,8 @@
 #define __LINESTRING__		__makestring(__stringize, __LINE__)
 #define PRAGMA_TOKENSTR(t)	__FILE__ "(" __LINESTRING__ ") : " t ": "
 
-#define PRAGMA_TODO(msg /**< msg is there */)	__pragma(message (PRAGMA_TOKENSTR("TODO") msg)) 
-#define PRAGMA_DEBUG(msg)	__pragma(message (PRAGMA_TOKENSTR("DEBUG") msg)) 
+#define SHLUBLU_TODO(msg /**< msg is there */)	__pragma(message (PRAGMA_TOKENSTR("TODO") msg)) 
+#define SHLUBLU_DEBUG(msg)	__pragma(message (PRAGMA_TOKENSTR("DEBUG") msg)) 
 
 // Macros that turn optimizations on or off
 #ifndef _WIN64
@@ -91,14 +91,14 @@
 #define __OPTIMIZATION_LIST		"gst"
 #endif
 
-#define PRAGMA_OPTIMIZE_OFF()	__pragma (optimize( __OPTIMIZATION_LIST, off ))		\
-								PRAGMA_DEBUG("All optimizations disabled")
+#define SHLUBLU_OPTIMIZE_OFF()	__pragma (optimize( __OPTIMIZATION_LIST, off ))		\
+								SHLUBLU_DEBUG("All optimizations disabled")
 
 #else
-#define PRAGMA_TODO(msg)		_Pragma (__stringize(message "TODO: " msg))
-#define PRAGMA_DEBUG(msg)		_Pragma (__stringize(message "DEBUG: " msg))
+#define SHLUBLU_TODO(msg)		_Pragma (__stringize(message "TODO: " msg))
+#define SHLUBLU_DEBUG(msg)		_Pragma (__stringize(message "DEBUG: " msg))
 
-#define PRAGMA_OPTIMIZE_OFF()	_Pragma (__stringize(GCC warning "PRAGMA_OPTIMIZE_OFF() has no effect with this platform."))
+#define SHLUBLU_OPTIMIZE_OFF()	_Pragma (__stringize(GCC warning "SHLUBLU_OPTIMIZE_OFF() has no effect with this platform."))
 #endif
 
 

@@ -2,10 +2,10 @@
 
 #include "CppUnitTest.h"
 
-#include "../../include/text/String.h"
-#include "../../include/util/Debug.h"
-#include "../../include/util/Exceptions.h"
-PRAGMA_OPTIMIZE_OFF();
+#include <shlublu/text/String.h>
+#include <shlublu/util/Debug.h>
+#include <shlublu/util/Exceptions.h>
+SHLUBLU_OPTIMIZE_OFF();
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

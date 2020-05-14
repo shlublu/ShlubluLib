@@ -1,21 +1,21 @@
-/** \dir include
+/** \dir include/shlublu
  * Header files of this library live here.
  * They are organised by modules, each one having its own sub-directory.
  */
 
-/** \dir include/async
+/** \dir include/shlublu/async
  * Threading and asynchronous operations.
  */
 
-/** \dir include/binding
+/** \dir include/shlublu/binding
  * Interactions with other languages.
  */
 
-/** \dir include/text
+/** \dir include/shlublu/text
  * Text content handling.
  */
 
-/** \dir include/util
+/** \dir include/shlublu/util
  * Miscellaneous.
  */
 
