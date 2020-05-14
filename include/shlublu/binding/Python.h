@@ -704,6 +704,7 @@ namespace Python
 
 			// We get rid of result right away as we won't use it anymore.
 			// Otherwise, with many iterations, a large amount of memory could end up wasted waiting for Python::shutdown().
+			// This can also have an impact on performances as the internal references table maintain by Python gets bigger.
 			Python::forgetArgument(result);
 		}
 

@@ -1,11 +1,11 @@
 #include <unordered_map>
 
-#include "../../include/binding/Python.h"
+#include <shlublu/binding/Python.h>
 
-#include "../../include/async/MutexLock.h"
-#include "../../include/text/String.h"
+#include <shlublu/async/MutexLock.h>
+#include <shlublu/text/String.h>
 
-#include "../../include/util/Debug.h"
+#include <shlublu/util/Debug.h>
 
 #ifdef _WIN32
 #pragma warning( disable : 6285)
@@ -122,7 +122,7 @@ void Python::init(std::string const& programName, PathEntriesList const& pathLis
 
 void Python::shutdown()
 {
-    PRAGMA_TODO("References count deserves a unit test suite");
+    SHLUBLU_TODO("References count deserves a unit test suite");
 
     __pythonGrab();
 
@@ -333,7 +333,7 @@ Python::ArgsRef Python::arguments(size_t size...)
 
 Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObject, bool keepArguments)
 {
-    PRAGMA_TODO("Parameter keepArguments deserves a unit test");
+    SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
 
@@ -409,7 +409,7 @@ Python::ValueRef Python::list(size_t size, ...)
 
 void Python::addList(ValueRef objList, ValueRef item, bool keepArguments)
 {
-    PRAGMA_TODO("Parameter keepArguments deserves a unit test");
+    SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
 
@@ -446,7 +446,7 @@ Python::ValueRef Python::fromAscii(std::string const& str)
 
 std::string Python::toAscii(ValueRef object, bool keepArgument)
 {
-    PRAGMA_TODO("Parameter keepArguments deserves a unit test");
+    SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
 
     __pythonShouldBeInitialized();
 

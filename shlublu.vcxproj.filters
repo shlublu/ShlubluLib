@@ -44,19 +44,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\async\MutexLock.h">
+    <ClInclude Include="include\shlublu\async\MutexLock.h">
       <Filter>include\async</Filter>
     </ClInclude>
-    <ClInclude Include="include\binding\Python.h">
+    <ClInclude Include="include\shlublu\binding\Python.h">
       <Filter>include\binding</Filter>
     </ClInclude>
-    <ClInclude Include="include\text\String.h">
+    <ClInclude Include="include\shlublu\text\String.h">
       <Filter>include\text</Filter>
     </ClInclude>
-    <ClInclude Include="include\util\Debug.h">
+    <ClInclude Include="include\shlublu\util\Debug.h">
       <Filter>include\util</Filter>
     </ClInclude>
-    <ClInclude Include="include\util\Exceptions.h">
+    <ClInclude Include="include\shlublu\util\Exceptions.h">
       <Filter>include\util</Filter>
     </ClInclude>
   </ItemGroup>
