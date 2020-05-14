@@ -2,7 +2,7 @@
 
 ### New features
 
-*none*
+* Added `CRC` class and `hash` module.
 
 ### Fixes
 

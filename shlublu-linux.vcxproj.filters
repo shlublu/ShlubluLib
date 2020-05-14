@@ -31,6 +31,12 @@
     <Filter Include="include\text">
       <UniqueIdentifier>{245025ac-9eb3-4822-8d17-f289102bcc1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\hash">
+      <UniqueIdentifier>{7c9dd946-94c3-4fdc-8b35-4cdbbe8d4f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\hash">
+      <UniqueIdentifier>{a15d6f55-30c5-43ef-a774-b044e329515c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\async\MutexLock.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="src\binding\Python.cpp">
       <Filter>src\binding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hash\CRC.c">
+      <Filter>src\hash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\util\Debug.h">
       <Filter>include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\hash\CRC.h">
+      <Filter>include\hash</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -31,6 +31,12 @@
     <Filter Include="include\util">
       <UniqueIdentifier>{b05cdd71-4ba2-464b-bc0f-ecd084e09d8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\hash">
+      <UniqueIdentifier>{d269080a-a57e-4d39-b18d-8fce79ff79ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\hash">
+      <UniqueIdentifier>{b4def889-820b-4c84-8785-131c7af265f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\text\String.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="src\binding\Python.cpp">
       <Filter>src\binding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hash\CRC.c">
+      <Filter>src\hash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\util\Exceptions.h">
       <Filter>include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\hash\CRC.h">
+      <Filter>include\hash</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,6 +10,9 @@
     <Filter Include="tests\binding">
       <UniqueIdentifier>{3c410281-4bf5-4166-8091-31e72e16fd45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\hash">
+      <UniqueIdentifier>{9e54c249-49f8-471c-89f2-26c10e83907f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tests\text\TestString.cpp">
@@ -17,6 +20,9 @@
     </ClCompile>
     <ClCompile Include="tests\binding\TestPython.cpp">
       <Filter>tests\binding</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\hash\TestCRC.cpp">
+      <Filter>tests\hash</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

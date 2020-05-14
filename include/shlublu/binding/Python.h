@@ -17,7 +17,7 @@
 namespace shlublu
 {
 
-/** @namespace Python
+/** @namespace shlublu::Python
 	Helper functions wrapping the <a href="https://docs.python.org/3/c-api/index.html">CPython standard API</a>.
 
 	Not all functions of the CPython API are wrapped here. ShlubluLib Python is intended to make the most common operations simpler without preventing
@@ -48,8 +48,10 @@ namespace shlublu
 	#include <iostream>
 	#include <vector>
 
-	#include <binding/Python.h>
-	#include <text/String.h>
+	#include <shlublu/binding/Python.h>
+	#include <shlublu/text/String.h>
+
+	using namespace shlublu;
 
 	int main(int, char* argv[])
 	{
@@ -88,8 +90,10 @@ namespace shlublu
 	#include <iostream>
 	#include <vector>
 
-	#include <binding/Python.h>
-	#include <text/String.h>
+	#include <shlublu/binding/Python.h>
+	#include <shlublu/text/String.h>
+
+	using namespace shlublu;
 
 	int main(int, char* argv[])
 	{

@@ -1,3 +1,10 @@
+/** \namespace shlublu
+ * This namespace surrounds the whole library to avoid any naming conflict.
+
+   All examples shown in this documentation are assumed to be preceded by the directive `using namespace shlublu;`.
+   In your client applications code, you can either prefix all ShlubluLib symbols with `shlublu::` or use the directive `using namespace shlublu;`.
+ */
+
 /** \dir include/shlublu
  * Header files of this library live here.
  * They are organised by modules, each one having its own sub-directory.
@@ -9,6 +16,10 @@
 
 /** \dir include/shlublu/binding
  * Interactions with other languages.
+ */
+
+ /** \dir include/shlublu/hash
+ * Hash algorithms.
  */
 
 /** \dir include/shlublu/text
