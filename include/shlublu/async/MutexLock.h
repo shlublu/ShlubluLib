@@ -9,6 +9,9 @@
 #include <mutex>
 #include <thread>
 
+namespace shlublu
+{
+
 /**
 	Recursive mutex. 
 	Underlying implementation is based on <a href="https://www.cplusplus.com/reference/mutex/recursive_mutex/">std::recursive_mutex</a>
@@ -96,4 +99,4 @@ private:
 	int mLockLevel;
 };
 
-
+}

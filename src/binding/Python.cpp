@@ -17,14 +17,14 @@
 // https://docs.python.org/3/c-api/
 
 
-static MutexLock __pythonLock(false);
+static shlublu::MutexLock __pythonLock(false);
 
 static wchar_t* __pythonArgv0(nullptr);
 
-static std::unordered_map<std::string, Python::ScopeRef> __pythonModules;
-static std::unordered_map<Python::ScopeRef, std::unordered_map<std::string, Python::CallableRef>> __pythonCallables;
+static std::unordered_map<std::string, shlublu::Python::ScopeRef> __pythonModules;
+static std::unordered_map<shlublu::Python::ScopeRef, std::unordered_map<std::string, shlublu::Python::CallableRef>> __pythonCallables;
 
-static std::vector<Python::ValueRef> __pythonValues;
+static std::vector<shlublu::Python::ValueRef> __pythonValues;
 
 
 static void __pythonGrab()
@@ -43,7 +43,7 @@ static void __pythonThrowException(std::string const& message)
 {
     __pythonRelease();
  
-    throw Python::BindingException(message);
+    throw shlublu::Python::BindingException(message);
 }
 
 
@@ -58,7 +58,7 @@ static void __pythonShouldBeInitialized()
 }
 
 
-static void __pythonWithdrawAsCatched(Python::ValueRef object)
+static void __pythonWithdrawAsCatched(shlublu::Python::ValueRef object)
 {
     const auto where(std::find(__pythonValues.begin(), __pythonValues.end(), object));
 
@@ -69,7 +69,7 @@ static void __pythonWithdrawAsCatched(Python::ValueRef object)
 }
 
 
-static void __pythonDecRef(Python::ValueRef object)
+static void __pythonDecRef(shlublu::Python::ValueRef object)
 {
     if (!object->ob_refcnt)
     {
@@ -79,6 +79,8 @@ static void __pythonDecRef(Python::ValueRef object)
     Py_DECREF(object);
 }
 
+namespace shlublu
+{
 
 const Python::PathEntriesList Python::nullPathEntriesList = Python::PathEntriesList();
 
@@ -535,4 +537,6 @@ void Python::forgetArgument(PyObject* object)
     }
 
     __pythonRelease();
+}
+
 }
