@@ -9,6 +9,7 @@ SHLUBLU_OPTIMIZE_OFF();
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace shlublu;
 
 namespace text_String
 {

@@ -8,6 +8,8 @@
 #pragma warning (disable: 26110)
 #endif
 
+namespace shlublu
+{
 
 MutexLock::MutexLock(bool take)
 	: mLockLevel(0)
@@ -57,3 +59,4 @@ void MutexLock::unlock()
 	}
 }
 
+}

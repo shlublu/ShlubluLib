@@ -8,6 +8,7 @@ SHLUBLU_OPTIMIZE_OFF();
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace shlublu;
 
 namespace binding_Python
 {

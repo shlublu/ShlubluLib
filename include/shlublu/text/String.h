@@ -11,6 +11,8 @@
 #include <sstream>
 #include <vector>
 
+namespace shlublu
+{
 
 /** @namespace String
 	Helper functions for <a href="https://www.cplusplus.com/reference/string/string/">std::string</a>.
@@ -255,3 +257,4 @@ namespace String
 	size_t levenshteinDistance(std::string const & s, std::string const & t);
 }
 
+}

@@ -12,8 +12,10 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
-#include "../util/Exceptions.h"
+#include <shlublu/util/Exceptions.h>
 
+namespace shlublu
+{
 
 /** @namespace Python
 	Helper functions wrapping the <a href="https://docs.python.org/3/c-api/index.html">CPython standard API</a>.
@@ -714,3 +716,4 @@ namespace Python
 	void forgetArgument(PyObject* object); // Forgets an object under control after having decreased its references count
 }
 
+}

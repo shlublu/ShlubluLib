@@ -6,6 +6,8 @@
 
 #include <shlublu/util/Exceptions.h>
 
+namespace shlublu
+{
 
 std::vector<std::string> const & String::split(std::string const& s, char delim, std::vector<std::string>& elems)
 {
@@ -164,3 +166,4 @@ size_t String::levenshteinDistance(std::string const & s1, std::string const & s
 	return result;
 }
 
+}
