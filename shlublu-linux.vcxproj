@@ -37,11 +37,13 @@
   <ItemGroup>
     <ClCompile Include="src\async\MutexLock.cpp" />
     <ClCompile Include="src\binding\Python.cpp" />
+    <ClCompile Include="src\hash\CRC.c" />
     <ClCompile Include="src\text\String.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shlublu\async\MutexLock.h" />
     <ClInclude Include="include\shlublu\binding\Python.h" />
+    <ClInclude Include="include\shlublu\hash\CRC.h" />
     <ClInclude Include="include\shlublu\text\String.h" />
     <ClInclude Include="include\shlublu\util\Debug.h" />
     <ClInclude Include="include\shlublu\util\Exceptions.h" />
@@ -112,13 +114,13 @@
     </IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>/usr/include/python3.5m;/usr/include/python3.7m;include;D:\Prive\Dev\code\lib\LinuxIncludes\usr\include;D:\Prive\Dev\code\lib\LinuxIncludes\usr\include\c++\7</IncludePath>
+    <IncludePath>/usr/include/python3.5m;/usr/include/python3.7m;include;$(IncludePath)</IncludePath>
     <RemoteProjectDir>$(RemoteRootDir)/$(ProjectName)</RemoteProjectDir>
     <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>/usr/include/python3.5m;/usr/include/python3.7m;include;D:\Prive\Dev\code\lib\LinuxIncludes\usr\include;D:\Prive\Dev\code\lib\LinuxIncludes\usr\include\c++\7</IncludePath>
+    <IncludePath>/usr/include/python3.5m;/usr/include/python3.7m;include;$(IncludePath)</IncludePath>
     <RemoteProjectDir>$(RemoteRootDir)/$(ProjectName)</RemoteProjectDir>
     <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>

@@ -29,15 +29,17 @@ see the file "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.e
 ## Modules and documentation
 
 This library currently consists in the following modules:
-* **Async**: threading and asynchronous operations
-  * ***MutexLock***: Recursive mutex helper based on [*std::recursive_mutex*](https://www.cplusplus.com/reference/mutex/recursive_mutex/)
-* **Binding**: interactions with other languages 
-  * ***Python*** based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier
-* **Text**: text content handling
-  * ***String***: helper functions that are not included in [*std::string*](https://www.cplusplus.com/reference/string/string/)
-* **Util**: miscellaneous
-  * ***Debug***: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * ***Exceptions***: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
+* `async`: threading and asynchronous operations
+  * `MutexLock`: Recursive mutex helper based on [*std::recursive_mutex*](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
+* `binding`: interactions with other languages
+  * `Python`: based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
+* `hash`: hash algorithms
+  * `CRC`: cyclic redundancy check.
+* `text`: text content handling
+  * `String`: helper functions that are not included in [*std::string*](https://www.cplusplus.com/reference/string/string/).
+* `util`: miscellaneous
+  * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
+  * `Exceptions`: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
 
 The Doxygen documentation of these modules is available online at [shlublulib.shlublu.org](http://shlublulib.shlublu.org).
 
@@ -58,8 +60,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip.asc) - SHA-256: `e1e67ca312a66027cd87773e16f5939500872015b6665b32e4fa01e1da0568cd`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip.asc) - SHA-256: `e1e67ca312a66027cd87773e16f5939500872015b6665b32e4fa01e1da0568cd`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip.asc) - SHA-256: `9f1ad280b1d3bf6dac634ffab0cadd3bc5a24c46ee91efd5395943af4e4c1a25`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip.asc) - SHA-256: `42291fcf757cd1409491390b85f964b4dcd14ca0cef66bb139f830109eebd68a`)
 
 These archives contain:
 * the library file to link to your client programs
