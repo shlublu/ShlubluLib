@@ -79,8 +79,8 @@ Should you wish to contribute, to play with the code, or should you prefer not t
 #### External libraries
 
 The following libraries are required for ShlubluLib to compile:
-* [**Python** v0.2](https://www.python.org/downloads/release/python-370) or higher
-* [**Boost** v0.2](https://www.boost.org/) or higher
+* [**Python** 3.5](https://www.python.org/downloads/release/python-350) or higher
+* [**Boost** 1.53](https://www.boost.org/) or higher
 
 Those version numbers correspond to my testing. Lower version numbers may work but this has not been tested yet.
 
