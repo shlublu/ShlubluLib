@@ -1,5 +1,5 @@
 **ShlubluLib** is a modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
-The current version is v0.2.
+The current version is v0.3.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
 warranty of any kind (see license for further details).
@@ -41,7 +41,7 @@ This library currently consists in the following modules:
   * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * `Exceptions`: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
 
-The Doxygen documentation of these modules is available online at [shlublulib.shlublu.org](http://shlublulib.shlublu.org/v0.2/).
+The Doxygen documentation of these modules is available online at [shlublulib.shlublu.org/v0.3/](http://shlublulib.shlublu.org/v0.3/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -60,10 +60,10 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip.asc) - SHA-256: `2b28433de4865ab0b150ecd8951c3e81a27e7dec3900ff6efd4f6eaaf95a9887`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip.asc) - SHA-256: `52d0ded07875fdc30e0369acf48eee8ba4d6ee4dae41ce957760ff7126688a3a`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip.asc) - SHA-256: `4ce0c2cff649297bad791092c6988c9b6023db599efdbf37f949aa284d31dc24`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip.asc) - SHA-256: `2ce011a85a25b4b2fe3698318be82fb89fb4a08326eb766f9a1537a82de91420`)
 
-These archives contain:
+These archives are signed with [my PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
 * the library file to link to your client programs
 * the `include` directory to add to your include path 
 * the license file "EUPL LICENCE.txt" applicable to this library

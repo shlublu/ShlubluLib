@@ -24,8 +24,6 @@ namespace shlublu
 	users to use advanced features of the official API when needed. In particular, this module focuses of making the references count handling simpler
 	and less error-prone than doing it manually as CPython requires.
 
-	@remark All functions of this namespace are thread safe. They share a MutexLock to ensure this.
-
 	<b>Requirements</b><br />
 	This module uses the official `Python3.x` library.
 	Client programs need their include path, libraries path and linker input to be updated as follows:
@@ -155,6 +153,20 @@ namespace shlublu
 	</li>
 	<li>More advanced features are explained below.</li>
 	</ul>
+
+	@attention <b>About concurrency</b><br/>
+	The Python interpreter is unique and shared by all the threads of the process, *and so is its memory state*, including imports and objects.<br /> 
+	All functions below support concurrent access thanks to the use	of a MutexLock. However, groups of Python calls that have a dependency
+	relationship in your C++ code should be surrounded by `beginCriticalSection()` / `endCriticalSection()`	to prevent any concurrent call
+	to the global interpreter to occur in the middle of the section they constitute. Such concurrent accesses would lead the interpreter to crash.<br />
+	Should you need more isolation, you can use the CPython API to setup
+	<a href="https://docs.python.org/3/c-api/init.html#c.Py_NewInterpreter">multiple interpreters</a> knowing that there are caveats
+	described in the documentation. One of this limitation is <a href="https://docs.python.org/3/c-api/init.html#non-python-created-threads">the use of 
+	the `PyGILState_*()` API</a>. shlublu::Python doesn't use this API so there is no issue in that respect.<br />
+	Forking is ok as the child process receives a full copy of the memory of the parent process made at `fork()` time.
+	Testing shows the interpreter supports this very well, providing a full isolation, as long as the fork operation
+	is conducted from a mono-thread process. Should you wish to fork a multi-threads process
+	<a href="https://docs.python.org/3/c-api/init.html#cautions-about-fork">there are some cautions</a>.
 */
 namespace Python
 {
@@ -248,6 +260,80 @@ namespace Python
 		@endcode
 	*/
 	void execute(Program const& program);
+
+
+	/**
+		Prevent other threads to access to the global interpreter.
+
+		Using this function is relevant in multi-threaded applications when groups of Python calls have a dependency relationships: 
+		concurrent calls to the interpreter occuring in the middle of the execution of such groups would lead the interpreter to crash.
+
+		Calls to this function should be followed in the same thread by as many calls to endCriticalSection(). Not doing so is
+		a cause of deadlocks.
+
+		@exception BindingException if Python is not initialized.
+
+		<b>Example</b>
+		@code
+		Python::init("pythonBinding");
+
+		Python::execute(Python::Program({ "def inc(x):", "\treturn x + 1" }));
+
+		const long nbIt(5000000L);
+		long x(0);
+		long y(0);
+
+		const auto job
+		(
+			[](long iterations) -> long
+			{
+				long v(0);
+				const auto inc(Python::callable(Python::moduleMain, "inc"));
+
+				for (long i = 0; i < iterations; ++i)
+				{
+					Python::beginCriticalSection();
+					const auto pyVal(Python::call(inc, Python::arguments(1, PyLong_FromLong(v))));
+
+					v = PyLong_AsLong(pyVal);
+
+					Python::forgetArgument(pyVal);
+					Python::endCriticalSection();
+				}
+
+				return v;
+			}
+		);
+
+		std::thread tx
+		(
+			[&x, &job, nbIt]()
+			{
+				x = job(nbIt);
+			}
+		);
+
+		y = job(nbIt);
+
+		tx.join();
+
+		// Assert: x == y == nbIt
+
+		Python::shutdown();
+		@endcode
+	*/
+	void beginCriticalSection();
+
+
+	/**
+		Allow other threads to access to the global interpreter.
+
+		Calls to this function should match calls to beginCriticalSection() performed in the same thread.
+
+		@exception BindingException if this call doesn't match a call to beginCriticalSection() performed in the same thread.
+	*/
+	void endCriticalSection();
+
 
 	//////////
 	// The returned values below are garbage collected automatically, though calling forgetArgument() is possible ahead.

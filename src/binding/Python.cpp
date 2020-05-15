@@ -104,6 +104,11 @@ void Python::init(std::string const& programName, PathEntriesList const& pathLis
 
         Py_SetProgramName(__pythonArgv0);
         Py_Initialize();
+        
+        if (!PyEval_ThreadsInitialized())
+        {
+            PyEval_InitThreads();
+        }
 
         atexit(shutdown);
 
@@ -184,6 +189,18 @@ void Python::execute(Program const& program)
     }
 
     execute(code);
+}
+
+
+void Python::beginCriticalSection()
+{
+    __pythonShouldBeInitialized();
+}
+
+
+void Python::endCriticalSection()
+{
+    __pythonRelease();
 }
 
 

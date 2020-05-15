@@ -2,6 +2,8 @@
 
 #include "CppUnitTest.h"
 
+#include <thread>
+
 #include <shlublu/binding/Python.h>
 #include <shlublu/util/Debug.h>
 SHLUBLU_OPTIMIZE_OFF();
@@ -791,6 +793,89 @@ namespace binding_Python
 			const auto val(Python::call(Python::callable(Python::moduleMain, "returnX")));
 
 			Assert::ExpectException<Python::BindingException>([&val]() { Python::controlArgument(val); });
+
+			Python::shutdown();
+		}
+	};
+
+	TEST_CLASS(threadingTest)
+	{
+		TEST_METHOD(executeIsThreadSafe)
+		{
+			std::thread t1
+			(
+				[]()
+				{
+					Python::init("Thread1");
+					Python::execute(Python::Program({ "sum1 = 0", "for i in range(0, 10000000):", "\tsum1 += 1" }));
+				}
+			);
+
+			std::thread t2
+			(
+				[]()
+				{
+					Python::init("Thread2");
+					Python::execute(Python::Program({ "sum2 = 0", "for i in range(0, 10000000):", "\tsum2 += 1" }));
+				}
+			);
+
+			t1.join();
+			t2.join();
+
+			Assert::AreEqual(PyLong_AsLong(Python::object(Python::moduleMain, "sum1")), PyLong_AsLong(Python::object(Python::moduleMain, "sum2")));
+			Assert::AreEqual(10000000L, PyLong_AsLong(Python::object(Python::moduleMain, "sum1")));
+
+			Python::shutdown();
+		}
+
+
+		TEST_METHOD(transactionsAreThreadSafe)
+		{
+			Python::init("pythonBinding");
+
+			Python::execute(Python::Program({ "def inc(x):", "\treturn x + 1" }));
+
+			const long nbIt(5000000L);
+			long x(0);
+			long y(0);
+
+			const auto job
+			(
+				[](long iterations) -> long
+				{
+					long v(0);
+					const auto inc(Python::callable(Python::moduleMain, "inc"));
+
+					for (long i = 0; i < iterations; ++i)
+					{
+						Python::beginCriticalSection();
+						const auto pyVal(Python::call(inc, Python::arguments(1, PyLong_FromLong(v))));
+
+						v = PyLong_AsLong(pyVal); 
+
+						Python::forgetArgument(pyVal);
+						Python::endCriticalSection();
+					}
+
+					return v;
+				} 
+			);
+		
+			std::thread tx
+			(
+				[&x, &job, nbIt]()
+				{
+					x = job(nbIt);
+				}
+			);
+			
+			y = job(nbIt);
+
+			tx.join();
+
+			Assert::AreEqual(x, y);
+			Assert::AreEqual(nbIt, x);
 
 			Python::shutdown();
 		}
