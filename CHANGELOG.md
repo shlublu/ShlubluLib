@@ -1,3 +1,19 @@
+## v0.3 - XXXX-XX-XX
+
+### New features
+
+* Python: added unit tests and improved the documentation.
+* Python: added functions beginCriticalSection() / endCriticalSection()
+
+### Fixes
+
+* Python: fixed multithreading issue
+
+### Compatibility breakers
+
+*none*
+
+
 ## v0.2 - 2020-05-15
 
 ### New features
