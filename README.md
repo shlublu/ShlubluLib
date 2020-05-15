@@ -41,7 +41,7 @@ This library currently consists in the following modules:
   * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * `Exceptions`: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
 
-The Doxygen documentation of these modules is available online at [shlublulib.shlublu.org](http://shlublulib.shlublu.org).
+The Doxygen documentation of these modules is available online at [shlublulib.shlublu.org](http://shlublulib.shlublu.org/v0.2/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -60,8 +60,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip.asc) - SHA-256: `9f1ad280b1d3bf6dac634ffab0cadd3bc5a24c46ee91efd5395943af4e4c1a25`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip.asc) - SHA-256: `42291fcf757cd1409491390b85f964b4dcd14ca0cef66bb139f830109eebd68a`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.2.zip.asc) - SHA-256: `2b28433de4865ab0b150ecd8951c3e81a27e7dec3900ff6efd4f6eaaf95a9887`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip) ([GPG sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.2.zip.asc) - SHA-256: `52d0ded07875fdc30e0369acf48eee8ba4d6ee4dae41ce957760ff7126688a3a`)
 
 These archives contain:
 * the library file to link to your client programs
@@ -79,8 +79,8 @@ Should you wish to contribute, to play with the code, or should you prefer not t
 #### External libraries
 
 The following libraries are required for ShlubluLib to compile:
-* [**Python** v3.5](https://www.python.org/downloads/release/python-370) or higher
-* [**Boost** v1.53](https://www.boost.org/) or higher
+* [**Python** v0.2](https://www.python.org/downloads/release/python-370) or higher
+* [**Boost** v0.2](https://www.boost.org/) or higher
 
 Those version numbers correspond to my testing. Lower version numbers may work but this has not been tested yet.
 
