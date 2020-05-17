@@ -5,6 +5,7 @@
 #include <thread>
 
 #include <shlublu/binding/Python.h>
+#include <shlublu/text/String.h>
 #include <shlublu/util/Debug.h>
 SHLUBLU_OPTIMIZE_OFF();
 
@@ -280,7 +281,7 @@ namespace binding_Python
 			Python::execute("testVar = 65");
 			const auto var(Python::object(Python::moduleMain, "testVar"));
 
-			Assert::IsNotNull(var);
+			Assert::IsNotNull(var.get());
 			Assert::AreEqual(65L, PyLong_AsLong(var));
 
 			Python::shutdown();
@@ -295,7 +296,7 @@ namespace binding_Python
 			Python::execute("testVar = 65");
 			const auto var(Python::object(moduleRef, "testVar"));
 
-			Assert::IsNotNull(var);
+			Assert::IsNotNull(var.get());
 			Assert::AreEqual(65L, PyLong_AsLong(var));
 
 			Python::shutdown();
@@ -307,13 +308,13 @@ namespace binding_Python
 			Python::init("pythonBinding");
 
 			Python::execute("class TestClass():\n\tdef __init__(self,x):\n\t\tself.xyz=x");
-			const auto varA(Python::object(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(55))), "xyz"));
-			const auto varB(Python::object(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(66))), "xyz"));
+			const auto varA(Python::object(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments({ PyLong_FromLong(55) })), "xyz"));
+			const auto varB(Python::object(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments({ PyLong_FromLong(66) })), "xyz"));
 
-			Assert::IsNotNull(varA);
+			Assert::IsNotNull(varA.get());
 			Assert::AreEqual(55L, PyLong_AsLong(varA));
 
-			Assert::IsNotNull(varB);
+			Assert::IsNotNull(varB.get());
 			Assert::AreEqual(66L, PyLong_AsLong(varB));
 
 			Python::shutdown();
@@ -372,13 +373,13 @@ namespace binding_Python
 			Python::init("pythonBinding");
 
 			Python::execute("class TestClass():\n\tdef __init__(self,x):\n\t\tself.xyz=x\n\n\tdef ret(self):\n\t\treturn self.xyz");
-			const auto varA(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(55))));
-			const auto varB(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(66))));
+			const auto varA(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments({ PyLong_FromLong(55) })));
+			const auto varB(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments({ PyLong_FromLong(66) })));
 
-			Assert::IsNotNull(varA);
+			Assert::IsNotNull(varA.get());
 			Assert::AreEqual(55L, PyLong_AsLong(Python::call(Python::callable(varA, "ret"))));
 
-			Assert::IsNotNull(varB);
+			Assert::IsNotNull(varB.get());
 			Assert::AreEqual(66L, PyLong_AsLong(Python::call(Python::callable(varB, "ret"))));
 
 			Python::shutdown();
@@ -466,7 +467,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			const auto args(Python::arguments(3, PyLong_FromLong(5), PyFloat_FromDouble(0.42), Python::fromAscii("Test")));
+			const auto args(Python::arguments({ PyLong_FromLong(5), PyFloat_FromDouble(0.42), Python::fromAscii("Test") }));
 
 			Assert::IsTrue(PyTuple_CheckExact(args));
 
@@ -500,7 +501,7 @@ namespace binding_Python
 					Python::call
 					(
 						Python::callable(Python::moduleMain, "sumTest"),
-						Python::arguments(2, PyLong_FromLong(1), PyFloat_FromDouble(2.2))
+						Python::arguments({ PyLong_FromLong(1), PyFloat_FromDouble(2.2) })
 					)
 				)
 			);
@@ -522,7 +523,7 @@ namespace binding_Python
 					Python::call
 					(
 						Python::callable(Python::moduleBuiltins, "str"),
-						Python::arguments(1, PyFloat_FromDouble(2.2))
+						Python::arguments({ PyFloat_FromDouble(2.2) })
 					)
 				)
 			);
@@ -538,7 +539,7 @@ namespace binding_Python
 			Python::init("pythonBinding");
 
 			Python::execute("class TestClass():\n\tdef __init__(self,x):\n\t\tself.xyz=x\n\n\tdef ret(self):\n\t\treturn self.xyz");
-			const auto var(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments(1, PyLong_FromLong(55))));
+			const auto var(Python::call(Python::callable(Python::moduleMain, "TestClass"), Python::arguments({ PyLong_FromLong(55) })));
 
 			Assert::AreEqual(55L, PyLong_AsLong(Python::call(Python::callable(var, "ret"))));
 
@@ -559,7 +560,7 @@ namespace binding_Python
 					Python::call
 					(
 						Python::callable(Python::moduleMain, "sumTest"),
-						Python::controlArgument(Python::tuple(2, PyLong_FromLong(1), PyFloat_FromDouble(2.2)))
+						Python::controlArgument(Python::tuple({ PyLong_FromLong(1), PyFloat_FromDouble(2.2) }))
 					)
 				)
 			);
@@ -609,7 +610,7 @@ namespace binding_Python
 							Python::call
 							(
 								Python::callable(Python::moduleMain, "sumTest"),
-								Python::arguments(2, PyLong_FromLong(1), PyFloat_FromDouble(2.2))
+								Python::arguments({ PyLong_FromLong(1), PyFloat_FromDouble(2.2) })
 							)
 						)
 					);
@@ -625,7 +626,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			const auto tuple(Python::tuple(3, PyLong_FromLong(5), PyFloat_FromDouble(0.42), Python::fromAscii("Test")));
+			const auto tuple(Python::tuple({ PyLong_FromLong(5), PyFloat_FromDouble(0.42), Python::fromAscii("Test") }));
 
 			Assert::IsTrue(PyTuple_CheckExact(tuple));
 
@@ -650,7 +651,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			const auto list(Python::list(3, PyLong_FromLong(5), PyFloat_FromDouble(0.42), Python::fromAscii("Test")));
+			const auto list(Python::list({ PyLong_FromLong(5), PyFloat_FromDouble(0.42), Python::fromAscii("Test") }));
 
 			Assert::IsTrue(PyList_CheckExact(list));
 
@@ -672,7 +673,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			const auto list(Python::list(1, PyLong_FromLong(5)));
+			const auto list(Python::list({ PyLong_FromLong(5) }));
 
 			Python::addList(list, PyFloat_FromDouble(0.42));
 			Python::addList(list, Python::fromAscii("Test"));
@@ -703,8 +704,8 @@ namespace binding_Python
 			const auto ok(Python::fromAscii("testString"));
 			const auto ko(Python::fromAscii("otherString"));
 
-			Assert::IsTrue(Python::call(Python::callable(Python::moduleMain, "checkEqual"), Python::arguments(1, ok)) == Py_True);
-			Assert::IsTrue(Python::call(Python::callable(Python::moduleMain, "checkEqual"), Python::arguments(1, ko)) == Py_False);
+			Assert::IsTrue(Python::call(Python::callable(Python::moduleMain, "checkEqual"), Python::arguments({ ok })).get() == Py_True);
+			Assert::IsTrue(Python::call(Python::callable(Python::moduleMain, "checkEqual"), Python::arguments({ ko })).get() == Py_False);
 
 			Python::shutdown();
 		}
@@ -729,24 +730,21 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Python::execute("def returnX():\n\treturn 5");
+			Python::execute("def returnX():\n\treturn 5654813");
 
 			const auto val(Python::call(Python::callable(Python::moduleMain, "returnX")));
-			const auto refCount(val->ob_refcnt);
+			const auto refCount(val.get()->ob_refcnt);
 
-			Python::keepArgument(val);
+			const auto kept(Python::keepArgument(val));
 
-			Assert::IsTrue(Python::keepArgument(val) == val);
-			Assert::AreEqual(refCount + 2, val->ob_refcnt);
-
-			Python::forgetArgument(val);
-			Assert::AreEqual(refCount + 1, val->ob_refcnt);
+			Assert::IsTrue(kept.get() == val.get());
+			Assert::AreEqual(refCount + 1, val.get()->ob_refcnt);
 
 			Python::forgetArgument(val);
-			Assert::AreEqual(refCount, val->ob_refcnt);
+			Assert::AreEqual(refCount, kept.get()->ob_refcnt);
 
-			Python::forgetArgument(val);
-			Assert::AreEqual(refCount - 1, val->ob_refcnt);
+			Python::forgetArgument(kept);
+			Assert::AreEqual(refCount - 1, kept.get()->ob_refcnt);
 
 			Assert::ExpectException<Python::BindingException>([&val]() { Python::forgetArgument(val); });
 
@@ -761,10 +759,12 @@ namespace binding_Python
 			const auto val(PyFloat_FromDouble(123.456));
 			const auto refCount(val->ob_refcnt);
 
-			Assert::IsTrue(Python::controlArgument(val) == val);
+			const auto handler(Python::controlArgument(val));
+
+			Assert::IsTrue(handler.get() == val);
 			Assert::AreEqual(refCount, val->ob_refcnt);
 
-			Python::forgetArgument(val);
+			Python::forgetArgument(handler);
 			Assert::AreEqual(refCount - 1, val->ob_refcnt);
 
 			Assert::ExpectException<Python::BindingException>([&val]() { Python::forgetArgument(val); });
@@ -802,21 +802,23 @@ namespace binding_Python
 	{
 		TEST_METHOD(executeIsThreadSafe)
 		{
+			const long nbIt(10000000L);
+
 			std::thread t1
 			(
-				[]()
+				[nbIt]()
 				{
 					Python::init("Thread1");
-					Python::execute(Python::Program({ "sum1 = 0", "for i in range(0, 10000000):", "\tsum1 += 1" }));
+					Python::execute(Python::Program({ "sum1 = 0", "for i in range(0, " + String::xtos(nbIt) + "):", "\tsum1 += 1" }));
 				}
 			);
 
 			std::thread t2
 			(
-				[]()
+				[nbIt]()
 				{
 					Python::init("Thread2");
-					Python::execute(Python::Program({ "sum2 = 0", "for i in range(0, 10000000):", "\tsum2 += 1" }));
+					Python::execute(Python::Program({ "sum2 = 0", "for i in range(0, " + String::xtos(nbIt) + "):", "\tsum2 += 1" }));
 				}
 			);
 
@@ -824,19 +826,19 @@ namespace binding_Python
 			t2.join();
 
 			Assert::AreEqual(PyLong_AsLong(Python::object(Python::moduleMain, "sum1")), PyLong_AsLong(Python::object(Python::moduleMain, "sum2")));
-			Assert::AreEqual(10000000L, PyLong_AsLong(Python::object(Python::moduleMain, "sum1")));
+			Assert::AreEqual(nbIt, PyLong_AsLong(Python::object(Python::moduleMain, "sum1")));
 
 			Python::shutdown();
 		}
 
 
-		TEST_METHOD(transactionsAreThreadSafe)
+		TEST_METHOD(apiIsThreadSafe)
 		{
 			Python::init("pythonBinding");
 
 			Python::execute(Python::Program({ "def inc(x):", "\treturn x + 1" }));
 
-			const long nbIt(5000000L);
+			const long nbIt(2000000L);
 			long x(0);
 			long y(0);
 
@@ -849,13 +851,11 @@ namespace binding_Python
 
 					for (long i = 0; i < iterations; ++i)
 					{
-						Python::beginCriticalSection();
-						const auto pyVal(Python::call(inc, Python::arguments(1, PyLong_FromLong(v))));
+						const auto pyVal(Python::call(inc, Python::arguments({ PyLong_FromLong(v) })));
 
 						v = PyLong_AsLong(pyVal); 
 
 						Python::forgetArgument(pyVal);
-						Python::endCriticalSection();
 					}
 
 					return v;
@@ -876,6 +876,74 @@ namespace binding_Python
 
 			Assert::AreEqual(x, y);
 			Assert::AreEqual(nbIt, x);
+
+			Python::shutdown();
+		}
+
+
+		TEST_METHOD(criticalSectionsAreThreadSafe)
+		{
+			Python::init("pythonBinding");
+
+			const long nbIt(25000L);
+			std::vector<Python::ObjectHandler> values;
+
+			std::thread producer
+			(
+				[nbIt, &values]()
+				{
+					Python::execute(Python::Program({ "def dbl(x):", "\treturn 2 * x" }));
+					const auto dbl(Python::callable(Python::moduleMain, "dbl"));
+
+					for (long i = 0; i < nbIt; ++i)
+					{
+						Python::beginCriticalSection();
+
+						const auto res(Python::call(dbl, Python::arguments({ PyLong_FromLong(i) })));
+						Assert::AreEqual(2 * i, PyLong_AsLong(res));
+						values.push_back(res);
+
+						Python::endCriticalSection();
+					}
+				}
+			);
+
+			std::thread consumer
+			{
+				[nbIt, &values]()
+				{
+					long expected(0);
+
+					while (expected < (2 * nbIt))
+					{
+						Python::beginCriticalSection();
+
+						if (values.size())
+						{
+							const auto obj(*values.begin());
+
+							Assert::AreEqual(expected, PyLong_AsLong(obj));
+							Python::forgetArgument(obj);
+							values.erase(values.begin());
+							
+							Python::endCriticalSection();
+
+							expected += 2;
+						}
+						else
+						{
+							Python::endCriticalSection();
+
+							std::this_thread::sleep_for(std::chrono::milliseconds(5));
+						}
+					}
+				}
+			};
+
+			producer.join();
+			consumer.join();
+
+			Assert::AreEqual(size_t(0), values.size());
 
 			Python::shutdown();
 		}
