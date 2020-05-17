@@ -1,4 +1,8 @@
+#include<shlublu/util/Debug.h>
+SHLUBLU_OPTIMIZE_OFF();
+
 #include <unordered_map>
+#include <unordered_set>
 
 #include <shlublu/binding/Python.h>
 
@@ -24,7 +28,7 @@ static wchar_t* __pythonArgv0(nullptr);
 static std::unordered_map<std::string, shlublu::Python::ScopeRef> __pythonModules;
 static std::unordered_map<shlublu::Python::ScopeRef, std::unordered_map<std::string, shlublu::Python::CallableRef>> __pythonCallables;
 
-static std::vector<shlublu::Python::ValueRef> __pythonValues;
+static std::unordered_set<shlublu::Python::ObjectHandler, shlublu::Python::ObjectHandler::Hasher> __pythonObjects;
 
 
 static void __pythonGrab()
@@ -58,20 +62,18 @@ static void __pythonShouldBeInitialized()
 }
 
 
-static void __pythonWithdrawAsCatched(shlublu::Python::ValueRef object)
+static void __pythonWithdrawAsCatched(shlublu::Python::ObjectHandler const& object)
 {
-    const auto where(std::find(__pythonValues.begin(), __pythonValues.end(), object));
-
-    if (where != __pythonValues.end())
+    if (__pythonObjects.count(object))
     {
-        __pythonValues.erase(where);
+        __pythonObjects.erase(object);
     }
 }
 
 
-static void __pythonDecRef(shlublu::Python::ValueRef object)
+static void __pythonDecRef(shlublu::Python::ObjectHandler const& object)
 {
-    if (!object->ob_refcnt)
+    if (!object.get()->ob_refcnt)
     {
         __pythonThrowException("Python::loseArgument(): references count is already zero");
     }
@@ -79,10 +81,9 @@ static void __pythonDecRef(shlublu::Python::ValueRef object)
     Py_DECREF(object);
 }
 
+
 namespace shlublu
 {
-
-const Python::PathEntriesList Python::nullPathEntriesList = Python::PathEntriesList();
 
 const std::string Python::moduleMain = "__main__";
 const std::string Python::moduleBuiltins = "builtins";
@@ -144,11 +145,11 @@ void Python::shutdown()
         }
         __pythonCallables.clear();
 
-        for (auto& value : __pythonValues)
+        for (auto& value : __pythonObjects)
         {
             __pythonDecRef(value);
         }
-        __pythonValues.clear();
+        __pythonObjects.clear();
 
         for (auto& moduleEntry : __pythonModules)
         {
@@ -251,26 +252,26 @@ Python::ScopeRef Python::module(std::string const& moduleName)
 }
 
 
-Python::ValueRef Python::object(ScopeRef scopeRef, std::string const& objectName)
+Python::ObjectHandler const& Python::object(ScopeRef scopeRef, std::string const& objectName)
 {
     __pythonShouldBeInitialized();
 
-    const ValueRef pythonObject(PyObject_GetAttrString(scopeRef, objectName.c_str()));
+    const ObjectHandler pythonObject(PyObject_GetAttrString(scopeRef, objectName.c_str()));
 
-    if (!pythonObject)
+    if (!pythonObject.get())
     {
         __pythonThrowException("Python::object(): Cannot access to object '" + objectName + "'");
     }
 
-    __pythonValues.push_back(pythonObject);
+    const auto& ret(*__pythonObjects.emplace(pythonObject).first);
 
     __pythonRelease();
 
-    return pythonObject;
+    return ret;
 }
 
 
-Python::CallableRef Python::object(std::string const& moduleName, std::string const& objectName)
+Python::ObjectHandler const& Python::object(std::string const& moduleName, std::string const& objectName)
 {
     return object(module(moduleName), objectName);
 }
@@ -320,37 +321,36 @@ Python::CallableRef Python::callable(std::string const& moduleName, std::string 
 }
 
 
-Python::ArgsRef Python::arguments(size_t size...)
+Python::ObjectHandler const& Python::arguments(ObjectHandlersList const& args)
 {
     __pythonShouldBeInitialized();
 
-    ArgsRef args(size ? PyTuple_New(size) : nullptr);
+    const ObjectHandler argsTuple(args.size() ? PyTuple_New(args.size()) : nullptr);
 
-    if (args)
+    if (argsTuple)
     {
-        __pythonValues.push_back(args);
+        __pythonObjects.emplace(argsTuple);
 
-        va_list valist;
-        va_start(valist, size);
+        size_t pos(0);
 
-        for (size_t i = 0; i < size; ++i)
+        for (auto const& object : args)
         {
-            const auto object(va_arg(valist, ValueRef));
-            
-            PyTuple_SetItem(args, i, object);
+            PyTuple_SetItem(argsTuple, pos++, object);
             __pythonWithdrawAsCatched(object);
         }
-
-        va_end(valist);
+    }
+    else
+    {
+        __pythonThrowException("Python::arguments(): failure in creating tuple");
     }
 
     __pythonRelease();
 
-    return args;
+    return *__pythonObjects.find(argsTuple);
 }
 
 
-Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObject, bool keepArguments)
+Python::ObjectHandler const& Python::call(CallableRef callableObject, ObjectHandler argumentsObject, bool keepArguments)
 {
     SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
 
@@ -361,17 +361,19 @@ Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObjec
         __pythonThrowException("Python::call(): argumentsObject is not a tuple");
     }
 
-    const auto ret(PyObject_CallObject(callableObject, argumentsObject));
+    const auto pyRet(PyObject_CallObject(callableObject, argumentsObject));
     
-    if (ret)
-    {
-        __pythonValues.push_back(ret);
-    }
-
     if (argumentsObject && !keepArguments)
     {
         forgetArgument(argumentsObject);
     }
+
+    if (!pyRet)
+    {
+        __pythonThrowException("Python::call(): failure in calling callable");
+    }
+
+    const auto& ret(*__pythonObjects.emplace(pyRet).first);
 
     __pythonRelease();
 
@@ -379,24 +381,19 @@ Python::ValueRef Python::call(CallableRef callableObject, ArgsRef argumentsObjec
 }
 
 
-Python::ValueRef Python::tuple(size_t size...)
+Python::ObjectHandler Python::tuple(ObjectHandlersList const& args)
 {
     __pythonShouldBeInitialized();
 
-    ValueRef objTuple(PyTuple_New(size));
+    const ObjectHandler objTuple(PyTuple_New(args.size()));
 
-    va_list valist;
-    va_start(valist, size);
+    size_t pos(0);
 
-    for (size_t i = 0; i < size; ++i)
+    for (auto const& object : args)
     {
-        const auto object(va_arg(valist, ValueRef));
-
-        PyTuple_SetItem(objTuple, i, object);
+        PyTuple_SetItem(objTuple, pos++, object);
         __pythonWithdrawAsCatched(object);
     }
-
-    va_end(valist);
 
     __pythonRelease();
 
@@ -404,21 +401,19 @@ Python::ValueRef Python::tuple(size_t size...)
 }
 
 
-Python::ValueRef Python::list(size_t size, ...)
+Python::ObjectHandler Python::list(ObjectHandlersList const& args)
 {
     __pythonShouldBeInitialized();
 
-    ValueRef objList(PyList_New(0));
+    const ObjectHandler objList(PyList_New(args.size()));
 
-    va_list valist;
-    va_start(valist, size);
+    size_t pos(0);
 
-    for (size_t i = 0; i < size; ++i)
+    for (auto const& object : args)
     {
-        addList(objList, va_arg(valist, ValueRef));
+        PyList_SetItem(objList, pos++, object);
+        __pythonWithdrawAsCatched(object);
     }
-
-    va_end(valist);
 
     __pythonRelease();
 
@@ -426,7 +421,7 @@ Python::ValueRef Python::list(size_t size, ...)
 }
 
 
-void Python::addList(ValueRef objList, ValueRef item, bool keepArguments)
+void Python::addList(ObjectHandler objList, ObjectHandler item, bool keepArguments)
 {
     SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
 
@@ -451,7 +446,7 @@ void Python::addList(ValueRef objList, ValueRef item, bool keepArguments)
 }
 
 
-Python::ValueRef Python::fromAscii(std::string const& str)
+Python::ObjectHandler Python::fromAscii(std::string const& str)
 {
     __pythonShouldBeInitialized();
 
@@ -463,7 +458,7 @@ Python::ValueRef Python::fromAscii(std::string const& str)
 }
 
 
-std::string Python::toAscii(ValueRef object, bool keepArgument)
+std::string Python::toAscii(ObjectHandler object, bool keepArgument)
 {
     SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
 
@@ -494,59 +489,51 @@ std::string Python::toAscii(ValueRef object, bool keepArgument)
 }
 
 
-Python::ValueRef Python::keepArgument(ValueRef object)
+Python::ObjectHandler const& Python::keepArgument(ObjectHandler const& object)
 {
     __pythonShouldBeInitialized();
 
-    const auto where(std::find(__pythonValues.begin(), __pythonValues.end(), object));
-
-    if (where == __pythonValues.end())
+     if (!__pythonObjects.count(object))
     {
         __pythonThrowException("Python::keepArgument(): Argument is not under control");
     }
-    else
-    {
-        Py_INCREF(object);
-        __pythonValues.push_back(object);
-    }
+
+    Py_INCREF(object);
+
+    const ObjectHandler newHandler(object.get());
+    const auto& ret(*__pythonObjects.emplace(newHandler).first);
 
     __pythonRelease();
 
-    return object;
+    return ret;
 }
 
 
-Python::ValueRef Python::controlArgument(ValueRef object)
+Python::ObjectHandler const& Python::controlArgument(ObjectHandler object)
 {
     __pythonShouldBeInitialized();
 
-    const auto where(std::find(__pythonValues.begin(), __pythonValues.end(), object));
+     if (__pythonObjects.count(object))
+    {
+         __pythonThrowException("Python::controlArgument(): Trying to give control of an object that is already under control");
+    }
 
-    if (where == __pythonValues.end())
-    {
-        __pythonValues.push_back(object);
-    }
-    else
-    {
-        __pythonThrowException("Python::controlArgument(): Trying to give control of an object that is already under control");
-    }
+     const auto& ret (*__pythonObjects.emplace(object).first);
 
     __pythonRelease();
 
-    return object;
+    return ret;
 }
 
 
-void Python::forgetArgument(PyObject* object)
+void Python::forgetArgument(ObjectHandler const& object)
 {
     __pythonShouldBeInitialized();
 
-    const auto where(std::find(__pythonValues.begin(), __pythonValues.end(), object));
-
-    if (where != __pythonValues.end())
+    if (__pythonObjects.count(object))
     {
         __pythonDecRef(object);
-        __pythonValues.erase(where);
+        __pythonObjects.erase(object);
     }
     else
     {

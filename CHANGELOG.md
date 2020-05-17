@@ -2,17 +2,18 @@
 
 ### New features
 
-* Python: added unit tests and improved the documentation.
-* Python: added functions beginCriticalSection() / endCriticalSection()
+* Python:
+  * introduced `ObjectHandler`, compatible with CPython's `PyObject *`
+  * added functions `beginCriticalSection()` / `endCriticalSection()`
+  * added unit tests and improved the documentation.
 
 ### Fixes
 
-* Python: fixed multithreading issue
+* Python: fixed a multithreading issue
 
 ### Compatibility breakers
 
-*none*
-
+* Python: `ValueRef` and `ArgsRef` have been replaced by `ObjectHandler`. Explicit use of htese types should be replaced in your code. 
 
 ## v0.2 - 2020-05-15
 

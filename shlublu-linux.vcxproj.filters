@@ -51,6 +51,9 @@
     <ClCompile Include="src\hash\CRC.c">
       <Filter>src\hash</Filter>
     </ClCompile>
+    <ClCompile Include="src\binding\Python_ObjectHandler.cpp">
+      <Filter>src\binding</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shlublu\async\MutexLock.h">
@@ -70,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\hash\CRC.h">
       <Filter>include\hash</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\binding\Python_ObjectHandler.h">
+      <Filter>include\binding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\binding\Python_BindingException.h">
+      <Filter>src\binding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

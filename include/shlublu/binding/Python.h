@@ -9,10 +9,9 @@
 #include <string>
 #include <vector>
 
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
+#include <shlublu/binding/Python_BindingException.h>
+#include <shlublu/binding/Python_ObjectHandler.h>
 
-#include <shlublu/util/Exceptions.h>
 
 namespace shlublu
 {
@@ -155,10 +154,10 @@ namespace shlublu
 	</ul>
 
 	@attention <b>About concurrency</b><br/>
-	The Python interpreter is unique and shared by all the threads of the process, *and so is its memory state*, including imports and objects.<br /> 
+	The Python interpreter is unique and shared by all the threads of the process, and so is its memory state, including imports and objects.<br /> 
 	All functions below support concurrent access thanks to the use	of a MutexLock. However, groups of Python calls that have a dependency
 	relationship in your C++ code should be surrounded by `beginCriticalSection()` / `endCriticalSection()`	to prevent any concurrent call
-	to the global interpreter to occur in the middle of the section they constitute. Such concurrent accesses would lead the interpreter to crash.<br />
+	to the global interpreter to occur in the middle of the section they constitute and make your reesluts inconsistent.<br />
 	Should you need more isolation, you can use the CPython API to setup
 	<a href="https://docs.python.org/3/c-api/init.html#c.Py_NewInterpreter">multiple interpreters</a> knowing that there are caveats
 	described in the documentation. One of this limitation is <a href="https://docs.python.org/3/c-api/init.html#non-python-created-threads">the use of 
@@ -171,39 +170,15 @@ namespace shlublu
 namespace Python
 {
 	using PathEntriesList = std::vector<std::string>; /**< Path as a vector of strings. */
+
 	using RawCode = std::string; /**< Plain Python code. */
 	using Program = std::vector<RawCode>; /**< Complete program. */
 
 	using ScopeRef = PyObject*; /**< A scope is either an imported mudule, a namespace or an instance of a class. */
 	using CallableRef = PyObject*; /**< Functions and methods. */
-	using ValueRef = PyObject*; /**< Litterals, variables, class members or any object. */
-	using ArgsRef = PyObject*; /**< Arguments to be passed to callables. */
 
-	/**
-		Should an error occur this exception will be thrown.
-	*/
-	class BindingException : public ShlubluException
-	{
-	public:
-		/**
-			Constructor.
-			@param message description of the issue
-		*/
-		explicit BindingException(const std::string& message)
-			: ShlubluException(("Python binding: " + message).c_str())
-		{}
+	using ObjectHandlersList = std::vector<ObjectHandler>;
 
-		/**
-			Constructor.
-			@param message description of the issue
-		*/
-		explicit BindingException(const char* message)
-			: BindingException(std::string(message))
-		{}
-	};
-
-	extern const Python::PathEntriesList nullPathEntriesList; /**< Empty path. */
-	
 	extern const std::string moduleMain; /**< Main module ("__main__"). Imported automatically by `import()`. */
 	extern const std::string moduleBuiltins; /**< Built-ins module ("builtins"). Imported automatically by `import()`. */
 
@@ -224,7 +199,7 @@ namespace Python
 		@param pythonSysPath system path that will be appended to `sys.path` if not already part of it
 		@see <a href="https://docs.python.org/3/c-api/init.html#c.Py_SetProgramName">Py_SetProgramName()</a>
 	*/
-	void init(std::string const& programName, PathEntriesList const& pythonSysPath = nullPathEntriesList);
+	void init(std::string const& programName, PathEntriesList const& pythonSysPath = PathEntriesList());
 
 	/**
 		Shuts down Python.
@@ -268,7 +243,7 @@ namespace Python
 		Using this function is relevant in multi-threaded applications when groups of Python calls have a dependency relationships: 
 		concurrent calls to the interpreter occuring in the middle of the execution of such groups would lead the interpreter to crash.
 
-		Calls to this function should be followed in the same thread by as many calls to endCriticalSection(). Not doing so is
+		Calls to this function should be followed in the same thread by as many calls to `endCriticalSection()`. Not doing so is
 		a cause of deadlocks.
 
 		@exception BindingException if Python is not initialized.
@@ -328,9 +303,9 @@ namespace Python
 	/**
 		Allow other threads to access to the global interpreter.
 
-		Calls to this function should match calls to beginCriticalSection() performed in the same thread.
+		Calls to this function should match calls to `beginCriticalSection()` performed in the same thread.
 
-		@exception BindingException if this call doesn't match a call to beginCriticalSection() performed in the same thread.
+		@exception BindingException if this call doesn't match a call to `beginCriticalSection()` performed in the same thread.
 	*/
 	void endCriticalSection();
 
@@ -378,14 +353,13 @@ namespace Python
 
 	/**
 		Retrieves an object by its name from a scope reference.
-		Objects can be retrieved regardless the way they were created.
 
-		The returned reference is under control of Python for garbage collection. 
+		The returned  handler is under control of Python for garbage collection. 
 		Such a garbage collection is triggered by several functions that all mention this in their documentation.
 
 		@param scopeRef reference to the module, namespace or object the object to retrieve belongs to
 		@param objectName the name of the object to retrieve
-		@return a reference to the retrieved object
+		@return a handler of the retrieved object
 		@exception BindingException if Python is not initialized or if the object cannot be found
 
 		<b>Example</b>
@@ -398,19 +372,19 @@ namespace Python
 		std::cout << String::xtos(PyLong_AsLong(denominator)) << std::endl;
 		@endcode
 	*/
-	ValueRef object(ScopeRef scopeRef, std::string const& objectName);
+	ObjectHandler const& object(ScopeRef scopeRef, std::string const& objectName);
 
 
 	/**
 		Retrieves an object by its name from a module name.
 		Objects can be retrieved regardless the way they were created.
 
-		The returned reference is under control of Python for garbage collection.
+		The returned handler is under control of Python for garbage collection.
 		Such a garbage collection is triggered by several functions that all mention this in their documentation.
 
 		@param moduleName the name of the module the object to retrieve belongs to
 		@param objectName the name of the object to retrieve
-		@return a reference to the retrieved object
+		@return a handler of the retrieved object
 		@exception BindingException if Python is not initialized, if the module has not been imported by `import()`, or if the object cannot be found
 
 		<b>Example</b>
@@ -420,7 +394,7 @@ namespace Python
 		const auto fraction(Python::object(Python::moduleMain, "f"));
 		@endcode
 	*/
-	ValueRef object(std::string const& moduleName, std::string const& objectName);
+	ObjectHandler const& object(std::string const& moduleName, std::string const& objectName);
 
 	/**
 		Retrieves a callable object (function or method) by its name from a scope reference.
@@ -472,34 +446,34 @@ namespace Python
 
 	/**
 		Creates an arguments tuple to pass to `call()`.
-		This function takes ownership (so decreases the references count) of the passed objects.
+		This function steals references of the passed objects: without increasing their references counts at creation
+		time, it decreases them at destruction time.
 		Should these objects be still needed for later use, they should be passed through:
 		<ul>
 			<li>`keepArgument()` for objects that are under control of Python</li>
 			<li>`controlArgument()` for objects that are not under control</li>
 		</ul>
 
-		The returned reference is under control of Python for garbage collection.
+		The returned handler is under control of Python for garbage collection.
 		Such a garbage collection is triggered by several functions that all mention this in their documentation.
 
-		@param size the number of arguments to pass. Zero is ok to create an empty tuple.
-		@param ... `size` object references. They can either be controlled by Python or directly obtained from CPython functions.
-		@return a reference to the created tuple object
+		@param args ordered collection of ObjectHandlers. They can either be controlled by Python or implicitelt created from `PyObject`pointers obtained from CPython functions.
+		@return a handler of the created tuple object
 		@exception BindingException if Python is not initialized
 
 		<b>Example</b>
 		@code
-		const auto args(Python::arguments(1, Python::fromAscii("text to print")));
+		const auto args(Python::arguments( { Python::fromAscii("text to print") } ));
 
 		Python::call(Python::callable(Python::moduleBuiltins, "print"), args);
 		@endcode
 	*/
-	ArgsRef arguments(size_t size...); // Passed arguments: ValueRef's. Their references are stolen.
+	ObjectHandler const& arguments(ObjectHandlersList const& args);
 
 	/**
 		Calls a callable with the given arguments.
 
-		`argumentsObject` is a tuple, typically created by `arguments()`. 
+		`argumentsObject` is a handler of a tuple, typically created by `arguments()`. 
 		A tuple returned by `tuple()` or by direct calls to CPython can also be used as `argumentsObject` if: 
 		<ul>
 			<li>control of this tuple has been given to Python using `controlArgument()`,</li>
@@ -508,14 +482,14 @@ namespace Python
 
 		Once the callable returns, the references count of `argumentsObject` is decreased by a call to `forgetArgument()` unless `keepArguments` is true.
 
-		The returned reference is under control of Python for garbage collection.
+		The returned handler is under control of Python for garbage collection.
 		Such a garbage collection is triggered by several functions that all mention this in their documentation.
 
 		@param callableObject reference to the callable object to call, typically returned by `callable()`
-		@param argumentsObject reference to the arguments tuple to pass, typically returned by `arguments()`. If the callable takes no argument either `nullptr` or an empty tuple is fine.
+		@param argumentsObject handler of the arguments tuple to pass, typically returned by `arguments()`. If the callable takes no argument either `nullptr` or an empty tuple is fine.
 		@param keepArguments if true, the references count of `argumentsObject` will not be decreased so it can be reused later on
-		@return a reference to the result of the call, that can be `None` should the callable return no value.
-		@exception BindingException if Python is not initialized, if `argumentsObject` is neither `nullptr` or a tuple, or if `argumentsObject` is not under control of Python
+		@return a handler of the result of the call, that can be `None` should the callable return no value.
+		@exception BindingException if Python is not initialized, if `argumentsObject` is neither an empty `nullptr` nor a tuple, or if `argumentsObject` is not under control of Python
 
 		<b>Example</b>
 		@code
@@ -525,7 +499,7 @@ namespace Python
 		Python::call(print, args);
 		@endcode
 	*/
-	ValueRef call(CallableRef callableObject, ArgsRef argumentsObject = nullptr, bool keepArguments = false); 
+	ObjectHandler const& call(CallableRef callableObject, ObjectHandler argumentsObject = nullptr, bool keepArguments = false);
 
 	//////////
 	// The returned values below are NOT garbage collected as they are supposed to see their reference stolen by arguments(), tuple() or addList().
@@ -533,21 +507,21 @@ namespace Python
 
 	/**
 		Creates a tuple object.
-		This function takes ownership (so decreases the references count) of the passed objects.
+		This function steals references of the passed objects: without increasing their references counts at creation
+		time, it decreases them at destruction time.
 		Should these objects be still needed for later use, they should be passed through:
 		<ul>
 			<li>`keepArgument()` for objects that are under control of Python</li>
 			<li>`controlArgument()` for objects that are not under control</li>
 		</ul>
 
-		The typical use case of this function is to prepare arguments for other functions of Python.
-		So, to be consistent with the behaviour of the functions of CPython, the returned reference is NOT under control of Python for garbage collection. 
+		The typical use case of this function is to prepare arguments to be passed as parameters to other functions of Python.
+		To be consistent with the behaviour of the functions of CPython, the returned handler is NOT under control of Python for garbage collection. 
 		Should a control by Python be needed or just more convenient, this reference should be passed to `controlArgument()` the same way as a
 		result from a CPython function would be.
 
-		@param size the number of elements of the tuple. Zero is ok to create an empty one.
-		@param ... `size` object references. They can either be controlled by Python or directly obtained from CPython functions.
-		@return a reference to the created tuple object
+		@param args ordered collection of ObjectHandlers. They can either be controlled by Python or implicitelt created from `PyObject`pointers obtained from CPython functions.
+		@return a handler of the created tuple object
 		@exception BindingException if Python is not initialized
 
 		<b>Example</b>
@@ -570,25 +544,25 @@ namespace Python
 		);
 		@endcode
 	*/
-	ValueRef tuple(size_t size...); 
+	ObjectHandler tuple(ObjectHandlersList const& args);
 	
 	/**
 		Creates a list object.
-		This function takes ownership (so decreases the references count) of the passed objects.
+		This function steals references of the passed objects: without increasing their references counts at creation
+		time, it decreases them at destruction time.
 		Should these objects be still needed for later use, they should be passed through:
 		<ul>
 			<li>`keepArgument()` for objects that are under control of Python</li>
 			<li>`controlArgument()` for objects that are not under control</li>
 		</ul>
 
-		The typical use case of this function is to prepare arguments for other functions of Python.
-		So, to be consistent with the behaviour of the functions of CPython, the returned reference is NOT under control of Python for garbage collection.
+		The typical use case of this function is to prepare arguments to be passed as parameters to other functions of Python.
+		To be consistent with the behaviour of the functions of CPython, the returned handler is NOT under control of Python for garbage collection.
 		Should a control by Python be needed or just more convenient, this reference should be passed to `controlArgument()` the same way as a
 		result from a CPython function would be.
 
-		@param size the initial number of elements of the list. Zero is ok to create it empty.
-		@param ... `size` object references. They can either be controlled by Python or directly obtained from CPython functions.
-		@return a reference to the created list object
+		@param args ordered collection of ObjectHandlers. They can either be controlled by Python or implicitelt created from `PyObject`pointers obtained from CPython functions.
+		@return a handler of the created list object
 		@exception BindingException if Python is not initialized
 
 		<b>Example</b>
@@ -613,20 +587,16 @@ namespace Python
 		);
 		@endcode
 	*/
-	ValueRef list(size_t size = 0, ...); 
+	ObjectHandler list(ObjectHandlersList const& args);
 
 	/**
 		Adds an object item to the end of a list.
+		This function steals references of the passed object: without increasing its references count at creation
+		time, it decreases it at destruction time.
+		Should this objects be still needed for later use, `keepArguments` should be set to `true`.
 
-		This function takes ownership (so decreases the references count) of `item`.
-		Should it be needed for later use, it should be passed through:
-		<ul>
-			<li>`keepArgument()` if it is under control of Python</li>
-			<li>`controlArgument()` if it is not under control</li>
-		</ul>
-
-		@param list reference to the list object to add an item to
-		@param item reference to the object itam to add. It can either be controlled by Python or directly obtained from CPython functions.
+		@param list handler of the list object to add an item to. It can either be controlled by Python or implicitely created from a `PyObject`pointer obtained from CPython functions. 
+		@param item handler of the object itam to add. It can either be controlled by Python or implicitely created from a `PyObject`pointer obtained from CPython functions.
 		@param keepArguments if true, the references count of `item` will not be decreased so it can be reused later on
 		@exception BindingException if Python is not initialized or if `list` is not a list
 
@@ -652,18 +622,18 @@ namespace Python
 		);
 		@endcode
 	*/
-	void addList(ValueRef list, ValueRef item, bool keepArguments = false); 
+	void addList(ObjectHandler list, ObjectHandler item, bool keepArguments = false);
 
 	/**
-		Converts a string to a UTF-8 string object.
+		Converts a string to a UTF-8 string object handler.
 
-		The typical use case of this function is to prepare arguments for other functions of Python.
-		So, to be consistent with the behaviour of the functions of CPython, the returned reference is NOT under control of Python for garbage collection.
+		The typical use case of this function is to prepare arguments to be passed as parameters to other functions of Python.
+		To be consistent with the behaviour of the functions of CPython, the returned handler is NOT under control of Python for garbage collection.
 		Should a control by Python be needed or just more convenient, this reference should be passed to `controlArgument()` the same way as a
 		result from a CPython function would be.
 
 		@param str the string to convert
-		@return the UTF-8 string object representation of `str`
+		@return a handler of the UTF-8 string object representation of `str`
 		@exception BindingException if Python is not initialized
 
 		<b>Example</b>
@@ -679,7 +649,7 @@ namespace Python
 		);
 		@endcode
 	*/
-	ValueRef fromAscii(std::string const& str);
+	ObjectHandler fromAscii(std::string const& str);
 
 	//////////
 	// Helper functions to handle ValueRef's returned by call(), object() or straight from CPython
@@ -691,11 +661,11 @@ namespace Python
 		Such results are under control of Python. However this function can also be used with UTF-8 string objects
 		obtained from functions of CPython and that are not under control of Python.
 
-		This function takes ownership (so decreases the references count) of `wstr` unless `keepArgument` is true.
+		This function steals references of `wstr` unless `keepArgument` is true.
 
 		@param wstr the UTF-8 string object to convert
 		@param keepArgument if true, the references count of `wstr` will not be decreased so it can be reused later on
-		@return the string representation of `wstr`
+		@return a handler of the string representation of `wstr`
 		@exception BindingException if Python is not initialized or if `wstr` is not a UTF-8 string object
 
 		<b>Example</b>
@@ -707,17 +677,17 @@ namespace Python
 		std::cout << text << std::endl;
 		@endcode
 	*/
-	std::string toAscii(ValueRef wstr, bool keepArgument = false); 
+	std::string toAscii(ObjectHandler wstr, bool keepArgument = false);
 
 	//////////
 	// Helper functions to handle references
 
 	/**
-		Increases the reference count of an object under control.
-		This function allows keeping ownership of arguments submitted to functions that take ownership by decreasing their references count.
+		Prevents an object reference from being stolen. 
+		This function increases the reference count of an object under control. This prevents reference-stealing functions from taking ownership of the object.
 
-		@param object the object to protect from ownsership loss
-		@return `object` itself
+		@param object a handler of the object to preserve. It shoud be under control of Python.
+		@return a new handler of `object` 
 		@exception BindingException if Python is not initialized or if `object` is not under control
 
 		<b>Example</b>
@@ -741,15 +711,15 @@ namespace Python
 		// We still have a reference on pyX. We can get rid of it right now using Python::forgetArgument() or let Python::shutdown() dispose of it
 		@endcode
 	*/
-	ValueRef keepArgument(ValueRef object); // Keep a reference on ValueRef's that are normally stolen by ref-stealing functions above and pass it under Python's control
+	ObjectHandler const& keepArgument(ObjectHandler const& object);
 
 
 	/**
-		Gives Python control of an object.
-		This makes Python aware of this object to handle its garbage collection process.
+		Places an object under cntrol of Python.
+		This makes Python aware of this object and include it in its garbage collection process.
 
-		@param object the object to be controlled
-		@return `object` itself
+		@param a handler object the object to be controlled, miplicitely created from a `PyObject` pointer obtained from CPython API 
+		@return a new handler of `object` 
 		@exception BindingException if Python is not initialized or if `object` is already under control
 
 		<b>Example</b>
@@ -772,13 +742,13 @@ namespace Python
 		// We still have a reference on pyX. As it is under control we can let Python::shutdown() dispose of it
 		@endcode
 	*/
-	ValueRef controlArgument(ValueRef object); // Give Python the ownership of the passed objet created from outside without changing its references count. Object should not be controlled already. 
+	ObjectHandler const& controlArgument(ObjectHandler object); // Give Python the ownership of the passed objet created from outside without changing its references count. Object should not be controlled already. 
 
 	/**
 		Get rid of a reference of an object under control.
 		This function allows saving memory by decreasing the reference count of an object that is no longer used without waiting for `shutdown()` to do it.
 
-		@param object the object to forget
+		@param object a handler of the object to forget
 		@exception BindingException if Python is not initialized, if `object` is not under control, or if the references count of `object` is zero
 
 		<b>Example</b>
@@ -803,7 +773,7 @@ namespace Python
 		// We let Python::shutdown() dispose of the remaining references of min and max, that's ok.
 		@endcode
 	*/
-	void forgetArgument(PyObject* object); // Forgets an object under control after having decreased its references count
+	void forgetArgument(ObjectHandler const& object); // Forgets an object under control after having decreased its references count
 }
 
 }

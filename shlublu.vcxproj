@@ -21,12 +21,15 @@
   <ItemGroup>
     <ClCompile Include="src\async\MutexLock.cpp" />
     <ClCompile Include="src\binding\Python.cpp" />
+    <ClCompile Include="src\binding\Python_ObjectHandler.cpp" />
     <ClCompile Include="src\hash\CRC.c" />
     <ClCompile Include="src\text\String.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shlublu\async\MutexLock.h" />
     <ClInclude Include="include\shlublu\binding\Python.h" />
+    <ClInclude Include="include\shlublu\binding\Python_BindingException.h" />
+    <ClInclude Include="include\shlublu\binding\Python_ObjectHandler.h" />
     <ClInclude Include="include\shlublu\hash\CRC.h" />
     <ClInclude Include="include\shlublu\text\String.h" />
     <ClInclude Include="include\shlublu\util\Debug.h" />

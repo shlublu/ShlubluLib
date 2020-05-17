@@ -24,5 +24,8 @@
     <ClCompile Include="tests\hash\TestCRC.cpp">
       <Filter>tests\hash</Filter>
     </ClCompile>
+    <ClCompile Include="tests\binding\TestPython_ObjectHandler.cpp">
+      <Filter>tests\binding</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
