@@ -175,6 +175,7 @@
   <ItemGroup>
     <ClCompile Include="tests\binding\TestPython_ObjectHandler.cpp" />
     <ClCompile Include="tests\binding\TestPython.cpp" />
+    <ClCompile Include="tests\binding\TestPython_ObjectHandlersColection.cpp" />
     <ClCompile Include="tests\hash\TestCRC.cpp" />
     <ClCompile Include="tests\text\TestString.cpp" />
   </ItemGroup>

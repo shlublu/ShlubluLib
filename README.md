@@ -60,8 +60,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip.asc) - SHA-256: `4ce0c2cff649297bad791092c6988c9b6023db599efdbf37f949aa284d31dc24`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip.asc) - SHA-256: `2ce011a85a25b4b2fe3698318be82fb89fb4a08326eb766f9a1537a82de91420`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip.asc) - SHA-256: `0ae00fb99fcc1e14d9b7bcf211ef7f1fd1f8e2af8db4e4897179f76e9644c8d2`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip.asc) - SHA-256: `6762bcb2d7c16ab68cef2dd03132476d7a7533b6d18b4c57aaa196aba26cda36`)
 
 These archives are signed with [my PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
 * the library file to link to your client programs
