@@ -1,5 +1,11 @@
 #pragma once
 
+/** @file
+	Subpart of the Python module.
+
+	See Python namespace documentation for details.
+*/
+
 #include <shlublu/util/Exceptions.h>
 
 

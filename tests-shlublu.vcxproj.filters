@@ -27,5 +27,8 @@
     <ClCompile Include="tests\binding\TestPython_ObjectHandler.cpp">
       <Filter>tests\binding</Filter>
     </ClCompile>
+    <ClCompile Include="tests\binding\TestPython_ObjectHandlersColection.cpp">
+      <Filter>tests\binding</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

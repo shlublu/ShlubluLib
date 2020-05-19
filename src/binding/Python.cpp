@@ -1,109 +1,89 @@
-#include<shlublu/util/Debug.h>
-SHLUBLU_OPTIMIZE_OFF();
-
 #include <unordered_map>
-#include <unordered_set>
 
 #include <shlublu/binding/Python.h>
+#include <shlublu/binding/Python_ObjectHandlersCollection.h>
 
 #include <shlublu/async/MutexLock.h>
 #include <shlublu/text/String.h>
 
-#include <shlublu/util/Debug.h>
 
 #ifdef _WIN32
 #pragma warning( disable : 6285)
 #endif
 
 
-// Useful documentation:
-// https://docs.python.org/fr/3/extending/embedding.html#embedding-python-in-c
-// https://docs.python.org/3/c-api/
-
-
-static shlublu::MutexLock __pythonLock(false);
-
-static wchar_t* __pythonArgv0(nullptr);
-
-static std::unordered_map<std::string, shlublu::Python::ScopeRef> __pythonModules;
-static std::unordered_map<shlublu::Python::ScopeRef, std::unordered_map<std::string, shlublu::Python::CallableRef>> __pythonCallables;
-
-static std::unordered_set<shlublu::Python::ObjectHandler, shlublu::Python::ObjectHandler::Hasher> __pythonObjects;
-
-
-static void __pythonGrab()
+namespace shlublu
 {
-    __pythonLock.queueLock();
+
+namespace Python
+{
+static std::unordered_map<std::string, ObjectPointer> __modules;
+static std::unordered_map<ObjectPointer, std::unordered_map<std::string, ObjectPointer>> __callables;
+static ObjectHandlersCollection __sObjects;
+
+
+static wchar_t* __sArgv0(nullptr);
+static MutexLock __sLock(false);
+
+
+static void __throwException(std::string const& message)
+{
+    throw BindingException(message);
 }
 
 
-static void __pythonRelease()
+static void __shouldBeInitialized()
 {
-    __pythonLock.unlock();
-}
-
-
-static void __pythonThrowException(std::string const& message)
-{
-    __pythonRelease();
- 
-    throw shlublu::Python::BindingException(message);
-}
-
-
-static void __pythonShouldBeInitialized()
-{
-    __pythonGrab();
-
-    if (!__pythonArgv0)
+    if (!isInitialized())
     {
-        __pythonThrowException("__pythonShouldBeInitialized(): not in initialized state.");
+        __throwException("__shouldBeInitialized(): not in initialized state.");
     }
 }
 
 
-static void __pythonWithdrawAsCatched(shlublu::Python::ObjectHandler const& object)
+static void __decRef(ObjectHandler const& object)
 {
-    if (__pythonObjects.count(object))
+    if (object.get()->ob_refcnt < 1)
     {
-        __pythonObjects.erase(object);
-    }
-}
-
-
-static void __pythonDecRef(shlublu::Python::ObjectHandler const& object)
-{
-    if (!object.get()->ob_refcnt)
-    {
-        __pythonThrowException("Python::loseArgument(): references count is already zero");
+        __throwException("Python::__DecRef(): references count is already " + String::xtos(object.get()->ob_refcnt));
     }
 
     Py_DECREF(object);
 }
 
 
-namespace shlublu
+static void __handleObjectUnregistration(ObjectHandler const& object, bool keepArg)
 {
-
-const std::string Python::moduleMain = "__main__";
-const std::string Python::moduleBuiltins = "builtins";
-
-
-bool Python::isInitialized()
-{
-    return __pythonArgv0 != nullptr;
+    if (keepArg)
+    {
+        Py_INCREF(object);
+    }
+    else if (__sObjects.isRegistered(object))
+    {
+        __sObjects.unregisterObject(object);
+    }
 }
 
 
-void Python::init(std::string const& programName, PathEntriesList const& pathList)
+const std::string moduleMain = "__main__";
+const std::string moduleBuiltins = "builtins";
+
+
+bool isInitialized()
 {
-    __pythonGrab();
+    return __sArgv0 != nullptr;
+}
 
-    if (__pythonArgv0 == nullptr)
+
+void init(std::string const& programName, PathEntriesList const& pathList)
+{
+    MutexLock::Guard guard(__sLock);
+
+    if (__sArgv0 == nullptr)
     {
-        __pythonArgv0 = Py_DecodeLocale(programName.c_str(), nullptr);
+        __sArgv0 = Py_DecodeLocale(programName.c_str(), nullptr);
 
-        Py_SetProgramName(__pythonArgv0);
+        Py_SetProgramName(__sArgv0);
         Py_Initialize();
         
         if (!PyEval_ThreadsInitialized())
@@ -123,64 +103,57 @@ void Python::init(std::string const& programName, PathEntriesList const& pathLis
     {
         execute("if '" + pathEntry + "' not in  sys.path:\n\tsys.path.append('" + pathEntry + "')");
     }
-
-    __pythonRelease();
 }
 
 
-void Python::shutdown()
+void shutdown()
 {
-    SHLUBLU_TODO("References count deserves a unit test suite");
+    MutexLock::Guard guard(__sLock);
 
-    __pythonGrab();
-
-    if (__pythonArgv0)
+    if (__sArgv0)
     {
-        for (auto& callableMapEntry : __pythonCallables)
+        for (auto& callableMapEntry : __callables)
         {
             for (auto& callableEntry : callableMapEntry.second)
             {
-                __pythonDecRef(callableEntry.second);
+                __decRef(callableEntry.second);
             }
         }
-        __pythonCallables.clear();
+        __callables.clear();
 
-        for (auto& value : __pythonObjects)
+        for (auto& value : __sObjects)
         {
-            __pythonDecRef(value);
+            __decRef(value);
         }
-        __pythonObjects.clear();
+        __sObjects.clear();
 
-        for (auto& moduleEntry : __pythonModules)
+        for (auto& moduleEntry : __modules)
         {
-            __pythonDecRef(moduleEntry.second);
+            __decRef(moduleEntry.second);
         }
-        __pythonModules.clear();
+        __modules.clear();
 
         Py_Finalize();
-        PyMem_RawFree(__pythonArgv0);
+        PyMem_RawFree(__sArgv0);
 
-        __pythonArgv0 = nullptr;
+        __sArgv0 = nullptr;
     }
-
-    __pythonRelease();
 }
 
 
-void Python::execute(RawCode const& code)
+void execute(RawCode const& code)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
     if (PyRun_SimpleString(code.c_str()) < 0)
     {
-        __pythonThrowException("Python::execute(): Instruction '" + code + "' caused an error");
+        __throwException("Python::execute(): Instruction '" + code + "' caused an error");
     }
-
-    __pythonRelease();
 }
 
 
-void Python::execute(Program const& program)
+void execute(Program const& program)
 {
     RawCode code;
 
@@ -193,354 +166,314 @@ void Python::execute(Program const& program)
 }
 
 
-void Python::beginCriticalSection()
+void beginCriticalSection()
 {
-    __pythonShouldBeInitialized();
+    __sLock.lock();
+
+    try
+    {
+        __shouldBeInitialized();
+    }
+    catch (std::exception const& e)
+    {
+        __sLock.unlock();
+        throw e;
+    }
 }
 
 
-void Python::endCriticalSection()
+void endCriticalSection()
 {
-    __pythonRelease();
+    __sLock.unlock();
 }
 
 
-Python::ScopeRef Python::import(std::string const& moduleName)
+ObjectPointer import(std::string const& moduleName)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    ScopeRef pythonModule(nullptr);
+    ObjectPointer pythonModule(nullptr);
 
-    if (!__pythonModules.count(moduleName))
+    if (!__modules.count(moduleName))
     {
         const auto pythonModuleName(PyUnicode_DecodeFSDefault(moduleName.c_str()));
         pythonModule = PyImport_Import(pythonModuleName);
-        __pythonDecRef(pythonModuleName);
+        __decRef(pythonModuleName);
 
         if (!pythonModule)
         {
-            __pythonThrowException("Python::import(): Cannot import module '" + moduleName + "'");
+            __throwException("Python::import(): Cannot import module '" + moduleName + "'");
         }
 
-        __pythonModules.emplace(moduleName, pythonModule);
+        __modules.emplace(moduleName, pythonModule);
     }
     else
     {
-        pythonModule = __pythonModules.at(moduleName);
+        pythonModule = __modules.at(moduleName);
     }
-
-    __pythonRelease();
 
     return pythonModule;
 }
 
 
-Python::ScopeRef Python::module(std::string const& moduleName)
+ObjectPointer module(std::string const& moduleName)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    if (!__pythonModules.count(moduleName))
+    if (!__modules.count(moduleName))
     {
-        __pythonThrowException("Python::module(): Cannot retrieve '" + moduleName + "' in imported modules");
+        __throwException("Python::module(): Cannot retrieve '" + moduleName + "' in imported modules");
     }
 
-    auto const& ret(__pythonModules.at(moduleName));
-
-    __pythonRelease();
+    auto const& ret(__modules.at(moduleName));
 
     return ret;
 }
 
 
-Python::ObjectHandler const& Python::object(ScopeRef scopeRef, std::string const& objectName)
+ObjectHandler const& object(ObjectPointer scope, std::string const& objectName)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    const ObjectHandler pythonObject(PyObject_GetAttrString(scopeRef, objectName.c_str()));
+    const ObjectHandler pythonObject(PyObject_GetAttrString(scope, objectName.c_str()));
 
     if (!pythonObject.get())
     {
-        __pythonThrowException("Python::object(): Cannot access to object '" + objectName + "'");
+        __throwException("Python::object(): Cannot access to object '" + objectName + "'");
     }
 
-    const auto& ret(*__pythonObjects.emplace(pythonObject).first);
-
-    __pythonRelease();
-
-    return ret;
+    return __sObjects.registerObject(pythonObject);
 }
 
 
-Python::ObjectHandler const& Python::object(std::string const& moduleName, std::string const& objectName)
+ObjectHandler const& object(std::string const& moduleName, std::string const& objectName)
 {
     return object(module(moduleName), objectName);
 }
 
 
-Python::CallableRef Python::callable(ScopeRef scopeRef, std::string const& callableName, bool forceReload)
+ObjectPointer callable(ObjectPointer scope, std::string const& callableName, bool forceReload)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    CallableRef pythonCallable(nullptr);
+    ObjectPointer pythonCallable(nullptr);
 
-    if (!__pythonCallables.count(scopeRef) || !__pythonCallables.at(scopeRef).count(callableName) || forceReload)
+    if (!__callables.count(scope) || !__callables.at(scope).count(callableName) || forceReload)
     {
-        pythonCallable = PyObject_GetAttrString(scopeRef, callableName.c_str());
+        pythonCallable = PyObject_GetAttrString(scope, callableName.c_str());
 
         if (!pythonCallable)
         {
-            __pythonThrowException("Python::callable(): Cannot access to callable '" + callableName + "'");
+            __throwException("Python::callable(): Cannot access to callable '" + callableName + "'");
         }
 
         if (!PyCallable_Check(pythonCallable))
         {
-            __pythonThrowException("Python::callable(): '" + callableName + "' is not callable");
+            __throwException("Python::callable(): '" + callableName + "' is not callable");
         }
 
-        if (__pythonCallables.count(scopeRef) && __pythonCallables.at(scopeRef).count(callableName))
+        if (__callables.count(scope) && __callables.at(scope).count(callableName))
         {
-            __pythonDecRef(callable(scopeRef, callableName, false));
+            __decRef(callable(scope, callableName, false));
         }
 
-        __pythonCallables[scopeRef][callableName] = pythonCallable;
+        __callables[scope][callableName] = pythonCallable;
     }
     else
     {
-        pythonCallable = __pythonCallables.at(scopeRef).at(callableName);
+        pythonCallable = __callables.at(scope).at(callableName);
     }
-
-    __pythonRelease();
 
     return pythonCallable;
 }
 
 
-Python::CallableRef Python::callable(std::string const& moduleName, std::string const& callableName, bool forceReload)
+ObjectPointer callable(std::string const& moduleName, std::string const& callableName, bool forceReload)
 {
     return callable(module(moduleName), callableName, forceReload);
 }
 
 
-Python::ObjectHandler const& Python::arguments(ObjectHandlersList const& args)
+ObjectHandler const& call(ObjectPointer callableObject, ObjectHandlersList const& args, bool keepArguments)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    const ObjectHandler argsTuple(args.size() ? PyTuple_New(args.size()) : nullptr);
-
-    if (argsTuple)
-    {
-        __pythonObjects.emplace(argsTuple);
-
-        size_t pos(0);
-
-        for (auto const& object : args)
-        {
-            PyTuple_SetItem(argsTuple, pos++, object);
-            __pythonWithdrawAsCatched(object);
-        }
-    }
-    else
-    {
-        __pythonThrowException("Python::arguments(): failure in creating tuple");
-    }
-
-    __pythonRelease();
-
-    return *__pythonObjects.find(argsTuple);
-}
-
-
-Python::ObjectHandler const& Python::call(CallableRef callableObject, ObjectHandler argumentsObject, bool keepArguments)
-{
-    SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
-
-    __pythonShouldBeInitialized();
-
-    if (argumentsObject && !PyTuple_Check(argumentsObject))
-    {
-        __pythonThrowException("Python::call(): argumentsObject is not a tuple");
-    }
-
-    const auto pyRet(PyObject_CallObject(callableObject, argumentsObject));
+    const auto pyArgsTuple(args.size() ? tuple(args, keepArguments) : nullptr);
+    const auto pyRet(PyObject_CallObject(callableObject, pyArgsTuple));
     
-    if (argumentsObject && !keepArguments)
+    if (pyArgsTuple)
     {
-        forgetArgument(argumentsObject);
+        forgetArgument(pyArgsTuple);
     }
 
     if (!pyRet)
     {
-        __pythonThrowException("Python::call(): failure in calling callable");
+        __throwException("Python::call(): failure in calling callable");
     }
 
-    const auto& ret(*__pythonObjects.emplace(pyRet).first);
-
-    __pythonRelease();
-
-    return ret;
+    return __sObjects.registerObject(pyRet);
 }
 
 
-Python::ObjectHandler Python::tuple(ObjectHandlersList const& args)
+ObjectHandler tuple(ObjectHandlersList const& args, bool keepArguments)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    const ObjectHandler objTuple(PyTuple_New(args.size()));
+    const ObjectHandler tuple(PyTuple_New(args.size()));
+
+    if (!tuple)
+    {
+        __throwException("Python::tuple(): failure in creating tuple");
+    }
+
+    const auto& ret(__sObjects.registerObject(tuple));
 
     size_t pos(0);
 
     for (auto const& object : args)
     {
-        PyTuple_SetItem(objTuple, pos++, object);
-        __pythonWithdrawAsCatched(object);
+        __handleObjectUnregistration(object, keepArguments);
+
+        PyTuple_SetItem(tuple, pos++, object);
     }
 
-    __pythonRelease();
-
-    return objTuple;
+    return ret;
 }
 
 
-Python::ObjectHandler Python::list(ObjectHandlersList const& args)
+ObjectHandler list(ObjectHandlersList const& args, bool keepArguments)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    const ObjectHandler objList(PyList_New(args.size()));
+    const ObjectHandler list(PyList_New(args.size()));
+
+    if (!list)
+    {
+        __throwException("Python::list(): failure in creating list");
+    }
+
+    const auto& ret(__sObjects.registerObject(list));
 
     size_t pos(0);
 
     for (auto const& object : args)
     {
-        PyList_SetItem(objList, pos++, object);
-        __pythonWithdrawAsCatched(object);
+        __handleObjectUnregistration(object, keepArguments);
+
+        PyList_SetItem(list, pos++, object);
     }
-
-    __pythonRelease();
-
-    return objList;
-}
-
-
-void Python::addList(ObjectHandler objList, ObjectHandler item, bool keepArguments)
-{
-    SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
-
-    __pythonShouldBeInitialized();
-
-    if (PyList_Check(objList))
-    {
-        PyList_Append(objList, item);
-
-        if (!keepArguments)
-        {
-            __pythonDecRef(item);
-            __pythonWithdrawAsCatched(item);
-        }
-    }
-    else
-    {
-        __pythonThrowException("Python::addList(): Trying to add an item to an object that is not a list");
-    }
-
-    __pythonRelease();
-}
-
-
-Python::ObjectHandler Python::fromAscii(std::string const& str)
-{
-    __pythonShouldBeInitialized();
-
-    const auto ret(PyUnicode_FromWideChar(String::toWString(str).c_str(), -1));
-
-    __pythonRelease();
 
     return ret;
 }
 
 
-std::string Python::toAscii(ObjectHandler object, bool keepArgument)
+void addList(ObjectHandler objList, ObjectHandler item, bool keepArguments)
 {
-    SHLUBLU_TODO("Parameter keepArguments deserves a unit test");
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    __pythonShouldBeInitialized();
-
-    std::string ret;
-
-    if (PyUnicode_Check(object))
+    if (!PyList_Check(objList))
     {
-        wchar_t* wstr(PyUnicode_AsWideCharString(object, nullptr));
-        ret = String::fromWString(wstr);
-        PyMem_Free(wstr);
-
-        if (!keepArgument)
-        {
-            __pythonDecRef(object);
-            __pythonWithdrawAsCatched(object);
-        }
-    }
-    else
-    {
-        __pythonThrowException("Python::toAscii(): Trying to convert an object that is not a Unicode string to an ASCII string");
+        __throwException("Python::addList(): Trying to add an item to an object that is not a list");
     }
 
-    __pythonRelease();
+    __handleObjectUnregistration(item, keepArguments);
+
+    PyList_Append(objList, item);
+    __decRef(item);
+}
+
+
+ObjectHandler fromAscii(std::string const& str)
+{
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
+
+    const auto object(PyUnicode_FromWideChar(String::toWString(str).c_str(), -1));
+
+    return __sObjects.registerObject(object);
+}
+
+
+std::string toAscii(ObjectHandler object, bool keepArg)
+{
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
+
+    if (!PyUnicode_Check(object))
+    {
+        __throwException("Python::toAscii(): Trying to convert an object that is not a Unicode string to an ASCII string");
+    }
+
+    wchar_t* wstr(PyUnicode_AsWideCharString(object, nullptr));
+    const std::string ret(String::fromWString(wstr));
+    PyMem_Free(wstr);
+
+    __handleObjectUnregistration(object, keepArg);
+
+    if (!keepArg)
+    {
+        __decRef(object);
+    }
 
     return ret;
 }
 
 
-Python::ObjectHandler const& Python::keepArgument(ObjectHandler const& object)
+ObjectHandler const& keepArgument(ObjectHandler const& object)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-     if (!__pythonObjects.count(object))
+    if (!__sObjects.isRegistered(object))
     {
-        __pythonThrowException("Python::keepArgument(): Argument is not under control");
+        __throwException("Python::keepArgument(): object is not under control");
     }
 
     Py_INCREF(object);
 
     const ObjectHandler newHandler(object.get());
-    const auto& ret(*__pythonObjects.emplace(newHandler).first);
-
-    __pythonRelease();
-
-    return ret;
+    
+    return __sObjects.registerObject(newHandler);
 }
 
 
-Python::ObjectHandler const& Python::controlArgument(ObjectHandler object)
+ObjectHandler const& controlArgument(ObjectHandler object)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-     if (__pythonObjects.count(object))
+    if (__sObjects.isRegistered(object))
     {
-         __pythonThrowException("Python::controlArgument(): Trying to give control of an object that is already under control");
+         __throwException("Python::controlArgument(): Trying to give control of an object that is already under control");
     }
 
-     const auto& ret (*__pythonObjects.emplace(object).first);
-
-    __pythonRelease();
-
-    return ret;
+    return __sObjects.registerObject(object);
 }
 
 
-void Python::forgetArgument(ObjectHandler const& object)
+void forgetArgument(ObjectHandler const& object)
 {
-    __pythonShouldBeInitialized();
+    MutexLock::Guard guard(__sLock);
+    __shouldBeInitialized();
 
-    if (__pythonObjects.count(object))
+    if (!__sObjects.isRegistered(object))
     {
-        __pythonDecRef(object);
-        __pythonObjects.erase(object);
-    }
-    else
-    {
-        __pythonThrowException("Python::forgetArgument(): Trying to forget an object that is not under control");
+        __throwException("Python::forgetArgument(): Trying to forget an object that is not under control");
     }
 
-    __pythonRelease();
+    __decRef(object);
+    __sObjects.unregisterObject(object);
 }
 
 }
+
+}
+

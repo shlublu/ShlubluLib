@@ -1,19 +1,26 @@
-## v0.3 - XXXX-XX-XX
+## v0.3 - 2020-05-19
 
 ### New features
 
-* Python:
-  * introduced `ObjectHandler`, compatible with CPython's `PyObject *`
-  * added functions `beginCriticalSection()` / `endCriticalSection()`
+* `MutexLock`:
+  * Introduced `Guard` (`std::lock_guard<MutexLock>`)
+* `Python`: 
+  * revisited the whole API to make it simpler to use and more stable:
+    * removed function `arguments()`. Arguments are passed straight as a vector or an initializer list to the `call()` function
+    * functions `tuple()` and `list()` take a vector or an initializer list as an argument. Ellipsis are no longer used.
+    * introduced `ObjectHandler`, silently compatible with CPython `PyObject *` based API 
+  * added functions `beginCriticalSection()` / `endCriticalSection()` to define critical sections in multithreaded applications
   * added unit tests and improved the documentation.
 
 ### Fixes
 
-* Python: fixed a multithreading issue
+* `Python`: fixed a multithreading issue
 
 ### Compatibility breakers
 
-* Python: `ValueRef` and `ArgsRef` have been replaced by `ObjectHandler`. Explicit use of htese types should be replaced in your code. 
+* `Python`: API has been completely revisited (see above), though its philosophy remains unchanged. Changes in your code are expected to be strightforward. 
+* `MutexLock`: renamed `queueLock()` in `lock()`. Your code should be adapted the same way.
+
 
 ## v0.2 - 2020-05-15
 

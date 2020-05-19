@@ -16,7 +16,7 @@ MutexLock::MutexLock(bool take)
 {
 	if (take)
 	{
-		queueLock();
+		lock();
 	}
 }
 
@@ -30,7 +30,7 @@ MutexLock::~MutexLock()
 }
 
 
-void MutexLock::queueLock() 
+void MutexLock::lock() 
 { 
 	mMutex.lock();
 
@@ -58,5 +58,6 @@ void MutexLock::unlock()
 		throw ShlubluException("MutexLock::unlock(): trying to unlock while not having ownership.");
 	}
 }
+
 
 }

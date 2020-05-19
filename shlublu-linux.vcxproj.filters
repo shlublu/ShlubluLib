@@ -54,6 +54,9 @@
     <ClCompile Include="src\binding\Python_ObjectHandler.cpp">
       <Filter>src\binding</Filter>
     </ClCompile>
+    <ClCompile Include="src\binding\Python_ObjectHandlersCollection.cpp">
+      <Filter>src\binding</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shlublu\async\MutexLock.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\binding\Python_BindingException.h">
       <Filter>src\binding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\binding\Python_ObjectHandlersCollection.h">
+      <Filter>include\binding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

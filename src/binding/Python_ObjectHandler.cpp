@@ -1,6 +1,3 @@
-#include <shlublu/util/Debug.h>
-SHLUBLU_OPTIMIZE_OFF();
-
 #include <shlublu/binding/Python_ObjectHandler.h>
 
 #include<utility>
@@ -8,14 +5,14 @@ SHLUBLU_OPTIMIZE_OFF();
 #include <shlublu/async/MutexLock.h>
 
 
-static shlublu::MutexLock __pythonSequenceLock;
-
-
 namespace shlublu
 {
 
 namespace Python
 {
+
+static MutexLock __sLock;
+
 
 int64_t ObjectHandler::Hasher::operator () (ObjectHandler const& key) const
 {
@@ -28,11 +25,9 @@ uint64_t ObjectHandler::sSequence(0);
 
 uint64_t ObjectHandler::nextId()
 {
-	__pythonSequenceLock.queueLock();
+	MutexLock::Guard guard(__sLock);
 
 	const uint64_t ret(++sSequence);
-
-	__pythonSequenceLock.unlock();
 
 	return ret;
 }
