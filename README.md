@@ -30,18 +30,18 @@ see the file "EUPL LICENCE.txt", or read the [EUPL text online](https://joinup.e
 
 This library currently consists in the following modules:
 * `async`: threading and asynchronous operations
-  * `MutexLock`: Recursive mutex helper based on [*std::recursive_mutex*](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
+  * `MutexLock`: Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
 * `binding`: interactions with other languages
   * `Python`: based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
 * `hash`: hash algorithms
   * `CRC`: cyclic redundancy check.
 * `text`: text content handling
-  * `String`: helper functions that are not included in [*std::string*](https://www.cplusplus.com/reference/string/string/).
+  * `String`: helper functions that are not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
   * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * `Exceptions`: Named exceptions derived from [std::exception](https://www.cplusplus.com/reference/exception/exception/). 
+  * `Exceptions`: Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 
 
-The Doxygen documentation of these modules is available online at [shlublulib.shlublu.org/v0.3/](http://shlublulib.shlublu.org/v0.3/).
+The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.3/](http://shlublulib.shlublu.org/v0.3/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -63,7 +63,7 @@ Should you just wish to use Shlublulib as a development tool, the binary distrib
 * [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip.asc) - SHA-256: `0ae00fb99fcc1e14d9b7bcf211ef7f1fd1f8e2af8db4e4897179f76e9644c8d2`)
 * [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip.asc) - SHA-256: `6762bcb2d7c16ab68cef2dd03132476d7a7533b6d18b4c57aaa196aba26cda36`)
 
-These archives are signed with [my PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
+These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
 * the library file to link to your client programs
 * the `include` directory to add to your include path 
 * the license file "EUPL LICENCE.txt" applicable to this library
