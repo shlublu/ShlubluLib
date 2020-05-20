@@ -177,6 +177,7 @@
     <ClCompile Include="tests\binding\TestPython.cpp" />
     <ClCompile Include="tests\binding\TestPython_ObjectHandlersColection.cpp" />
     <ClCompile Include="tests\hash\TestCRC.cpp" />
+    <ClCompile Include="tests\random\TestRandom.cpp" />
     <ClCompile Include="tests\text\TestString.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

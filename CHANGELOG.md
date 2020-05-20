@@ -1,3 +1,18 @@
+## v0.4 - XXXX-XX-XX
+
+### New features
+
+* Added `Random` namespace and `random` module.
+
+### Fixes
+
+*none*
+
+### Compatibility breakers
+
+*none*
+
+
 ## v0.3 - 2020-05-19
 
 ### New features

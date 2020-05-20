@@ -407,6 +407,7 @@ namespace Python
 		Such a garbage collection is triggered by several functions. This is mentioned in their documentation.
 
 		@param args initializer of the tuple. These arguments can either be obtained from previous Python calls or from CPython calls. Empty to create an empty tuple.
+		@param keepArguments if true, no references will be stolen from `args`
 		@return a handler of the created tuple object
 		@exception BindingException if Python is not initialized
 
@@ -437,6 +438,7 @@ namespace Python
 		Such a garbage collection is triggered by several functions. This is mentioned in their documentation.
 
 		@param args initializer of the list. These arguments can either be obtained from previous Python calls or from CPython calls. Empty to create an empty list.
+		@param keepArguments if true, no references will be stolen from `args`
 		@return a handler of the created list object
 		@exception BindingException if Python is not initialized
 

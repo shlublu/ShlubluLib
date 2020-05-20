@@ -24,6 +24,7 @@
     <ClCompile Include="src\binding\Python_ObjectHandler.cpp" />
     <ClCompile Include="src\binding\Python_ObjectHandlersCollection.cpp" />
     <ClCompile Include="src\hash\CRC.c" />
+    <ClCompile Include="src\random\Random.cpp" />
     <ClCompile Include="src\text\String.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +34,7 @@
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandler.h" />
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandlersCollection.h" />
     <ClInclude Include="include\shlublu\hash\CRC.h" />
+    <ClInclude Include="include\shlublu\random\Random.h" />
     <ClInclude Include="include\shlublu\text\String.h" />
     <ClInclude Include="include\shlublu\util\Debug.h" />
     <ClInclude Include="include\shlublu\util\Exceptions.h" />

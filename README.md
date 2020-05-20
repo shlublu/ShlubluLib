@@ -35,6 +35,8 @@ This library currently consists in the following modules:
   * `Python`: based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
 * `hash`: hash algorithms
   * `CRC`: cyclic redundancy check.
+* `random`: random numbers generation
+  * `Random`: helper functions based on [`std::mt19937_64`](https://www.cplusplus.com/reference/random/mt19937_64/) engine.
 * `text`: text content handling
   * `String`: helper functions that are not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
