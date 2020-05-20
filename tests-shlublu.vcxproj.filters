@@ -13,6 +13,9 @@
     <Filter Include="tests\hash">
       <UniqueIdentifier>{9e54c249-49f8-471c-89f2-26c10e83907f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\random">
+      <UniqueIdentifier>{5a08a03b-45d3-413a-9ef0-2c3ea1793cda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tests\text\TestString.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="tests\binding\TestPython_ObjectHandlersColection.cpp">
       <Filter>tests\binding</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\random\TestRandom.cpp">
+      <Filter>tests\random</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

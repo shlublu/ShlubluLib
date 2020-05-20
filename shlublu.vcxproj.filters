@@ -37,6 +37,12 @@
     <Filter Include="src\hash">
       <UniqueIdentifier>{b4def889-820b-4c84-8785-131c7af265f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\random">
+      <UniqueIdentifier>{792da483-436f-4517-845f-3e049b417477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\random">
+      <UniqueIdentifier>{5f246f44-2be8-466e-8e4c-c7cbaf0bff0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\text\String.cpp">
@@ -56,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="src\binding\Python_ObjectHandlersCollection.cpp">
       <Filter>src\binding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\random\Random.cpp">
+      <Filter>src\random</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandlersCollection.h">
       <Filter>include\binding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\random\Random.h">
+      <Filter>include\random</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
