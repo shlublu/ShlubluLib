@@ -36,7 +36,7 @@ This library currently consists in the following modules:
 * `hash`: hash algorithms
   * `CRC`: cyclic redundancy check.
 * `random`: random numbers generation
-  * `Random`: helper functions based on [`std::mt19937_64`](https://www.cplusplus.com/reference/random/mt19937_64/) engine.
+  * `Random`: helper functions based on the standard [`random`](httpq://www.cplusplus.com/reference/random/) header.
 * `text`: text content handling
   * `String`: helper functions that are not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
@@ -68,8 +68,8 @@ Should you just wish to use Shlublulib as a development tool, the binary distrib
 These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
 * the library file to link to your client programs
 * the `include` directory to add to your include path 
-* the license file "EUPL LICENCE.txt" applicable to this library
 * the changes log
+* the license file "EUPL LICENCE.txt" applicable to this library
 
 
 ## Installation from sources

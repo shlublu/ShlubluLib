@@ -405,46 +405,4 @@ namespace random_Random
 			Assert::IsTrue(failures >= expectedMin && failures <= expectedMax);
 		}
 	};
-
-
-	TEST_CLASS(normalDistTest)
-	{
-	public:
-		TEST_METHOD(normalDistIsProperlyDistributed)
-		{
-			constexpr size_t nbAttempts(1000000);
-
-			std::normal_distribution<double> distribution(5.5, 2.0);
-
-			size_t results[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-			for (size_t i = 0; i < nbAttempts; ++i)
-			{
-				const double number = Random::randomNormalDist(distribution);
-
-				if ((number >= 0.0) && (number < 11.0))
-				{
-					++results[static_cast<size_t>(number + 1)];
-				}
-				else if (number < 0)
-				{
-					++results[0];
-				}
-				else
-				{
-					++results[12];
-				}
-			}
-
-			for (size_t i = 0; i < 6; ++i)
-			{
-				Assert::IsTrue(results[i] < results[i + 1]);
-			}
-
-			for (size_t i = 6; i < 12; ++i)
-			{
-				Assert::IsTrue(results[i] > results[i + 1]);
-			}
-		}
-	};
 }
