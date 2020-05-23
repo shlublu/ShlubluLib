@@ -13,6 +13,8 @@ see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.eur
 * [Modules and documentation](#modules-and-documentation)
 * [C++ version](#c-version)
 * [Installation from binaries](#installation-from-binaries)
+  * [Download](#download)
+  * [Content](#content)
 * [Installation from sources](#installation-from-sources)
   * [Prerequisites](#prerequisites)
     * [External libraries](#external-libraries)
@@ -61,15 +63,21 @@ it has no standardized replacement so far.
 
 ## Installation from binaries
 
-Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
+Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website.
+
+### Download
+
 * [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `dd1333efbd6a1ebd0aa847a8ecccb62256b89f692aade70f17fc56dfaccd6d18`)
 * [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `155095ccc517669921b164d672f7f1d68372fcdd02620e641ac9e182f6d1b0bd`)
 
-These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
+### Content
+
+These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) so that you can
+check their integrity. They contain:
 * the library file to link to your client programs
 * the `include` directory to add to your include path 
-* the changes log
-* the license file "LICENSE.txt" applicable to this library
+* the `CHANGELOG.md` file
+* the license file `LICENSE.txt` applicable to this library
 
 
 ## Installation from sources
