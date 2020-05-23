@@ -1,5 +1,5 @@
 **ShlubluLib** is a lightweight, modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
-The current version is v0.4.
+The current version is v0.5.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
 warranty of any kind (see license for further details).
@@ -43,7 +43,7 @@ This library currently consists in the following modules:
   * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * `Exceptions`: Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 
 
-The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.4/](http://shlublulib.shlublu.org/v0.4/).
+The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.5/](http://shlublulib.shlublu.org/v0.5/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -62,8 +62,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.4.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.4.zip.asc) - SHA-256: `fd17921c25fb2a21d45339fc19ed36d50ee4de1113cd471cc76f4c44ea33e305`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.4.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.4.zip.asc) - SHA-256: `972811a711513bb1710a88bc0f0886f2f259d0fc77a3323d59ff5a8830f0ec62`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `dd1333efbd6a1ebd0aa847a8ecccb62256b89f692aade70f17fc56dfaccd6d18`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `155095ccc517669921b164d672f7f1d68372fcdd02620e641ac9e182f6d1b0bd`)
 
 These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
 * the library file to link to your client programs
@@ -154,7 +154,7 @@ The repository is organized as follows on the files system:
 	|____CHANGELOG.md
 	|____doxygen.conf
 	|____doxygen-structure.txt
-	|____LICENSE.txt
+	|____LICENCE.txt
 	|____README.md
 
 
@@ -170,7 +170,7 @@ The Visual Studio projects structure looks like this:
 	|____CHANGELOG.md
 	|____doxygen.conf
 	|____doxygen-structure.txt
-	|____LICENSE.txt
+	|____LICENCE.txt
 	|____README.md
 	|	
 	|____00tests-shlublu
