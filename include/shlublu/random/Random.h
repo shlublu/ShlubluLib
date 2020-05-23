@@ -47,6 +47,11 @@ namespace Random
 		@param max the maximal value of the range, included for integers and excluded for real numbers. It should be strictly greater than `min`.
 		@return a pseudo-random number in the range defined by `min` and `max`
 		@exception ShlubluException if `min` >= `max`
+
+		<b>Example</b>
+		@code
+		std::cout << Random::random(-5.0, 5.0) << std::endl;  // For example: 2.58067
+		@endcode
 	*/
 	template<typename T> T random(T min, T max)
 	{
@@ -78,26 +83,31 @@ namespace Random
 		@param step the rounding step. It must be lower than the amplitude of the range.
 		@return a pseudo-random number in the range defined by `min` and `max` and rounded to the nearest `step`.
 		@exception ShlubluException if `step` is negative or null, if `step` is greater than the amplitude of the range, or if `min` >= `max`
+
+		<b>Example</b>
+		@code
+		std::cout << Random::random(-5.0, 5.0, 0.25) << std::endl; // For example: -3.75
+		@endcode
 	*/
-	template<typename T> T randomRounded(T min, T max, T step)
+	template<typename T> T random(T min, T max, T step)
 	{
 		static_assert(std::is_arithmetic<T>::value, "Type should be arithmetic.");
 
 		if (step <= 0)
 		{
-			throw ShlubluException("Random::randomRounded(): step (" + String::xtos(step) + ") is negative or null.");
+			throw ShlubluException("Random::random(): step (" + String::xtos(step) + ") is negative or null.");
 		}
 
 		if (step > (max - min))
 		{
-			throw ShlubluException("Random::randomRounded(): step (" + String::xtos(step) + ") is bigger than the amplitude of the range (" + String::xtos(max - min) + ").");
+			throw ShlubluException("Random::random(): step (" + String::xtos(step) + ") is bigger than the amplitude of the range (" + String::xtos(max - min) + ").");
 		}
 
 		T ret;
 
 		if (std::is_integral<T>::value)
 		{
-			ret = static_cast<T>(randomRounded<double>(min, max, step));
+			ret = static_cast<T>(random<double>(min, max, step));
 		}
 		else if (std::is_floating_point<T>::value)
 		{
@@ -121,7 +131,11 @@ namespace Random
 
 		@tparam T the type of the returned value. This type should be arithmetic.
 		@return a pseudo-random number in the range defined by `0` and `1`
-	*/
+
+		<b>Example</b>
+		@code
+		std::cout << Random::randomUnit<double>() << std::endl; // For example: 0.579902
+		@endcode	*/
 	template<typename T> T randomUnit()
 	{
 		return random<T>(T(0), T(1));
@@ -138,7 +152,12 @@ namespace Random
 
 		@tparam T the type of the returned value. This type should be arithmetic and signed.
 		@return a pseudo-random number in the range defined by `-1` and `1`
-	*/	
+
+		<b>Example</b>
+		@code
+		std::cout << Random::randomRelativeUnit<double>() << std::endl; // For example: -0.926407
+		@endcode	
+	*/
 	template<typename T> T randomRelativeUnit()
 	{
 		static_assert(std::is_signed<T>::value, "Type should be signed.");
@@ -159,6 +178,11 @@ namespace Random
 		@param p the probability of returning `true`. It should be in the range [0, 1]
 		@return `true` or `false` depending on a pseudo-random number 
 		@exception ShlubluException if `p` is out of the range [0, 1]
+
+		<b>Example</b>
+		@code
+		std::cout << (Random::probability(0.6) ? "yes" : "no") << std::endl; // For example: "yes"
+		@endcode
 	*/
 	template<typename T> bool probability(T p)
 	{
@@ -192,8 +216,12 @@ namespace Random
 		@param chance the numberator of the chance
 		@paral total the denominator of the chance
 		@return `true` or `false` depending on a pseudo-random number 
-		@exception ShlubluException if `T` is signed and `chance`is negative
-		@exception ShlubluException if `chance` > `total`
+		@exception ShlubluException if `T` is signed and `chance` is negative or if `chance` > `total`
+
+		<b>Example</b>
+		@code
+		std::cout << (Random::likelihood(3, 11) ? "yes" : "no") << std::endl; // For example: "no"
+		@endcode
 	*/
 	template<typename T> bool likelihood(T chance, T total)
 	{
@@ -218,6 +246,11 @@ namespace Random
 		Returns a boolean depending on a probability equal to 1/2.
 
 		@return `true` or `false` depending on a pseudo-random number
+
+		<b>Example</b>
+		@code
+		std::cout << (Random::tossACoin() ? "heads" : "tails") << std::endl; // For example: "heads"
+		@endcode
 	*/
 
 	bool tossACoin();

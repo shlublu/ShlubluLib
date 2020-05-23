@@ -223,6 +223,11 @@ namespace Python
 
 		@param code piece of code to execute. Lines should be separated by `\n`. Intentation should be materialized by spaces or `\t`.
 		@exception BindingException if Python is not initialized or if the piece of code causes an error at interpretation time.
+
+		<b>Example</b>
+		@code
+		Python::execute("print('text to print')"); // prints "text to print"
+		@endcode
 	*/
 	void execute(RawCode const& code);
 
