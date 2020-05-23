@@ -1,3 +1,18 @@
+## v0.5 - XXXX-XX-XX
+
+### New features
+
+*none*
+
+### Fixes
+
+*none*
+
+### Compatibility breakers
+
+*none*
+
+
 ## v0.4 - 2020-05-23
 
 ### New features

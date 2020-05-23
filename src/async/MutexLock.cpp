@@ -33,8 +33,8 @@ MutexLock::~MutexLock()
 void MutexLock::lock() 
 { 
 	mMutex.lock();
-
 	mLockLevel++;
+
 	mOwnerId = std::this_thread::get_id();
 } 
 
@@ -45,8 +45,8 @@ void MutexLock::unlock()
 	{
 		if (mLockLevel > 0)
 		{
-			mLockLevel--;
 			mMutex.unlock();
+			mLockLevel--;
 		}
 		else
 		{
@@ -58,6 +58,5 @@ void MutexLock::unlock()
 		throw ShlubluException("MutexLock::unlock(): trying to unlock while not having ownership.");
 	}
 }
-
 
 }
