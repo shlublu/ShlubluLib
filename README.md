@@ -1,5 +1,5 @@
-**ShlubluLib** is a modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
-The current version is v0.3.
+**ShlubluLib** is a lightweight, modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
+The current version is v0.4.
 
 This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
 warranty of any kind (see license for further details).
@@ -43,7 +43,7 @@ This library currently consists in the following modules:
   * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * `Exceptions`: Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 
 
-The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.3/](http://shlublulib.shlublu.org/v0.3/).
+The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.4/](http://shlublulib.shlublu.org/v0.4/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -62,8 +62,8 @@ it has no standardized replacement so far.
 ## Installation from binaries
 
 Should you just wish to use Shlublulib as a development tool, the binary distribution can be downloaded from our website:
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.3.zip.asc) - SHA-256: `0ae00fb99fcc1e14d9b7bcf211ef7f1fd1f8e2af8db4e4897179f76e9644c8d2`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.3.zip.asc) - SHA-256: `6762bcb2d7c16ab68cef2dd03132476d7a7533b6d18b4c57aaa196aba26cda36`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.4.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.4.zip.asc) - SHA-256: `3311daeceecf5b270edab1cc7b9697f4ef23de76eabd3c1a0d7c7d433ecabb5b`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.4.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.4.zip.asc) - SHA-256: `fa06a693880864e5679fd527fe5c83185bc65039614f55d737fd20a2438ebd66`)
 
 These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index) and contain:
 * the library file to link to your client programs
