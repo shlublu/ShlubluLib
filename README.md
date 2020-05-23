@@ -5,7 +5,7 @@ This library consists in code I wrote for my own use and that might be useful to
 warranty of any kind (see license for further details).
 
 ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licence), please
-see the file "LICENCE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 
 ## Table of content
@@ -69,7 +69,7 @@ These archives are signed with [this PGP key](https://keyserver.ubuntu.com/pks/l
 * the library file to link to your client programs
 * the `include` directory to add to your include path 
 * the changes log
-* the license file "LICENCE.txt" applicable to this library
+* the license file "LICENSE.txt" applicable to this library
 
 
 ## Installation from sources
@@ -154,7 +154,7 @@ The repository is organized as follows on the files system:
 	|____CHANGELOG.md
 	|____doxygen.conf
 	|____doxygen-structure.txt
-	|____LICENCE.txt
+	|____LICENSE.txt
 	|____README.md
 
 
@@ -170,7 +170,7 @@ The Visual Studio projects structure looks like this:
 	|____CHANGELOG.md
 	|____doxygen.conf
 	|____doxygen-structure.txt
-	|____LICENCE.txt
+	|____LICENSE.txt
 	|____README.md
 	|	
 	|____00tests-shlublu
