@@ -121,7 +121,7 @@ namespace random_Random
 
 			for (size_t ctr = 0; ctr < nbAttempts; ++ctr)
 			{
-				const auto r(Random::randomRounded(minD, maxD, stepD));
+				const auto r(Random::random(minD, maxD, stepD));
 				Assert::IsTrue(r >= minD && r <= maxD);
 			}
 
@@ -132,7 +132,7 @@ namespace random_Random
 
 			for (size_t ctr = 0; ctr < nbAttempts; ++ctr)
 			{
-				const auto r(Random::randomRounded(minI, maxI, stepI));
+				const auto r(Random::random(minI, maxI, stepI));
 				Assert::IsTrue(r >= minI && r <= maxI);
 			}
 		}
@@ -157,7 +157,7 @@ namespace random_Random
 
 			for (size_t ctr = 0; ctr < nbAttempts; ++ctr)
 			{
-				++resultsD[static_cast<size_t>(Random::randomRounded(minD, maxD, stepD))];
+				++resultsD[static_cast<size_t>(Random::random(minD, maxD, stepD))];
 			}
 
 			for (size_t slot = 0; slot < 11; ++slot)
@@ -186,7 +186,7 @@ namespace random_Random
 
 			for (size_t ctr = 0; ctr < nbAttempts; ++ctr)
 			{
-				++resultsI[Random::randomRounded(minI, maxI, stepI) / 10];
+				++resultsI[Random::random(minI, maxI, stepI) / 10];
 			}
 
 			for (size_t slot = 0; slot < 11; ++slot)
@@ -211,10 +211,10 @@ namespace random_Random
 
 			for (size_t i = 0; i < nbAttempts; ++i)
 			{
-				auto rD(Random::randomRounded(-100.75432, 100.18645, 0.01));
+				auto rD(Random::random(-100.75432, 100.18645, 0.01));
 				Assert::AreEqual(std::round(100.0 * rD) / 100.0, rD);
 
-				auto rIEven(Random::randomRounded(-100, 100, 2));
+				auto rIEven(Random::random(-100, 100, 2));
 				Assert::IsFalse(rIEven & 1);
 			}
 		}
@@ -222,20 +222,20 @@ namespace random_Random
 
 		TEST_METHOD(randomRoundedThrowsIfMinIsGreaterThanMax)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(1.0, 0.9, 0.1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(1.0f, 0.9f, 0.1f); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(10, 9, 1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(10, -11, 1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(10U, 9U, 1U); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0, 0.9, 0.1); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0f, 0.9f, 0.1f); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(10, 9, 1); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(10, -11, 1); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(10U, 9U, 1U); });
 		}
 
 
 		TEST_METHOD(randomRoundedThrowsIfStepIsNegative)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(1.0, 2.0, -0.1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(1.0f, 2.0f, -0.1f); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(10, 11, -1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::randomRounded(-10, 11, -1); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0, 2.0, -0.1); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0f, 2.0f, -0.1f); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(10, 11, -1); });
+			Assert::ExpectException<ShlubluException>([]() { Random::random(-10, 11, -1); });
 		}
 	};
 
