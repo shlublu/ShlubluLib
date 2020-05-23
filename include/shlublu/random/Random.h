@@ -214,7 +214,7 @@ namespace Random
 
 		@tparam T the type of the returned value. This type should be integral.
 		@param chance the numberator of the chance
-		@paral total the denominator of the chance
+		@param total the denominator of the chance
 		@return `true` or `false` depending on a pseudo-random number 
 		@exception ShlubluException if `T` is signed and `chance` is negative or if `chance` > `total`
 
