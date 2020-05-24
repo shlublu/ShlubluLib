@@ -106,11 +106,10 @@ public:
 	
 	/**
 		Destructor.
-		If the mutex is in locked state, unlocks as many time as it has been previously locked.
-		@exception ShlubluException if the mutex is locked by another thread
+		Unlocks as many time as it has been previously locked.
 		@see unlock()
 	*/
-	virtual ~MutexLock();
+	virtual ~MutexLock() noexcept;
 
 public:
 	/**
@@ -125,7 +124,7 @@ public:
 
 	/**
 		Unlocks the mutex.
-		@exception ShlubluException if the mutex is not locked or if the mutex is locked by another thread
+		@exception ShlubluException if the mutex is not locked or if it is locked by another thread
 	*/
 	void unlock();
 
