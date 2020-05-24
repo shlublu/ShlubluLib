@@ -1,11 +1,11 @@
 **ShlubluLib** is a lightweight, modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
 The current version is v0.5.
 
-This library consists in code I wrote for my own use and that might be useful to others. It is therefore released "as-is", just to be helpful with no 
-warranty of any kind (see license for further details).
+This library is designed to be simple to use. It is intended to cover frequent use cases in a simple way without preventing or hindering the development of 
+more advanced features when needed. It actually consists of code that I wrote for my own use and that could be useful to others. 
 
-ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licence), please
-see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+ShlubluLib is licensed under the EUPL-1.2-or-later (European Union Public Licence), which is compatible with the most frequent open source licenses. Please
+see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12) in any EU language.
 
 
 ## Table of content
