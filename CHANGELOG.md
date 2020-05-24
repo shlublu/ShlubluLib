@@ -6,7 +6,8 @@
 
 ### Fixes
 
-*none*
+* `MutexLock`:
+  * Prevented the destructor from throwing when the mutex was locked from another thread. This is against best practices for exceptions.
 
 ### Compatibility breakers
 

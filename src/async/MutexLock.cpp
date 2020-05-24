@@ -21,8 +21,10 @@ MutexLock::MutexLock(bool take)
 }
 
 
-MutexLock::~MutexLock()
+MutexLock::~MutexLock() noexcept
 {
+	lock();
+
 	while (mLockLevel > 0)
 	{
 		unlock();
