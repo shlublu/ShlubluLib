@@ -6,7 +6,7 @@
 #include <shlublu/util/Exceptions.h>
 
 /** @file
-	Helper functions based on the standard <a href="https://www.cplusplus.com/reference/random/">random</a> header.
+	Helper functions based on the standard <a href="https://www.cplusplus.com/reference/random/"><random></a> header.
 
 	See Random namespace documentation for details.
 */
@@ -46,7 +46,7 @@ namespace Random
 		@param min the minimal value of the range
 		@param max the maximal value of the range, included for integers and excluded for real numbers. It should be strictly greater than `min`.
 		@return a pseudo-random number in the range defined by `min` and `max`
-		@exception ShlubluException if `min` >= `max`
+		@exception ShlubluException if `min` > `max`
 
 		<b>Example</b>
 		@code
@@ -57,9 +57,9 @@ namespace Random
 	{
 		static_assert(std::is_arithmetic<T>::value, "Type should be arithmetic.");
 
-		if (min >= max)
+		if (min > max)
 		{
-			throw ShlubluException("Random::random(): min (" + String::xtos(min) + ") >= max (" + String::xtos(max) + ")");
+			throw ShlubluException("Random::random(): min (" + String::xtos(min) + ") > max (" + String::xtos(max) + ")");
 		}
 
 		using Distribution = typename std::conditional<std::is_floating_point<T>::value, std::uniform_real_distribution<T>, std::uniform_int_distribution<T>>::type;
