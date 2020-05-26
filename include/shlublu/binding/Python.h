@@ -160,9 +160,8 @@ namespace shlublu
 	<li>groups of Python calls that constitute transactions in your C++ code should be surrounded by `beginCriticalSection()` / `endCriticalSection()` to prevent 
 	other threads from calling the CPython interpreter while these transactions	are executing. Such interruptions would not crash the program but could make the results
 	inconsistents should these threads work on the same shared pieces of data.</li>
-	<li>calls to CPython functions that create, destroy or modify the state of objects including their references count should also be
-	surrounded by `beginCriticalSection()` / `endCriticalSection()` as these functions do not support concurrency. 
-	For example, `PyLong_FromLong(42)` or `Py_XDECREF(object)` fall in this category. `PyLong_AsLong(object)` doesn't.</li>
+	<li>calls to CPython functions that access to objects should also be surrounded by `beginCriticalSection()` / `endCriticalSection()` as these functions 
+	do not support concurrency. For example, `PyLong_FromLong(42)`, `Py_XDECREF(object)`, or `PyLong_AsLong(object)` fall in this category.</li>
 	</ul>
 	Should you need more isolation, you can use the CPython API to setup
 	<a href="https://docs.python.org/3/c-api/init.html#c.Py_NewInterpreter">multiple interpreters</a> knowing that there are caveats

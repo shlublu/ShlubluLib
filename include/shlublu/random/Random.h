@@ -6,7 +6,7 @@
 #include <shlublu/util/Exceptions.h>
 
 /** @file
-	Helper functions based on the standard <a href="https://www.cplusplus.com/reference/random/"><random></a> header.
+	Helper functions based on the standard <a href="https://www.cplusplus.com/reference/random/">&lt;random&gt;</a> header.
 
 	See Random namespace documentation for details.
 */
