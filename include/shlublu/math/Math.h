@@ -7,26 +7,101 @@
 #include <shlublu/text/String.h>
 #include <shlublu/util/Exceptions.h>
 
+/** @file
+	Helper functions not included in the standard <a href="https://www.cplusplus.com/reference/cmath/">&lt;cmath&gt;</a> header.
+
+	See Random namespace documentation for details.
+*/
+
 
 namespace shlublu
 {
 
+/**
+	@namespace shlublu::Math
+	Set of helper functions.
+*/
 namespace Math
 {
 	// Constants
-	template<typename T> inline T constantE() { return T(2.71828182845904523536); } // e
-	template<typename T> inline T constantLog2e() { return T(1.44269504088896340736); } // log2(e)
-	template<typename T> inline T constantLog10e() { return T(0.434294481903251827651); } // log10(e)
-	template<typename T> inline T constantLn2() { return T(0.693147180559945309417); }  // ln(2)
-	template<typename T> inline T constantLn10() { return T(2.30258509299404568402); } // ln(10)
-	template<typename T> inline T constantPi() { return T(3.14159265358979323846); } // pi
-	template<typename T> inline T constantPiBy2() { return T(1.57079632679489661923); } // pi/2
-	template<typename T> inline T constantPiBy4() { return T(0.785398163397448309616); } // pi/4
-	template<typename T> inline T constant1ByPi() { return T(0.318309886183790671538); } // 1/pi
-	template<typename T> inline T constant2ByPi() { return T(0.636619772367581343076); } // 2/pi
-	template<typename T> inline T constant2BySqrtPi() { return T(1.12837916709551257390); } // 2/sqrt(pi)
-	template<typename T> inline T constantSqrt2() { return T(1.41421356237309504880); } // sqrt(2)
-	template<typename T> inline T constant1BySqrt2() { return T(0.707106781186547524401); } // 1/sqrt(2)
+	// e
+	template<typename T> inline T constantE() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(2.71828182845904523536); 
+	} 
+
+	template<typename T> inline T constantLog2e() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(1.44269504088896340736); 
+	} // log2(e)
+
+	template<typename T> inline T constantLog10e() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(0.434294481903251827651); 
+	} // log10(e)
+
+	template<typename T> inline T constantLn2() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(0.693147180559945309417); 
+	}  // ln(2)
+
+	template<typename T> inline T constantLn10() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(2.30258509299404568402); 
+	} // ln(10)
+
+	template<typename T> inline T constantPi() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(3.14159265358979323846); 
+	} // pi
+
+	template<typename T> inline T constantPiBy2() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(1.57079632679489661923); 
+	} // pi/2
+
+	template<typename T> inline T constantPiBy4() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(0.785398163397448309616); 
+	} // pi/4
+
+	template<typename T> inline T constant1ByPi() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(0.318309886183790671538); 
+	} // 1/pi
+
+	template<typename T> inline T constant2ByPi() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point.");
+		return T(0.636619772367581343076);
+	} // 2/pi
+
+	template<typename T> inline T constant2BySqrtPi() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(1.12837916709551257390); 
+	} // 2/sqrt(pi)
+
+	template<typename T> inline T constantSqrt2() 
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point."); 
+		return T(1.41421356237309504880);
+	} // sqrt(2)
+
+	template<typename T> inline T constant1BySqrt2()
+	{ 
+		static_assert(std::is_floating_point<T>::value, "Type should be floating point.");
+		return T(0.707106781186547524401); 
+	} // 1/sqrt(2)
 
 
 	template<typename T> inline T constantMaxSafeInteger()

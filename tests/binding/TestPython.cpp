@@ -1001,14 +1001,13 @@ namespace binding_Python
 					for (long i = 0; i < iterations; ++i)
 					{
 						Python::beginCriticalSection();
-						const auto arg(PyLong_FromLong(v));
-						Python::endCriticalSection();
 
-						const auto pyVal(Python::call(inc, { arg }));
-
-						v = PyLong_AsLong(pyVal); 
-
+						const auto pyVal(Python::call(inc, { PyLong_FromLong(v) }));
+						
+						v = PyLong_AsLong(pyVal);
 						Python::forgetArgument(pyVal);
+
+						Python::endCriticalSection();
 					}
 
 					return v;

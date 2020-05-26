@@ -22,7 +22,15 @@
  * Hash algorithms.
  */
 
-/** \dir include/shlublu/text
+/** \dir include/shlublu/math
+ * Math issues.
+ */
+ 
+ /** \dir include/shlublu/random
+ * Random numbers generation.
+ */
+ 
+ /** \dir include/shlublu/text
  * Text content handling.
  */
 

@@ -8,6 +8,8 @@
 
 * `MutexLock`:
   * Prevented the destructor from throwing when the mutex was locked from another thread. This is against best practices for exceptions.
+* `Python`: 
+  * Corrected an unaccuracte statement about multithreading in the documentation (no code was modified).
 * `Random`:
   * Relaxed exception throwing criteria `min >= max` in `random()`: `min > max` is clearly sufficient.
 
