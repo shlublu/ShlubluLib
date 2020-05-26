@@ -32,18 +32,18 @@ see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.eur
 
 This library currently consists in the following modules:
 * `async`: threading and asynchronous operations
-  * `MutexLock`: Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
+  * [`MutexLock`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_mutex_lock.html): Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
 * `binding`: interactions with other languages
-  * `Python`: based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
+  * [`Python`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_python.html): based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
 * `hash`: hash algorithms
-  * `CRC`: cyclic redundancy check.
+  * [`CRC`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_c_r_c.html): cyclic redundancy check.
 * `random`: random numbers generation
-  * `Random`: helper functions based on the standard [`random`](https://www.cplusplus.com/reference/random/) header.
+  * [`Random`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_random.html): helper functions based on the standard [`random`](https://www.cplusplus.com/reference/random/) header.
 * `text`: text content handling
-  * `String`: helper functions that are not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
+  * [`String`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions that are not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
-  * `Debug`: Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * `Exceptions`: Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 
+  * [`Debug`](http://shlublulib.shlublu.org/v0.5/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
+  * [`Exceptions`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_shlublu_exception.html): Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 
 
 The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.5/](http://shlublulib.shlublu.org/v0.5/).
 
@@ -67,8 +67,8 @@ Should you just wish to use Shlublulib as a development tool, the binary distrib
 
 ### Download
 
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `dd1333efbd6a1ebd0aa847a8ecccb62256b89f692aade70f17fc56dfaccd6d18`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `155095ccc517669921b164d672f7f1d68372fcdd02620e641ac9e182f6d1b0bd`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `cb801d237853243f34de2a63ac347347ed25fbd08d990716773edd8773c0f0f0`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `26264d3002da8559d86d1b97c2cc5bcaefe07d7463dde073f1ca0ecc126af0cf`)
 
 ### Content
 
