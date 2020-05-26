@@ -37,10 +37,12 @@ This library currently consists in the following modules:
   * [`Python`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_python.html): based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
 * `hash`: hash algorithms
   * [`CRC`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_c_r_c.html): cyclic redundancy check.
+* `math`: math issues
+  * [`Math`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_math.html): helper functions not included in the standard [`<cmath>`](https://www.cplusplus.com/reference/cmath/) header.
 * `random`: random numbers generation
-  * [`Random`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_random.html): helper functions based on the standard [`random`](https://www.cplusplus.com/reference/random/) header.
+  * [`Random`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_random.html): helper functions based on the standard [`<random>`](https://www.cplusplus.com/reference/random/) header.
 * `text`: text content handling
-  * [`String`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions that are not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
+  * [`String`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
   * [`Debug`](http://shlublulib.shlublu.org/v0.5/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
   * [`Exceptions`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_shlublu_exception.html): Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 

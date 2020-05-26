@@ -16,6 +16,9 @@
     <Filter Include="tests\random">
       <UniqueIdentifier>{5a08a03b-45d3-413a-9ef0-2c3ea1793cda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\math">
+      <UniqueIdentifier>{ea5b7388-879f-46b0-a741-85826d476ed7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tests\text\TestString.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="tests\random\TestRandom.cpp">
       <Filter>tests\random</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\math\TestMath.cpp">
+      <Filter>tests\math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

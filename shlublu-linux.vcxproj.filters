@@ -43,6 +43,12 @@
     <Filter Include="include\random">
       <UniqueIdentifier>{513bad29-f0a4-4dce-8f3e-4be9087b96f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\math">
+      <UniqueIdentifier>{1bb28bf4-d723-40ab-8b11-6b1bfe95a982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\math">
+      <UniqueIdentifier>{4d4cdfe7-e0b5-4060-a159-fe5a799d8259}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\async\MutexLock.cpp">
@@ -97,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\random\Random.h">
       <Filter>include\random</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\math\Math.h">
+      <Filter>include\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

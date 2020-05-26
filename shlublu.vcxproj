@@ -34,6 +34,7 @@
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandler.h" />
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandlersCollection.h" />
     <ClInclude Include="include\shlublu\hash\CRC.h" />
+    <ClInclude Include="include\shlublu\math\Math.h" />
     <ClInclude Include="include\shlublu\random\Random.h" />
     <ClInclude Include="include\shlublu\text\String.h" />
     <ClInclude Include="include\shlublu\util\Debug.h" />

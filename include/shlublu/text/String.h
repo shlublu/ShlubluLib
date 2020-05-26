@@ -1,7 +1,7 @@
 #pragma once
 
 /** @file
-	Helper functions that are not included in <a href="https://www.cplusplus.com/reference/string/string/">std::string</a>.
+	Helper functions not included in <a href="https://www.cplusplus.com/reference/string/string/">std::string</a>.
 
 	See String namespace documentation for details.
 */

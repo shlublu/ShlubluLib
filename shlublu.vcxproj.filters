@@ -43,6 +43,12 @@
     <Filter Include="src\random">
       <UniqueIdentifier>{5f246f44-2be8-466e-8e4c-c7cbaf0bff0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\math">
+      <UniqueIdentifier>{1babc717-90e6-4279-9dbb-94b87e60d202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\math">
+      <UniqueIdentifier>{a40168c2-ec36-4508-befd-4e4a3f2d444d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\text\String.cpp">
@@ -97,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\random\Random.h">
       <Filter>include\random</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\math\Math.h">
+      <Filter>include\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
