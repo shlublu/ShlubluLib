@@ -140,55 +140,75 @@ namespace math_Math
 	};
 
 
-	TEST_CLASS(increaseTest)
+	TEST_CLASS(proportionalIncreaseTest)
 	{
 	public:
-		TEST_METHOD(increaseGivesProperResultWithValuesOfSameSign)
+		TEST_METHOD(proportionalIncreaseGivesProperResultWithValuesOfSameSign)
 		{
 			// double
-			Assert::AreEqual(1.0, Math::increase(1.0, 2.0));
-			Assert::AreEqual(-0.5, Math::increase(1.0, 0.5));
-			Assert::AreEqual(0.0, Math::increase(4.5, 4.5));
-			Assert::AreEqual(1.0, Math::increase(-1.0, -2.0));
-			Assert::AreEqual(-0.5, Math::increase(-1.0, -0.5));
-			Assert::AreEqual(0.0, Math::increase(-4.5, -4.5));
+			Assert::AreEqual(1.0, Math::proportionalIncrease(1.0, 2.0));
+			Assert::AreEqual(-0.5, Math::proportionalIncrease(1.0, 0.5));
+			Assert::AreEqual(0.0, Math::proportionalIncrease(4.5, 4.5));
+			Assert::AreEqual(1.0, Math::proportionalIncrease(-1.0, -2.0));
+			Assert::AreEqual(-0.5, Math::proportionalIncrease(-1.0, -0.5));
+			Assert::AreEqual(0.0, Math::proportionalIncrease(-4.5, -4.5));
 
 			// float
-			Assert::AreEqual(1.0f, Math::increase(1.0f, 2.0f));
-			Assert::AreEqual(-0.5f, Math::increase(1.0f, 0.5f));
-			Assert::AreEqual(0.0f, Math::increase(4.5f, 4.5f));
-			Assert::AreEqual(1.0f, Math::increase(-1.0f, -2.0f));
-			Assert::AreEqual(-0.5f, Math::increase(-1.0f, -0.5f));
-			Assert::AreEqual(0.0f, Math::increase(-4.5f, -4.5f));
+			Assert::AreEqual(1.0f, Math::proportionalIncrease(1.0f, 2.0f));
+			Assert::AreEqual(-0.5f, Math::proportionalIncrease(1.0f, 0.5f));
+			Assert::AreEqual(0.0f, Math::proportionalIncrease(4.5f, 4.5f));
+			Assert::AreEqual(1.0f, Math::proportionalIncrease(-1.0f, -2.0f));
+			Assert::AreEqual(-0.5f, Math::proportionalIncrease(-1.0f, -0.5f));
+			Assert::AreEqual(0.0f, Math::proportionalIncrease(-4.5f, -4.5f));
 		}
 
 
-		TEST_METHOD(increaseGivesProperResultWithFinalValueOfZero)
+		TEST_METHOD(proportionalIncreaseGivesProperResultWithDistinctIncreaseAndValueTypes)
 		{
 			// double
-			Assert::AreEqual(-1.0, Math::increase(4.0, 0.0));
-			Assert::AreEqual(-1.0, Math::increase(-4.0, 0.0));
+			Assert::AreEqual(1.0, Math::proportionalIncrease<int, double>(1, 2));
+			Assert::AreEqual(-0.5, Math::proportionalIncrease<int, double>(2, 1));
+			Assert::AreEqual(0.0, Math::proportionalIncrease<int, double>(4, 4));
+			Assert::AreEqual(1.0, Math::proportionalIncrease<int, double>(-1, -2));
+			Assert::AreEqual(-0.5, Math::proportionalIncrease<int, double>(-2, -1));
+			Assert::AreEqual(0.0, Math::proportionalIncrease<int, double>(-4, -4));
 
 			// float
-			Assert::AreEqual(-1.0f, Math::increase(4.0f, 0.0f));
-			Assert::AreEqual(-1.0f, Math::increase(-4.0f, 0.0f));
+			Assert::AreEqual(1.0f, Math::proportionalIncrease<int, float>(1, 2));
+			Assert::AreEqual(-0.5f, Math::proportionalIncrease<int, float>(2, 1));
+			Assert::AreEqual(0.0f, Math::proportionalIncrease<int, float>(4, 4));
+			Assert::AreEqual(1.0f, Math::proportionalIncrease<int, float>(-1, -2));
+			Assert::AreEqual(-0.5f, Math::proportionalIncrease<int, float>(-2, -1));
+			Assert::AreEqual(0.0f, Math::proportionalIncrease<int, float>(-4, -4));
 		}
 
 
-		TEST_METHOD(increaseGivesProperResultWithValuesOfOppositeSign)
+		TEST_METHOD(proportionalIncreaseGivesProperResultWithFinalValueOfZero)
 		{
 			// double
-			Assert::AreEqual(-3.0, Math::increase(-1.0, 2.0));
-			Assert::AreEqual(-1.5, Math::increase(1.0, -0.5));
+			Assert::AreEqual(-1.0, Math::proportionalIncrease(4.0, 0.0));
+			Assert::AreEqual(-1.0, Math::proportionalIncrease(-4.0, 0.0));
 
 			// float
-			Assert::AreEqual(-3.0f, Math::increase(-1.0f, 2.0f));
-			Assert::AreEqual(-1.5f, Math::increase(1.0f, -0.5f));
+			Assert::AreEqual(-1.0f, Math::proportionalIncrease(4.0f, 0.0f));
+			Assert::AreEqual(-1.0f, Math::proportionalIncrease(-4.0f, 0.0f));
+		}
+
+
+		TEST_METHOD(proportionalIncreaseGivesProperResultWithValuesOfOppositeSign)
+		{
+			// double
+			Assert::AreEqual(-3.0, Math::proportionalIncrease(-1.0, 2.0));
+			Assert::AreEqual(-1.5, Math::proportionalIncrease(1.0, -0.5));
+
+			// float
+			Assert::AreEqual(-3.0f, Math::proportionalIncrease(-1.0f, 2.0f));
+			Assert::AreEqual(-1.5f, Math::proportionalIncrease(1.0f, -0.5f));
 		}
 
 		TEST_METHOD(increaseGivesThrowsIfInitialValueIsZero)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Math::increase(0.0, 1.0); });
+			Assert::ExpectException<ShlubluException>([]() { Math::proportionalIncrease(0.0, 1.0); });
 		}
 	};
 
@@ -243,12 +263,16 @@ namespace math_Math
 		TEST_METHOD(increaseRateConvenienceBehavesCorrectly)
 		{
 			// double
-			Assert::AreEqual(Math::increaseRate(Math::increase(1.0, 5.0), 10), Math::increaseRate(1.0, 5.0, 10));
-			Assert::AreEqual(Math::increaseRate(Math::increase(5.0, 1.0), 10), Math::increaseRate(5.0, 1.0, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease(1.0, 5.0), 10), Math::increaseRate(1.0, 5.0, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease(5.0, 1.0), 10), Math::increaseRate(5.0, 1.0, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease<unsigned, double>(1, 5), 10), Math::increaseRate<unsigned, double>(1, 5, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease<unsigned, double>(5, 1), 10), Math::increaseRate<unsigned, double>(5, 1, 10));
 
 			// float
-			Assert::AreEqual(Math::increaseRate(Math::increase(1.0f, 5.0f), 10), Math::increaseRate(1.0f, 5.0f, 10));
-			Assert::AreEqual(Math::increaseRate(Math::increase(5.0f, 1.0f), 10), Math::increaseRate(5.0f, 1.0f, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease(1.0f, 5.0f), 10), Math::increaseRate(1.0f, 5.0f, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease(5.0f, 1.0f), 10), Math::increaseRate(5.0f, 1.0f, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease<unsigned, double>(1, 5), 10), Math::increaseRate<unsigned, double>(1, 5, 10));
+			Assert::AreEqual(Math::increaseRate(Math::proportionalIncrease<unsigned, double>(5, 1), 10), Math::increaseRate<unsigned, double>(5, 1, 10));
 		}
 	};
 
