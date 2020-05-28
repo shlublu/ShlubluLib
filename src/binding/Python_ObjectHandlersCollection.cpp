@@ -18,7 +18,7 @@ ObjectHandler const& ObjectHandlersCollection::registerObject(ObjectHandler cons
 {
 	if (mObjects.count(oh))
 	{
-		throw BindingException("ObjectHandlersCollection::registerObject(): object id " + String::xtos(oh.id()) + " is already registered.");
+		throw BindingLogicError("ObjectHandlersCollection::registerObject(): object id " + String::xtos(oh.id()) + " is already registered.");
 	}
 
 	return *(mObjects.emplace(oh).first);
@@ -29,7 +29,7 @@ void ObjectHandlersCollection::unregisterObject(ObjectHandler const& oh)
 {
 	if (!mObjects.count(oh))
 	{
-		throw BindingException("ObjectHandlersCollection::registerObject(): object id " + String::xtos(oh.id()) + " is not registered.");
+		throw BindingLogicError("ObjectHandlersCollection::registerObject(): object id " + String::xtos(oh.id()) + " is not registered.");
 	}
 
 	mObjects.erase(oh);

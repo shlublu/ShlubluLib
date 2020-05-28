@@ -86,16 +86,10 @@
     <ClInclude Include="include\shlublu\util\Debug.h">
       <Filter>include\util</Filter>
     </ClInclude>
-    <ClInclude Include="include\shlublu\util\Exceptions.h">
-      <Filter>include\util</Filter>
-    </ClInclude>
     <ClInclude Include="include\shlublu\hash\CRC.h">
       <Filter>include\hash</Filter>
     </ClInclude>
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandler.h">
-      <Filter>include\binding</Filter>
-    </ClInclude>
-    <ClInclude Include="include\shlublu\binding\Python_BindingException.h">
       <Filter>include\binding</Filter>
     </ClInclude>
     <ClInclude Include="include\shlublu\binding\Python_ObjectHandlersCollection.h">
@@ -106,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="include\shlublu\math\Math.h">
       <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\binding\Python_BindingExceptions.h">
+      <Filter>include\binding</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shlublu\util\NotImplementedError.h">
+      <Filter>include\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

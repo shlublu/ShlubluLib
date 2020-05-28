@@ -4,7 +4,6 @@
 
 #include <shlublu/text/String.h>
 #include <shlublu/util/Debug.h>
-#include <shlublu/util/Exceptions.h>
 SHLUBLU_OPTIMIZE_OFF();
 
 
@@ -159,7 +158,7 @@ namespace text_String
 		{
 			std::string test("once upon a time, once was meaning once");
 
-			Assert::ExpectException<ShlubluException>([&test]() { String::replace(test, "", "anything"); });
+			Assert::ExpectException<std::invalid_argument>([&test]() { String::replace(test, "", "anything"); });
 		}
 	};
 

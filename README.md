@@ -45,7 +45,7 @@ This library currently consists in the following modules:
   * [`String`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
   * [`Debug`](http://shlublulib.shlublu.org/v0.5/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * [`Exceptions`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_shlublu_exception.html): Named exceptions derived from [`std::exception`](https://www.cplusplus.com/reference/exception/exception/). 
+  * [`NotImplementedError`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_not_implemented_error.html): Exception thrown in case of missing implementation.. 
 
 The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.5/](http://shlublulib.shlublu.org/v0.5/).
 
@@ -268,7 +268,7 @@ Your client projects should also add the following directory to their include pa
 
 ## Unit tests
 
-Unit tests are available for Windows only. Coverage is not complete but is improving.
+Unit tests are only available for Windows currently. 
 
 
 ## About the author

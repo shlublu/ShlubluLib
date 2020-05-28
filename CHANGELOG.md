@@ -19,7 +19,8 @@
 
 ### Compatibility breakers
 
-*none*
+* `util/Exceptions.h`:
+  * Revisited the exceptions hierarchy to comply to best practices: existing exceptions from [`stdexcept`](http://www.cplusplus.com/reference/stdexcept/) are used when applicable and derived otherwise. This is only impacting for your code if it specifically catches `ShlubluException` or any of its derivations.
 
 
 ## v0.4 - 2020-05-23

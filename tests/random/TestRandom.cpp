@@ -98,11 +98,11 @@ namespace random_Random
 
 		TEST_METHOD(randomThrowsIfMinIsGreaterThanMax)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0, 0.9); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0f, 0.9f); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10, 9); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10, -11); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10U, 9U); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(1.0, 0.9); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(1.0f, 0.9f); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10, 9); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10, -11); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10U, 9U); });
 		}
 	};
 
@@ -222,20 +222,20 @@ namespace random_Random
 
 		TEST_METHOD(randomRoundedThrowsIfMinIsGreaterThanMax)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0, 0.9, 0.1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0f, 0.9f, 0.1f); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10, 9, 1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10, -11, 1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10U, 9U, 1U); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(1.0, 0.9, 0.1); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(1.0f, 0.9f, 0.1f); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10, 9, 1); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10, -11, 1); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10U, 9U, 1U); });
 		}
 
 
 		TEST_METHOD(randomRoundedThrowsIfStepIsNegative)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0, 2.0, -0.1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(1.0f, 2.0f, -0.1f); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(10, 11, -1); });
-			Assert::ExpectException<ShlubluException>([]() { Random::random(-10, 11, -1); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(1.0, 2.0, -0.1); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(1.0f, 2.0f, -0.1f); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(10, 11, -1); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::random(-10, 11, -1); });
 		}
 	};
 
@@ -316,15 +316,15 @@ namespace random_Random
 
 		TEST_METHOD(probabilityThrowsIfProbabilityIsNegative)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::probability(-std::numeric_limits<double>::min()); });
-			Assert::ExpectException<ShlubluException>([]() { Random::probability(-std::numeric_limits<float>::min()); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::probability(-std::numeric_limits<double>::min()); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::probability(-std::numeric_limits<float>::min()); });
 		}
 
 
 		TEST_METHOD(probabilityThrowsIfProbabilityExceedsOne)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::probability(1.0 + std::numeric_limits<double>::epsilon()); });
-			Assert::ExpectException<ShlubluException>([]() { Random::probability(1.0f + std::numeric_limits<float>::epsilon()); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::probability(1.0 + std::numeric_limits<double>::epsilon()); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::probability(1.0f + std::numeric_limits<float>::epsilon()); });
 		}
 	};
 
@@ -369,7 +369,7 @@ namespace random_Random
 
 		TEST_METHOD(likelihoodThrowsIfMoreChancesThanTotal)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Random::likelihood(2U, 1U); });
+			Assert::ExpectException<std::invalid_argument>([]() { Random::likelihood(2U, 1U); });
 		}
 	};
 

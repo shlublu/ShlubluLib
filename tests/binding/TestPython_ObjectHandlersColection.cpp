@@ -51,7 +51,7 @@ namespace binding_Python_ObjectHandlersCollection
 
             c.registerObject(oh);
 
-            Assert::ExpectException<Python::BindingException>([&c, &oh]() { c.registerObject(oh); });
+            Assert::ExpectException<Python::BindingLogicError>([&c, &oh]() { c.registerObject(oh); });
         }
 
 
@@ -82,7 +82,7 @@ namespace binding_Python_ObjectHandlersCollection
 
             c.registerObject(oh);
 
-            Assert::ExpectException<Python::BindingException>([&c, &oh]() { c.unregisterObject(Python::ObjectHandler(oh.get())); });
+            Assert::ExpectException<Python::BindingLogicError>([&c, &oh]() { c.unregisterObject(Python::ObjectHandler(oh.get())); });
         }
 
 
