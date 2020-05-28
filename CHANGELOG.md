@@ -1,4 +1,4 @@
-## v0.5 - XXXX-XX-XX
+## v0.5 - 2020-05-28
 
 ### New features
 
