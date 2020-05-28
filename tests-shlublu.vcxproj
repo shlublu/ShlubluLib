@@ -173,6 +173,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="tests\async\TestMutexLock.cpp" />
     <ClCompile Include="tests\binding\TestPython_ObjectHandler.cpp" />
     <ClCompile Include="tests\binding\TestPython.cpp" />
     <ClCompile Include="tests\binding\TestPython_ObjectHandlersColection.cpp" />

@@ -19,6 +19,9 @@
     <Filter Include="tests\math">
       <UniqueIdentifier>{ea5b7388-879f-46b0-a741-85826d476ed7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\async">
+      <UniqueIdentifier>{c4f5c2f5-a463-415d-b572-ee31f95c0a26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tests\text\TestString.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="tests\math\TestMath.cpp">
       <Filter>tests\math</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\async\TestMutexLock.cpp">
+      <Filter>tests\async</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

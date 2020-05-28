@@ -9,6 +9,8 @@
 #include <mutex>
 #include <thread>
 
+#include <shlublu/util/Exceptions.h>
+
 namespace shlublu
 {
 
@@ -128,12 +130,25 @@ public:
 	*/
 	void unlock();
 
+	/**
+		Returns the lock level of the mutex.
+		@return the lock level of the mutex
+	*/
+	unsigned lockLevel() const;
+
+
+	/**
+		Tells whether the current thread owns the mutex.
+		@return `true` if the calling thread is the owner, `false` otherwise.
+	*/
+	bool currentThreadIsOwner() const;
+
 private:
 	/// @cond INTERNAL
 
 	std::recursive_mutex mMutex;
 	std::thread::id mOwnerId;
-	int mLockLevel;
+	unsigned mLockLevel;
 
 	/// @endcond
 };

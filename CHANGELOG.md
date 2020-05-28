@@ -3,6 +3,10 @@
 ### New features
 
 * Added `Math` namespace and `math` module.
+* `MutexLock`:
+  * `lockLevel()` method that returns the lock level.
+  * `currentThreadIsOwner()` method that returns the ownership status of the calling thread.
+  * Added unit tests
 
 ### Fixes
 

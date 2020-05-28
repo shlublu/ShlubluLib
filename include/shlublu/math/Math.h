@@ -280,9 +280,9 @@ namespace Math
 		@return the rounded value of `number`
 		@see roundX()
 	*/
-	template<typename T> T round2(T value)
+	template<typename T> T round2(T number)
 	{
-		return roundX(value, 2);
+		return roundX(number, 2);
 	}
 
 

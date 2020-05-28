@@ -12,7 +12,8 @@ namespace shlublu
 {
 
 MutexLock::MutexLock(bool take)
-	: mLockLevel(0)
+	: mLockLevel(0),
+	  mOwnerId()
 {
 	if (take)
 	{
@@ -25,7 +26,7 @@ MutexLock::~MutexLock() noexcept
 {
 	lock();
 
-	while (mLockLevel > 0)
+	while (lockLevel() > 0)
 	{
 		unlock();
 	}
@@ -43,12 +44,17 @@ void MutexLock::lock()
 
 void MutexLock::unlock() 
 { 
-	if (std::this_thread::get_id() == mOwnerId)
+	if (currentThreadIsOwner())
 	{
-		if (mLockLevel > 0)
+		if (lockLevel() > 0)
 		{
 			mMutex.unlock();
 			mLockLevel--;
+
+			if (!lockLevel())
+			{
+				mOwnerId = std::thread::id();
+			}
 		}
 		else
 		{
@@ -59,6 +65,18 @@ void MutexLock::unlock()
 	{
 		throw ShlubluException("MutexLock::unlock(): trying to unlock while not having ownership.");
 	}
+}
+
+
+unsigned MutexLock::lockLevel() const
+{
+	return mLockLevel;
+}
+
+
+bool MutexLock::currentThreadIsOwner() const
+{
+	return std::this_thread::get_id() == mOwnerId;
 }
 
 }
