@@ -69,8 +69,8 @@ Should you just wish to use Shlublulib as a development tool, the binary distrib
 
 ### Download
 
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `24682bf19bb8763a443752cb9c6b4fc9d831b6ec31249601ff0241e5d881f560`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `407f8fa73fc365eba51caff39eadcbad084f3e63ff93c326c4a2776bf66ffd27`)
+* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `ee144fa83ef40ca7f47df93d5fe39cbd0a0db0322f97bece30c0b3580a045d77`)
+* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `6baeed7e71a876ee1f025bbf9fe1ee63df97abdfe514fc15f8fad61f94312bf7`)
 
 ### Content
 
