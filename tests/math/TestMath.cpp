@@ -46,16 +46,16 @@ namespace math_Math
 
 		TEST_METHOD(factorialThrowsIfNegativeN)
 		{
-			Assert::ExpectException<ShlubluException>([]() { return Math::factorial(-1); });
-			Assert::ExpectException<ShlubluException>([]() { return Math::factorial(-std::numeric_limits<double>::epsilon()); });
-			Assert::ExpectException<ShlubluException>([]() { return Math::factorial(-std::numeric_limits<float>::epsilon()); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::factorial(-1); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::factorial(-std::numeric_limits<double>::epsilon()); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::factorial(-std::numeric_limits<float>::epsilon()); });
 		}
 
 
 		TEST_METHOD(factorialThrowsIfNotRoundN)
 		{
-			Assert::ExpectException<ShlubluException>([]() { return Math::factorial(0.1); });
-			Assert::ExpectException<ShlubluException>([]() { return Math::factorial(0.1f); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::factorial(0.1); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::factorial(0.1f); });
 		}
 	};
 
@@ -90,7 +90,7 @@ namespace math_Math
 
 		TEST_METHOD(clampThrowsWhenMinIsGreaterThanMax)
 		{
-			Assert::ExpectException<ShlubluException>([]() { return Math::clamp(10, 100, 1); });
+			Assert::ExpectException<std::invalid_argument>([]() { return Math::clamp(10, 100, 1); });
 		}
 	};
 
@@ -208,7 +208,7 @@ namespace math_Math
 
 		TEST_METHOD(increaseGivesThrowsIfInitialValueIsZero)
 		{
-			Assert::ExpectException<ShlubluException>([]() { Math::proportionalIncrease(0.0, 1.0); });
+			Assert::ExpectException<std::invalid_argument>([]() { Math::proportionalIncrease(0.0, 1.0); });
 		}
 	};
 
@@ -244,19 +244,19 @@ namespace math_Math
 
 		TEST_METHOD(increaseRateThrowsWithZeroUnits)
 		{
-			Assert::ExpectException<ShlubluException>([]() { return Math::increaseRate(1.0, 0); });
+			Assert::ExpectException<std::invalid_argument>([]() { return Math::increaseRate(1.0, 0); });
 		}
 		
 
 		TEST_METHOD(increaseRateThrowsWithDecreaseExceedingInitialValue)
 		{
 			// double
-			Assert::ExpectException<ShlubluException>([]() { return Math::increaseRate(-1.0, 10); });
-			Assert::ExpectException<ShlubluException>([]() { return Math::increaseRate(-2.0, 10); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::increaseRate(-1.0, 10); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::increaseRate(-2.0, 10); });
 
 			// float
-			Assert::ExpectException<ShlubluException>([]() { return Math::increaseRate(-1.0f, 10); });
-			Assert::ExpectException<ShlubluException>([]() { return Math::increaseRate(-2.0f, 10); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::increaseRate(-1.0f, 10); });
+			Assert::ExpectException<std::domain_error>([]() { return Math::increaseRate(-2.0f, 10); });
 		}
 
 

@@ -149,6 +149,7 @@ namespace String
 		@param find the substring to be replaced
 		@param replaceBy the replacement substring
 		@return source
+		@exception std::invalid_argument if `find` is empty
 
 		<b>Example</b>
 		@code

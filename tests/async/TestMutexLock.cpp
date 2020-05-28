@@ -198,7 +198,7 @@ namespace async_MutexLock
 				[&lock]()
 				{
 					Assert::IsFalse(lock.currentThreadIsOwner());
-					Assert::ExpectException<ShlubluException>([&lock]() { lock.unlock(); });
+					Assert::ExpectException<MutexLock::LockingError>([&lock]() { lock.unlock(); });
 				}
 			);
 

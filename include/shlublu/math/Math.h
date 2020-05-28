@@ -5,7 +5,6 @@
 #include <functional>
 
 #include <shlublu/text/String.h>
-#include <shlublu/util/Exceptions.h>
 
 /** @file
 	Helper functions not included in the standard <a href="https://www.cplusplus.com/reference/cmath/">&lt;cmath&gt;</a> header.
@@ -241,7 +240,7 @@ namespace Math
 		@param minVal the lower inclusive bound of the range
 		@param maxVal the upper inclusive bound of the range
 		@return `value` if \f$value \in [minVal, maxVal]\f$, `minVal` if \f$value < minVal\f$, and `maxVal` if \f$value > maxVal\f$
-		@exception ShlubluException if `minVal > maxVal`
+		@exception std::invalid_argument if `minVal > maxVal`
 	*/
 	template<typename T> T clamp(T value, T minVal, T maxVal)
 	{
@@ -249,7 +248,7 @@ namespace Math
 
 		if (minVal > maxVal)
 		{
-			throw ShlubluException("Math::clamp(): " + String::xtos(minVal) + " > " + String::xtos(maxVal));
+			throw std::invalid_argument("Math::clamp(): " + String::xtos(minVal) + " > " + String::xtos(maxVal));
 		}
 
 		return std::max<T>(minVal, std::min<T>(value, maxVal));
@@ -288,10 +287,12 @@ namespace Math
 
 	/**
 		Returns the factorial of a given number.
+		This function is only defined for \f$n \in \mathbb{N+}\f$
+
 		@tparam T the type of `n` and of the returned value
 		@param n the number whose factorial is to be calculated
 		@return the factorial of `n`
-		@exception ShlubluException if `n` is negative or not round
+		@exception std::domain_error if \f$n \notin \mathbb{N+}\f$
 	*/
 	template<typename T> T factorial(T n)
 	{
@@ -299,16 +300,16 @@ namespace Math
 
 		if (n < T(0))
 		{
-			throw ShlubluException("Math::factorial(): " + String::xtos(n) + " is negative.");
+			throw std::domain_error("Math::factorial(): " + String::xtos(n) + " is negative.");
 		}
 
 		if (std::is_floating_point<T>::value && std::round(n) != n)
 		{
-			throw ShlubluException("Math::factorial(): " + String::xtos(n) + " is not round.");
+			throw std::domain_error("Math::factorial(): " + String::xtos(n) + " is not round.");
 		}
 
 		const std::function<T(T)> factorialUnchecked =
-			(
+		(
 				[&factorialUnchecked](T n) -> T
 				{
 					return (n > T(1)) ? (factorialUnchecked(n - T(1)) * n) : T(1);
@@ -330,7 +331,7 @@ namespace Math
 		@param initialValue the initial value
 		@param finalValue the final value
 		@return The proportional increase \f$(Vfinal / Vinitial) - 1\f$. `initialValue` is converted to `INCREASE_TYPE` to ensure this is a floating point division.
-		@exception ShlubluException if `initialValue` is zero
+		@exception std::invalid_argument if `initialValue` is zero
 	*/
 	template<typename VALUES_TYPE, typename INCREASE_TYPE = VALUES_TYPE> 
 	inline INCREASE_TYPE proportionalIncrease(VALUES_TYPE initialValue, VALUES_TYPE finalValue)
@@ -340,7 +341,7 @@ namespace Math
 
 		if (initialValue == 0)
 		{
-			throw ShlubluException("Math::proportionalIncrease(): initialValue (" + String::xtos(initialValue) + ") should not be zero.");
+			throw std::invalid_argument("Math::proportionalIncrease(): initialValue (" + String::xtos(initialValue) + ") should not be zero.");
 		}
 
 		return (finalValue / INCREASE_TYPE(initialValue)) - INCREASE_TYPE(1.0);
@@ -358,7 +359,8 @@ namespace Math
 		@param overallIncrease the proportional increase over all the periods of times
 		@param numPeriods the number of periods of time that are covered
 		@return the increase rate \f$\sqrt[N]{O + 1} - 1\f$
-		@exception ShlubluException if `numPeriods` is zero or if `overallIncrease <= -1`
+		@exception std::invalid_argument if `numPeriods` is zero 
+		@exception std::domain_error if `overallIncrease <= -1`
 	*/
 	template<typename T> inline T increaseRate(T overallIncrease, size_t numPeriods)
 	{
@@ -366,12 +368,12 @@ namespace Math
 
 		if (numPeriods == 0)
 		{
-			throw ShlubluException("Math::increaseRate(): numPeriods (" + String::xtos(numPeriods) + ") should be strictly positive.");
+			throw std::invalid_argument("Math::increaseRate(): numPeriods (" + String::xtos(numPeriods) + ") should be strictly positive.");
 		}
 
 		if (overallIncrease <= -1.0)
 		{
-			throw ShlubluException("Math::increaseRate(): overallIncrease (" + String::xtos(overallIncrease) + ") should be greater than -1.0.");
+			throw std::domain_error("Math::increaseRate(): overallIncrease (" + String::xtos(overallIncrease) + ") should be greater than -1.0 for the result to be real.");
 		}
 
 		return std::pow<T>(T(1.0) + overallIncrease, T(1.0) / numPeriods) - T(1.0);
@@ -396,7 +398,8 @@ namespace Math
 		@param finalValue the final value
 		@param numPeriods the number of periods of time that are covered
 		@return the increase rate \f$\sqrt[N]{Vfinal / Vinitial} - 1\f$
-		@exception ShlubluException if `initialValue` is zero, if `numPeriods` is zero or if `finalValue / initialValue <= 0`
+		@exception std::invalid_argument if `initialValue` is zero or if `numPeriods` is zero 
+		@exception std::domain_error if `initialValue` is zero, or if `finalValue / initialValue <= 0`
 	*/
 	template<typename VALUES_TYPE, typename INCREASE_TYPE = VALUES_TYPE>
 	inline INCREASE_TYPE increaseRate(VALUES_TYPE initialValue, VALUES_TYPE finalValue, size_t numPeriods)

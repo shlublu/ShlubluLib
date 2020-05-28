@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include <shlublu/binding/Python_BindingException.h>
+#include <shlublu/binding/Python_BindingExceptions.h>
 #include <shlublu/binding/Python_ObjectHandler.h>
 
 
@@ -73,7 +73,7 @@ namespace shlublu
 
 			Python::shutdown(); // optional: this will be called atexit() anyway
 		}
-		catch (Python::BindingException const& e)
+		catch (std::exception const& e)
 		{
 			std::cerr << "ERROR: " << e.what() << std::endl;
 			retCode = -1;
@@ -140,7 +140,7 @@ namespace shlublu
 			// Python::shutdown() will be called atexit(). This will take care of decreasing all needed references counts for you (modules, functions, arguments, results, etc).
 			// There are ways to do some cleanup manually should memory be an issue. This is explained later in this page.
 		}
-		catch (Python::BindingException const& e)
+		catch (std::exception const& e)
 		{
 			std::cerr << "ERROR: " << e.what() << std::endl;
 			retCode = -1;
@@ -221,7 +221,7 @@ namespace Python
 		Executes raw code.
 
 		@param code piece of code to execute. Lines should be separated by `\n`. Intentation should be materialized by spaces or `\t`.
-		@exception BindingException if Python is not initialized or if the piece of code causes an error at interpretation time.
+		@exception BindingLogicError if Python is not initialized or if the piece of code causes an error at interpretation time.
 
 		<b>Example</b>
 		@code
@@ -235,7 +235,7 @@ namespace Python
 		The whole program is executed in a row and cannot be interrupted by other threads using the CPython interpreter.
 		
 		@param program code to execute, typically splitted by lines. Intentation should be materialized by spaces or `\t`. Empty lines are permitted.
-		@exception BindingException if Python is not initialized or if any line of code causes an error at interpretation time.
+		@exception BindingLogicError if Python is not initialized or if any line of code causes an error at interpretation time.
 
 		<b>Example</b>
 		@code
@@ -253,7 +253,7 @@ namespace Python
 
 		@param moduleName the name of the module, dot-delimited should it be part of a package
 		@return a pointer to the imported module
-		@exception BindingException if Python is not initialized, if the module cannot be found or if is causes errors at interpretation time
+		@exception BindingLogicError if Python is not initialized or if the module cannot be found
 		
 		<b>Example</b>
 		@code
@@ -272,7 +272,7 @@ namespace Python
 
 		@param moduleName the name of the module, dot-delimited should it be part of a package
 		@return a pointer to the module
-		@exception BindingException if Python is not initialized or if the module has not be previsouly imported by `import()` 
+		@exception BindingLogicError if Python is not initialized or if the module has not be previsouly imported by `import()` 
 		
 		<b>Example</b>
 		@code
@@ -292,7 +292,7 @@ namespace Python
 		@param scope pointer to the module, namespace or object the object to retrieve belongs to
 		@param objectName the name of the object to retrieve
 		@return a handler of the retrieved object
-		@exception BindingException if Python is not initialized or if the object cannot be found
+		@exception BindingLogicError if Python is not initialized or if the object cannot be found
 
 		<b>Example</b>
 		@code
@@ -316,7 +316,7 @@ namespace Python
 		@param moduleName the name of the module the object to retrieve belongs to
 		@param objectName the name of the object to retrieve
 		@return a handler of the retrieved object
-		@exception BindingException if Python is not initialized, if the module has not been imported by `import()`, or if the object cannot be found
+		@exception BindingLogicError if Python is not initialized, if the module has not been imported by `import()`, or if the object cannot be found
 
 		<b>Example</b>
 		@code
@@ -339,7 +339,7 @@ namespace Python
 		@param callableName the name of the callable object to retrieve
 		@param forceReload if true, refresh the callable object pointer before returning it and dispose of any previous version
 		@return a pointer to the retrieved callable object
-		@exception BindingException if Python is not initialized, if the object cannot be found or if it is not callable
+		@exception BindingLogicError if Python is not initialized, if the object cannot be found or if it is not callable
 
 		<b>Example</b>
 		@code
@@ -363,7 +363,7 @@ namespace Python
 		@param callableName the name of the callable object to retrieve
 		@param forceReload if true, refresh the callable object pointer before returning it and dispose of any previous version
 		@return a pointer to the retrieved callable object
-		@exception BindingException if Python is not initialized, if the module has not been imported by `import()`, if the object cannot be found or if it is not callable
+		@exception BindingLogicError if Python is not initialized, if the module has not been imported by `import()`, if the object cannot be found or if it is not callable
 
 		<b>Example</b>
 		@code
@@ -389,7 +389,8 @@ namespace Python
 		@param args arguments of the call. They can either be obtained from previous Python calls or from CPython calls. Empty if no aregument is required.
 		@param keepArguments if true, the references counts of the elements of `args` will not be decreased so they can be reused later on
 		@return a handler of the result of the call, which is `None` if the callable returns no value.
-		@exception BindingException if Python is not initialized, or if any issue occurs during the call
+		@exception BindingLogicError if Python is not initialized
+		@exception BindingRuntimeError if any issue occurs during the call
 
 		<b>Example</b>
 		@code
@@ -413,7 +414,8 @@ namespace Python
 		@param args initializer of the tuple. These arguments can either be obtained from previous Python calls or from CPython calls. Empty to create an empty tuple.
 		@param keepArguments if true, no references will be stolen from `args`
 		@return a handler of the created tuple object
-		@exception BindingException if Python is not initialized
+		@exception BindingLogicError if Python is not initialized
+		@exception BindingRuntimeError if any issue occurs during the creation of the tuple
 
 		<b>Example</b>
 		@code
@@ -444,7 +446,8 @@ namespace Python
 		@param args initializer of the list. These arguments can either be obtained from previous Python calls or from CPython calls. Empty to create an empty list.
 		@param keepArguments if true, no references will be stolen from `args`
 		@return a handler of the created list object
-		@exception BindingException if Python is not initialized
+		@exception BindingLogicError if Python is not initialized
+		@exception BindingRuntimeError if any issue occurs during the creation of the list
 
 		<b>Example</b>
 		@code
@@ -472,7 +475,7 @@ namespace Python
 		@param list handler of the list object to add an item to. It can either be obtained from a previous Python call or implied by a `PyObject *` pointer obtained from a CPython call.
 		@param item handler of the item to add. It can either be obtained from a previous Python call or implied by a `PyObject *` pointer obtained from a CPython call. 
 		@param keepArg if true, no reference will be stolen from `item`
-		@exception BindingException if Python is not initialized or if `list` is not a list
+		@exception BindingLogicError if Python is not initialized or if `list` is not a list
 
 		<b>Example</b>
 		@code
@@ -500,7 +503,7 @@ namespace Python
 
 		@param str the string to convert
 		@return a handler of the UTF-8 string object representation of `str`
-		@exception BindingException if Python is not initialized
+		@exception BindingLogicError if Python is not initialized
 
 		<b>Example</b>
 		@code
@@ -520,7 +523,7 @@ namespace Python
 		@param utfStr the UTF-8 string object to convert
 		@param keepArg if true, no reference will be stolen from `utfStr`
 		@return the std::string representation of `utfStr`
-		@exception BindingException if Python is not initialized or if `utfStr` is not a UTF-8 CPython string object
+		@exception BindingLogicError if Python is not initialized or if `utfStr` is not a UTF-8 CPython string object
 
 		<b>Example</b>
 		@code
@@ -540,7 +543,7 @@ namespace Python
 
 		@param object a handler of the object to preserve. It shoud be under control of Python.
 		@return a new handler of `object` 
-		@exception BindingException if Python is not initialized or if `object` is not under control of Python
+		@exception BindingLogicError if Python is not initialized or if `object` is not under control of Python
 
 		<b>Example</b>
 		@code
@@ -571,7 +574,7 @@ namespace Python
 
 		@param object a handler of the object to be controlled. Typical use it to have it implicitely created from a `PyObject *` pointer obtained from the CPython API 
 		@return a new handler of `object` 
-		@exception BindingException if Python is not initialized or if `object` is already under control
+		@exception BindingLogicError if Python is not initialized or if `object` is already under control
 
 		<b>Example</b>
 		@code
@@ -600,7 +603,7 @@ namespace Python
 		This function allows saving memory by decreasing the reference count of an object that is no longer used without waiting for `shutdown()` to do it.
 
 		@param object a handler of the object to forget
-		@exception BindingException if Python is not initialized, if `object` is not under control, or if the references count of `object` is zero or less
+		@exception BindingLogicError if Python is not initialized, if `object` is not under control, or if the references count of `object` is zero or less
 
 		<b>Example</b>
 		@code
@@ -635,7 +638,7 @@ namespace Python
 		Calls to this function should be followed in the same thread by as many calls to `endCriticalSection()`. Not doing so is
 		a cause of deadlocks.
 
-		@exception BindingException if Python is not initialized.
+		@exception BindingLogicError if Python is not initialized.
 
 		<b>Example</b>
 		@code
@@ -710,10 +713,9 @@ namespace Python
 
 		Calls to this function should match calls to `beginCriticalSection()` performed in the same thread.
 
-		@exception BindingException if this call doesn't match a call to `beginCriticalSection()` performed in the same thread.
+		@exception BindingLogicError if this call doesn't match a previous call to `beginCriticalSection()` performed in the same thread.
 	*/
 	void endCriticalSection();
-
 }
 
 }

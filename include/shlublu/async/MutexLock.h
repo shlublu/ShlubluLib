@@ -9,8 +9,6 @@
 #include <mutex>
 #include <thread>
 
-#include <shlublu/util/Exceptions.h>
-
 namespace shlublu
 {
 
@@ -89,6 +87,29 @@ public:
 	*/
 	using Guard = std::lock_guard<MutexLock>;
 
+	/**
+		MutexLock throws this exception when a locking or unlocking operation is not legal.
+	*/
+	class LockingError : public std::logic_error
+	{
+	public:
+		/**
+			Constructor.
+			@param message description of the issue
+		*/
+		explicit LockingError(const std::string& message)
+			: logic_error(("Python binding: " + message).c_str())
+		{}
+
+		/**
+			Constructor.
+			@param message description of the issue
+		*/
+		explicit LockingError(const char* message)
+			: logic_error(std::string(message))
+		{}
+	};
+
 public:
 	/**
 		Copy constructor is deleted.
@@ -126,7 +147,7 @@ public:
 
 	/**
 		Unlocks the mutex.
-		@exception ShlubluException if the mutex is not locked or if it is locked by another thread
+		@exception LockingError if the mutex is not locked or if it is locked by another thread
 	*/
 	void unlock();
 

@@ -37,7 +37,7 @@ namespace binding_Python
 
 		TEST_METHOD(initRequiredToWork)
 		{
-			Assert::ExpectException<Python::BindingException>([]() { Python::execute("a = 1"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::execute("a = 1"); });
 
 			Python::init("pythonBinding");
 			Python::execute("a = 1");
@@ -51,7 +51,7 @@ namespace binding_Python
 			Python::execute("a = 1");
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::execute("a = 1"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::execute("a = 1"); });
 		}
 
 
@@ -65,7 +65,7 @@ namespace binding_Python
 			Python::shutdown();
 			Python::init("pythonBinding2");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::call(Python::callable(Python::moduleMain, "func")); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::call(Python::callable(Python::moduleMain, "func")); });
 
 			Python::shutdown();
 		}
@@ -106,7 +106,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::execute("wrong(blah)"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::execute("wrong(blah)"); });
 
 			Python::shutdown();
 		}
@@ -125,7 +125,7 @@ namespace binding_Python
 				}
 			};
 
-			Assert::ExpectException<Python::BindingException>([&program]() { Python::execute(program); });
+			Assert::ExpectException<Python::BindingLogicError>([&program]() { Python::execute(program); });
 
 			Python::shutdown();
 		}
@@ -136,13 +136,13 @@ namespace binding_Python
 			Python::init("pythonBinding");
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::execute("a = []"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::execute("a = []"); });
 		}
 
 
 		TEST_METHOD(executeWithoutInitThrows)
 		{
-			Assert::ExpectException<Python::BindingException>([]() { Python::execute("a = []"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::execute("a = []"); });
 		}
 	};
 
@@ -177,7 +177,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::import("inexisting"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::import("inexisting"); });
 
 			Python::shutdown();
 		}
@@ -188,13 +188,13 @@ namespace binding_Python
 			Python::init("pythonBinding");
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::import("os"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::import("os"); });
 		}
 
 
 		TEST_METHOD(importWithoutInitThrows)
 		{
-			Assert::ExpectException<Python::BindingException>([]() { Python::import("os"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::import("os"); });
 		}
 	};
 
@@ -251,7 +251,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::module("os"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::module("os"); });
 
 			Python::shutdown();
 		}
@@ -265,13 +265,13 @@ namespace binding_Python
 			Python::import(moduleName);
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::module("os"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::module("os"); });
 		}
 
 
 		TEST_METHOD(retrieveWithoutInitThrows)
 		{
-			Assert::ExpectException<Python::BindingException>([]() { Python::module("sys"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::module("sys"); });
 		}
 	};
 
@@ -329,7 +329,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::callable(Python::moduleMain, "inex"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::callable(Python::moduleMain, "inex"); });
 
 			Python::shutdown();
 		}
@@ -344,7 +344,7 @@ namespace binding_Python
 
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::callable(Python::moduleMain, "testVar"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::callable(Python::moduleMain, "testVar"); });
 		}
 	};
 
@@ -430,7 +430,7 @@ namespace binding_Python
 			const auto moduleName("os");
 			Python::import(moduleName);
 
-			Assert::ExpectException<Python::BindingException>([&moduleName]() { Python::callable(moduleName, "inex"); });
+			Assert::ExpectException<Python::BindingLogicError>([&moduleName]() { Python::callable(moduleName, "inex"); });
 
 			Python::shutdown();
 		}
@@ -440,7 +440,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::callable("os", "getcwd"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::callable("os", "getcwd"); });
 
 			Python::shutdown();
 		}
@@ -454,13 +454,13 @@ namespace binding_Python
 			Python::import(moduleName);
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>([&moduleName]() { Python::callable(moduleName, "getcwd"); });
+			Assert::ExpectException<Python::BindingLogicError>([&moduleName]() { Python::callable(moduleName, "getcwd"); });
 		}
 
 
 		TEST_METHOD(retrieveWithoutInitThrows)
 		{
-			Assert::ExpectException<Python::BindingException>([]() { Python::callable("os", "getcwd"); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::callable("os", "getcwd"); });
 		}
 	};
 
@@ -534,7 +534,7 @@ namespace binding_Python
 
 			Python::shutdown();
 
-			Assert::ExpectException<Python::BindingException>
+			Assert::ExpectException<Python::BindingLogicError>
 			(
 				[]() 
 				{
@@ -906,7 +906,7 @@ namespace binding_Python
 			Python::forgetArgument(kept);
 			Assert::AreEqual(refCount - 1, kept.get()->ob_refcnt);
 
-			Assert::ExpectException<Python::BindingException>([&val]() { Python::forgetArgument(val); });
+			Assert::ExpectException<Python::BindingLogicError>([&val]() { Python::forgetArgument(val); });
 
 			Python::shutdown();
 		}
@@ -927,7 +927,7 @@ namespace binding_Python
 			Python::forgetArgument(handler);
 			Assert::AreEqual(refCount - 1, val->ob_refcnt);
 
-			Assert::ExpectException<Python::BindingException>([&val]() { Python::forgetArgument(val); });
+			Assert::ExpectException<Python::BindingLogicError>([&val]() { Python::forgetArgument(val); });
 
 			Python::shutdown();
 		}
@@ -937,7 +937,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::keepArgument(PyLong_FromLong(5)); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::keepArgument(PyLong_FromLong(5)); });
 
 			Python::shutdown();
 		}
@@ -947,7 +947,7 @@ namespace binding_Python
 		{
 			Python::init("pythonBinding");
 
-			Assert::ExpectException<Python::BindingException>([]() { Python::controlArgument(Python::fromAscii("test")); });
+			Assert::ExpectException<Python::BindingLogicError>([]() { Python::controlArgument(Python::fromAscii("test")); });
 
 			Python::shutdown();
 		}

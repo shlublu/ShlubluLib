@@ -4,7 +4,10 @@
 #include <cstring>
 #include <functional>
 
-#include <shlublu/util/Exceptions.h>
+#ifdef _WIN32
+#pragma warning ( disable : 6385 )
+#endif
+
 
 namespace shlublu
 {
@@ -64,7 +67,7 @@ std::string& String::replace(std::string& source, std::string const& find, std::
 {
 	if (find.length() < 1)
 	{
-		throw ShlubluException("String::replace(): seed to replace should not be empty.");
+		throw std::invalid_argument("String::replace(): seed to replace should not be empty.");
 	}
 
 	for (std::string::size_type i = 0; (i = source.find(find, i)) != std::string::npos;)

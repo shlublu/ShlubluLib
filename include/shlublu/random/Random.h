@@ -1,15 +1,15 @@
 #pragma once
 
-#include <random>
-
-#include <shlublu/text/String.h>
-#include <shlublu/util/Exceptions.h>
-
 /** @file
 	Helper functions based on the standard <a href="https://www.cplusplus.com/reference/random/">&lt;random&gt;</a> header.
 
 	See Random namespace documentation for details.
 */
+
+#include <random>
+#include <stdexcept>
+
+#include <shlublu/text/String.h>
 
 
 namespace shlublu
@@ -46,7 +46,7 @@ namespace Random
 		@param min the minimal value of the range
 		@param max the maximal value of the range, included for integers and excluded for real numbers. It should be strictly greater than `min`.
 		@return a pseudo-random number in the range defined by `min` and `max`
-		@exception ShlubluException if `min` > `max`
+		@exception std::invalid_argument if `min` > `max`
 
 		<b>Example</b>
 		@code
@@ -59,7 +59,7 @@ namespace Random
 
 		if (min > max)
 		{
-			throw ShlubluException("Random::random(): min (" + String::xtos(min) + ") > max (" + String::xtos(max) + ")");
+			throw std::invalid_argument("Random::random(): min (" + String::xtos(min) + ") > max (" + String::xtos(max) + ")");
 		}
 
 		using Distribution = typename std::conditional<std::is_floating_point<T>::value, std::uniform_real_distribution<T>, std::uniform_int_distribution<T>>::type;
@@ -82,7 +82,7 @@ namespace Random
 		@param max the maximal value of the range, included for integers and excluded for real numbers. It should be strictly greater than `min`.
 		@param step the rounding step. It must be lower than the amplitude of the range.
 		@return a pseudo-random number in the range defined by `min` and `max` and rounded to the nearest `step`.
-		@exception ShlubluException if `step` is negative or null, if `step` is greater than the amplitude of the range, or if `min` >= `max`
+		@exception std::invalid_argument if `step` is negative or null, if `step` is greater than the amplitude of the range, or if `min` >= `max`
 
 		<b>Example</b>
 		@code
@@ -95,12 +95,12 @@ namespace Random
 
 		if (step <= 0)
 		{
-			throw ShlubluException("Random::random(): step (" + String::xtos(step) + ") is negative or null.");
+			throw std::invalid_argument("Random::random(): step (" + String::xtos(step) + ") is negative or null.");
 		}
 
 		if (step > (max - min))
 		{
-			throw ShlubluException("Random::random(): step (" + String::xtos(step) + ") is bigger than the amplitude of the range (" + String::xtos(max - min) + ").");
+			throw std::invalid_argument("Random::random(): step (" + String::xtos(step) + ") is bigger than the amplitude of the range (" + String::xtos(max - min) + ").");
 		}
 
 		T ret;
@@ -177,7 +177,7 @@ namespace Random
 		@tparam T the type of the returned value. This type should be real.
 		@param p the probability of returning `true`. It should be in the range [0, 1]
 		@return `true` or `false` depending on a pseudo-random number 
-		@exception ShlubluException if `p` is out of the range [0, 1]
+		@exception std::invalid_argument if `p` is out of the range [0, 1]
 
 		<b>Example</b>
 		@code
@@ -190,11 +190,11 @@ namespace Random
 
 		if (p < T(0))
 		{
-			throw ShlubluException("Random::probability(): p (" + String::xtos(p) + ") is negative.");
+			throw std::invalid_argument("Random::probability(): p (" + String::xtos(p) + ") is negative.");
 		}
 		else if (p > T(1))
 		{
-			throw ShlubluException("Random::probability(): p (" + String::xtos(p) + ") > 1");
+			throw std::invalid_argument("Random::probability(): p (" + String::xtos(p) + ") > 1");
 		}
 
 		bool ret(p == T(1));
@@ -216,7 +216,7 @@ namespace Random
 		@param chance the numberator of the chance
 		@param total the denominator of the chance
 		@return `true` or `false` depending on a pseudo-random number 
-		@exception ShlubluException if `T` is signed and `chance` is negative or if `chance` > `total`
+		@exception std::invalid_argument if `T` is signed and `chance` is negative or if `chance` > `total`
 
 		<b>Example</b>
 		@code
@@ -230,12 +230,12 @@ namespace Random
 
 		if (std::is_signed<T>::value && chance < 0)
 		{
-			throw ShlubluException("Random::likelihood(): chance (" + String::xtos(chance) + ") is negative");
+			throw std::invalid_argument("Random::likelihood(): chance (" + String::xtos(chance) + ") is negative");
 		}
 
 		if (chance > total)
 		{
-			throw ShlubluException("Random::likelihood(): chance (" + String::xtos(chance) + ") > total (" + String::xtos(total) + ")");
+			throw std::invalid_argument("Random::likelihood(): chance (" + String::xtos(chance) + ") > total (" + String::xtos(total) + ")");
 		}
 
 		return random(T(1), total) <= chance;

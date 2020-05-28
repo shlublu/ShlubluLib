@@ -1,7 +1,6 @@
 #include <shlublu/async/MutexLock.h>
 
 #include <shlublu/text/String.h>
-#include <shlublu/util/Exceptions.h>
 
 
 #ifdef _WIN32
@@ -12,8 +11,8 @@ namespace shlublu
 {
 
 MutexLock::MutexLock(bool take)
-	: mLockLevel(0),
-	  mOwnerId()
+	: mOwnerId(),
+	  mLockLevel(0)
 {
 	if (take)
 	{
@@ -58,12 +57,12 @@ void MutexLock::unlock()
 		}
 		else
 		{
-			throw ShlubluException("MutexLock::unlock(): trying to unlock while lock level is " + String::xtos(mLockLevel));
+			throw LockingError("MutexLock::unlock(): trying to unlock while the lock level is zero.");
 		}
 	}
 	else
 	{
-		throw ShlubluException("MutexLock::unlock(): trying to unlock while not having ownership.");
+		throw LockingError("MutexLock::unlock(): trying to unlock while not having ownership.");
 	}
 }
 

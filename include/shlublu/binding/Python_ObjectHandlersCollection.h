@@ -8,7 +8,7 @@
 
 #include <unordered_set>
 
-#include <shlublu/binding/Python_BindingException.h>
+#include <shlublu/binding/Python_BindingExceptions.h>
 #include <shlublu/binding/Python_ObjectHandler.h>
 
 
@@ -53,7 +53,7 @@ public:
 
 		@param oh the use case to register
 		@return a reference to this use case once registered
-		@exception BindingException if `oh`'s ID is already registered
+		@exception BindingLogicError if `oh`'s ID is already registered
 	*/
 	ObjectHandler const& registerObject(ObjectHandler const& oh);
 	
@@ -61,7 +61,7 @@ public:
 		Unregisters a use case represented by an ObjectHandler.
 
 		@param oh the use case to unregister
-		@exception BindingException if `oh`'s ID has not been registered or has been unregistered already
+		@exception BindingLogicError if `oh`'s ID has not been registered or has been unregistered already
 	*/
 	void unregisterObject(ObjectHandler const& oh);
 
