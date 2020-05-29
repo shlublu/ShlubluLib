@@ -129,7 +129,8 @@ public:
 	
 	/**
 		Destructor.
-		Unlocks as many time as it has been previously locked.
+		Unlocks as many time as it has been previously locked by the current thread. It is up to the
+		developper to ensure the mutex is not locked by another thread.
 		@see unlock()
 	*/
 	virtual ~MutexLock() noexcept;

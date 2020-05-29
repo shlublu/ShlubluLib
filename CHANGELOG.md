@@ -7,8 +7,9 @@
 ### Fixes
 
 * `Math`:
-  * Fixed minor warnings.
-
+  * Fixed minor compilation warnings.
+* `MutexLock`:
+  * Fixed an error that could happen at destruction time if the mutex was locked by another thread than the destructing one.
 
 ### Compatibility breakers
 

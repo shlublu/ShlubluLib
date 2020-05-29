@@ -25,7 +25,7 @@ MutexLock::~MutexLock() noexcept
 {
 	lock();
 
-	while (lockLevel() > 0)
+	while (currentThreadIsOwner() && lockLevel() > 0)
 	{
 		unlock();
 	}
