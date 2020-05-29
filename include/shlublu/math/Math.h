@@ -303,10 +303,19 @@ namespace Math
 			throw std::domain_error("Math::factorial(): " + String::xtos(n) + " is negative.");
 		}
 
+		#ifndef _WIN32
+		_Pragma("GCC diagnostic push")
+		_Pragma("GCC diagnostic ignored \"-Wconversion\"")
+		#endif		
+
 		if (std::is_floating_point<T>::value && std::round(n) != n)
 		{
 			throw std::domain_error("Math::factorial(): " + String::xtos(n) + " is not round.");
 		}
+
+		#ifndef _WIN32
+		_Pragma("GCC diagnostic pop")
+		#endif		
 
 		const std::function<T(T)> factorialUnchecked =
 		(
@@ -371,12 +380,12 @@ namespace Math
 			throw std::invalid_argument("Math::increaseRate(): numPeriods (" + String::xtos(numPeriods) + ") should be strictly positive.");
 		}
 
-		if (overallIncrease <= -1.0)
+		if (overallIncrease <= T(-1.0))
 		{
 			throw std::domain_error("Math::increaseRate(): overallIncrease (" + String::xtos(overallIncrease) + ") should be greater than -1.0 for the result to be real.");
 		}
 
-		return std::pow<T>(T(1.0) + overallIncrease, T(1.0) / numPeriods) - T(1.0);
+		return std::pow<T>(T(1.0) + overallIncrease, T(1.0) / T(numPeriods)) - T(1.0);
 	}
 
 
