@@ -1,3 +1,20 @@
+## v0.6 - XXXX-XX-XX
+
+### New features
+
+*none*
+
+### Fixes
+
+* `Math`:
+  * Fixed minor warnings.
+
+
+### Compatibility breakers
+
+*none*
+
+
 ## v0.5 - 2020-05-28
 
 ### New features
