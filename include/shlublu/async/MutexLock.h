@@ -129,8 +129,10 @@ public:
 	
 	/**
 		Destructor.
-		Unlocks as many time as it has been previously locked by the current thread. It is up to the
-		developper to ensure the mutex is not locked by another thread.
+		Unlocks as many time as it has been previously locked by the current thread. 
+		
+		It is up to the client code to ensure that the mutex is not locked by another thread when calling
+		the destructor. Destroying a locked mutex is an undefined behaviour case.
 		@see unlock()
 	*/
 	virtual ~MutexLock() noexcept;
@@ -143,6 +145,8 @@ public:
 		<li>it is in released state
 		<li>it has been previously locked by the same thread as the calling one
 		</ul>
+
+		@exception std::system_error if the maximum number of recursive locks allowed by the system has been reached
 	*/
 	void lock();	
 
