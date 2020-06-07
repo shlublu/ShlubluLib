@@ -121,7 +121,7 @@ The same way, depending on what you would like to do, you do not need all of the
 ShlubluLib is hosted on GitHub. The repository can be found [here](https://github.com/shlublu/ShlubluLib).
 
 You can either: 
-* Git clone our repository: https://github.com/shlublu/ShlubluLib.git. This is the recommended option as this allows pulling updates.
+* Git clone our repository: https://github.com/shlublu/ShlubluLib.git. This is the recommended option as it allows pulling updates.
 * or just [download a snapshot](https://github.com/shlublu/ShlubluLib/archive/master.zip) of the current version.
 
 
@@ -264,7 +264,7 @@ I am working on making this cleaner and easier to use. I hope it's ok for now.
   * your remote Linux environment: `~/projects/shlublu-linux/bin/x64/<Debug|Release>\libshlublu-linux.a`
 
 Your client projects should also add the following directory to their include path:
-* **Windows**: `<\path\to>\ShlubluLib\include\` 
+* **Windows**: `<\path\to>\ShlubluLib\include` 
 * **Linux**: `~/projects/shlublu-linux/include`
 
 
