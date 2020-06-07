@@ -32,22 +32,22 @@ see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.eur
 
 This library currently consists in the following modules:
 * `async`: threading and asynchronous operations
-  * [`MutexLock`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_mutex_lock.html): Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
+  * [`MutexLock`](https://shlublulib.shlublu.org/v0.5/classshlublu_1_1_mutex_lock.html): Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
 * `binding`: interactions with other languages
-  * [`Python`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_python.html): based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
+  * [`Python`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_python.html): based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
 * `hash`: hash algorithms
-  * [`CRC`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_c_r_c.html): cyclic redundancy check.
+  * [`CRC`](https://shlublulib.shlublu.org/v0.5/classshlublu_1_1_c_r_c.html): cyclic redundancy check.
 * `math`: math issues
-  * [`Math`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_math.html): helper functions not included in the standard [`<cmath>`](https://www.cplusplus.com/reference/cmath/) header.
+  * [`Math`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_math.html): helper functions not included in the standard [`<cmath>`](https://www.cplusplus.com/reference/cmath/) header.
 * `random`: random numbers generation
-  * [`Random`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_random.html): helper functions based on the standard [`<random>`](https://www.cplusplus.com/reference/random/) header.
+  * [`Random`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_random.html): helper functions based on the standard [`<random>`](https://www.cplusplus.com/reference/random/) header.
 * `text`: text content handling
-  * [`String`](http://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
+  * [`String`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
-  * [`Debug`](http://shlublulib.shlublu.org/v0.5/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * [`NotImplementedError`](http://shlublulib.shlublu.org/v0.5/classshlublu_1_1_not_implemented_error.html): Exception thrown in case of missing implementation.. 
+  * [`Debug`](https://shlublulib.shlublu.org/v0.5/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
+  * [`NotImplementedError`](https://shlublulib.shlublu.org/v0.5/classshlublu_1_1_not_implemented_error.html): Exception thrown in case of missing implementation.. 
 
-The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.5/](http://shlublulib.shlublu.org/v0.5/).
+The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.5/](https://shlublulib.shlublu.org/v0.5/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -69,8 +69,8 @@ Should you just wish to use Shlublulib as a development tool, the binary distrib
 
 ### Download
 
-* [Linux x86 version](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `ee144fa83ef40ca7f47df93d5fe39cbd0a0db0322f97bece30c0b3580a045d77`)
-* [Win64 x86 version](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](http://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `6baeed7e71a876ee1f025bbf9fe1ee63df97abdfe514fc15f8fad61f94312bf7`)
+* [Linux x86 version](https://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](https://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `ee144fa83ef40ca7f47df93d5fe39cbd0a0db0322f97bece30c0b3580a045d77`)
+* [Win64 x86 version](https://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](https://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `6baeed7e71a876ee1f025bbf9fe1ee63df97abdfe514fc15f8fad61f94312bf7`)
 
 ### Content
 
@@ -279,7 +279,7 @@ You can find me there (user ID: \@shlublu):
 * [GitHub](https://github.com/shlublu)
 * [Stack Overflow](https://stackoverflow.com/users/840960/shlublu)
 * [Twitter](https://twitter.com/shlublu)
-* ![e-mail](http://shlublulib.shlublu.org/email.png)
+* ![e-mail](https://shlublulib.shlublu.org/email.png)
 
 PGP public key: [0x1412f1e42222f90d](https://keyserver.ubuntu.com/pks/lookup?search=shlublu%40yahoo.fr&fingerprint=on&op=index)
 
