@@ -376,7 +376,7 @@ namespace Python
 	ObjectPointer callable(std::string const& moduleName, std::string const& callableName, bool forceReload = false);
 
 	/**
-		Calls a callable with the given arguments.
+		Calls a callable with the given positional arguments.
 
 		Once the callable returns, the references counts of the elements of `args` are decreased unless `keepArguments` is true in which case none are decreased. 
 		Should you wich to only keep some of the passed arguments, `keepArguments` should be set to `false` and `controlArgument()`/`keepArgument()` should be used 
@@ -390,7 +390,7 @@ namespace Python
 		@param keepArguments if true, the references counts of the elements of `args` will not be decreased so they can be reused later on
 		@return a handler of the result of the call, which is `None` if the callable returns no value.
 		@exception BindingLogicError if Python is not initialized
-		@exception BindingRuntimeError if any issue occurs during the call
+		@exception BindingRuntimeError if any issue occurs during the call. Should this happen the references counts of the elements of `args` will have been decreased anyway.
 
 		<b>Example</b>
 		@code
