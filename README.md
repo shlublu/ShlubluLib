@@ -118,9 +118,11 @@ The same way, depending on what you would like to do, you do not need all of the
 
 ### Git repository
 
+ShlubluLib is hosted on GitHub. The repository can be found [here](https://github.com/shlublu/ShlubluLib).
+
 You can either: 
-* Git clone our repository (recommended option as this allows pulling updates): https://github.com/shlublu/ShlubluLib.git
-* or just download a snapshot of the current version: https://github.com/shlublu/ShlubluLib/archive/master.zip
+* Git clone our repository: https://github.com/shlublu/ShlubluLib.git. This is the recommended option as this allows pulling updates.
+* or just [download a snapshot](https://github.com/shlublu/ShlubluLib/archive/master.zip) of the current version.
 
 
 ### Files system 
