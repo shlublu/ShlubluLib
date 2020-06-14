@@ -2,7 +2,7 @@
 
 ### New features
 
-*none*
+* `Added Combinatorics` classes to `math` module
 
 ### Fixes
 

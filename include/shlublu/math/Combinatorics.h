@@ -6,6 +6,12 @@
 #include <shlublu/math/Math.h>
 #include <shlublu/text/String.h>
 
+/** @file
+	Combinatorics-oriented classes.
+
+	See classes documentation for details.
+*/
+
 
 namespace shlublu
 {
