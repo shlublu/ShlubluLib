@@ -1,5 +1,5 @@
 **ShlubluLib** is a lightweight, modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
-The current version is v0.5.
+The current version is v0.6.
 
 This library is designed to be simple to use. It is intended to cover frequent use cases in a simple way without preventing or hindering the development of 
 more advanced features when needed. It actually consists of code that I wrote for my own use and that could be useful to others. 
@@ -32,22 +32,23 @@ see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.eur
 
 This library currently consists in the following modules:
 * `async`: threading and asynchronous operations
-  * [`MutexLock`](https://shlublulib.shlublu.org/v0.5/classshlublu_1_1_mutex_lock.html): Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
+  * [`MutexLock`](https://shlublulib.shlublu.org/v0.6/classshlublu_1_1_mutex_lock.html): Recursive mutex helper based on [`std::recursive_mutex`](https://www.cplusplus.com/reference/mutex/recursive_mutex/).
 * `binding`: interactions with other languages
-  * [`Python`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_python.html): based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
+  * [`Python`](https://shlublulib.shlublu.org/v0.6/namespaceshlublu_1_1_python.html): based on the [CPython standard API](https://docs.python.org/3/c-api/index.html), this module is intended to make Python integration easier.
 * `hash`: hash algorithms
-  * [`CRC`](https://shlublulib.shlublu.org/v0.5/classshlublu_1_1_c_r_c.html): cyclic redundancy check.
+  * [`CRC`](https://shlublulib.shlublu.org/v0.6/classshlublu_1_1_c_r_c.html): cyclic redundancy check.
 * `math`: math issues
-  * [`Math`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_math.html): helper functions not included in the standard [`<cmath>`](https://www.cplusplus.com/reference/cmath/) header.
+  * [`Combinatorics`](https://shlublulib.shlublu.org/v0.6/_combinatorics_8h.html): combinatorics-oriented classes.
+  * [`Math`](https://shlublulib.shlublu.org/v0.6/namespaceshlublu_1_1_math.html): helper functions not included in the standard [`<cmath>`](https://www.cplusplus.com/reference/cmath/) header.
 * `random`: random numbers generation
-  * [`Random`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_random.html): helper functions based on the standard [`<random>`](https://www.cplusplus.com/reference/random/) header.
+  * [`Random`](https://shlublulib.shlublu.org/v0.6/namespaceshlublu_1_1_random.html): helper functions based on the standard [`<random>`](https://www.cplusplus.com/reference/random/) header.
 * `text`: text content handling
-  * [`String`](https://shlublulib.shlublu.org/v0.5/namespaceshlublu_1_1_string.html): helper functions not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
+  * [`String`](https://shlublulib.shlublu.org/v0.6/namespaceshlublu_1_1_string.html): helper functions not included in [`std::string`](https://www.cplusplus.com/reference/string/string/).
 * `util`: miscellaneous
-  * [`Debug`](https://shlublulib.shlublu.org/v0.5/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
-  * [`NotImplementedError`](https://shlublulib.shlublu.org/v0.5/classshlublu_1_1_not_implemented_error.html): Exception thrown in case of missing implementation.. 
+  * [`Debug`](https://shlublulib.shlublu.org/v0.6/_debug_8h.html): Macros useful for developing and debugging: compilation messages, optimization control, and so on.
+  * [`NotImplementedError`](https://shlublulib.shlublu.org/v0.6/classshlublu_1_1_not_implemented_error.html): Exception thrown in case of missing implementation.. 
 
-The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.5/](https://shlublulib.shlublu.org/v0.5/).
+The Doxygen documentation of these modules is available at [shlublulib.shlublu.org/v0.6/](https://shlublulib.shlublu.org/v0.6/).
 
 Some of these modules require external libraries such as Boost or Python. Such requirements are specified 
 in their documentation.
@@ -69,8 +70,8 @@ Should you just wish to use Shlublulib as a development tool, the binary distrib
 
 ### Download
 
-* [Linux x86 version](https://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip) ([PGP sig](https://shlublulib.shlublu.org/dist/shlublulib-linux-v0.5.zip.asc) - SHA-256: `ee144fa83ef40ca7f47df93d5fe39cbd0a0db0322f97bece30c0b3580a045d77`)
-* [Win64 x86 version](https://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip) ([PGP sig](https://shlublulib.shlublu.org/dist/shlublulib-win64-v0.5.zip.asc) - SHA-256: `6baeed7e71a876ee1f025bbf9fe1ee63df97abdfe514fc15f8fad61f94312bf7`)
+* [Linux x86 version](https://shlublulib.shlublu.org/dist/shlublulib-linux-v0.6.zip) ([PGP sig](https://shlublulib.shlublu.org/dist/shlublulib-linux-v0.6.zip.asc) - SHA-256: `9086e65cd4bb62190c54fefc45bd4e92427d2775928846380c92cdd4d18d29ed`)
+* [Win64 x86 version](https://shlublulib.shlublu.org/dist/shlublulib-win64-v0.6.zip) ([PGP sig](https://shlublulib.shlublu.org/dist/shlublulib-win64-v0.6.zip.asc) - SHA-256: `59b57bb412d548002eca552319723b8e2f679996670b7311b4aa0402bd8778bd`)
 
 ### Content
 
