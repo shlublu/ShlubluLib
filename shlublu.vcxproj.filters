@@ -107,5 +107,8 @@
     <ClInclude Include="include\shlublu\util\NotImplementedError.h">
       <Filter>include\util</Filter>
     </ClInclude>
+    <ClInclude Include="include\shlublu\math\Combinatorics.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
