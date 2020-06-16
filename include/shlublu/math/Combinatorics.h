@@ -17,30 +17,38 @@ namespace shlublu
 {
 
 
-template <typename T>
 class EnumerativeCombinatorics
 {
 public:
 	EnumerativeCombinatorics(size_t k)
-		: mKUplet()
+		: mK(k),
+		  mKUplet()
 	{
-		mKUplet.reserve(k);
+		mKUplet.reserve(mK);
 	}
 
 	virtual ~EnumerativeCombinatorics()
 	{}
 
 	virtual size_t n() const = 0;
-	virtual size_t k() const = 0;
 	
+	size_t k() const
+	{
+		return mK;
+	}
+
 	virtual size_t number() const = 0;
 
-	std::vector<T> const& kUplet() const
+	std::vector<size_t> const& kUplet() const
 	{
 		return mKUplet;
 	}
 
-	void swapKUplet(std::vector<T>& swapWith) 
+
+private:
+	friend class Arrangement;
+
+	void swapKUplet(std::vector<size_t>& swapWith)
 	{
 		mKUplet.swap(swapWith);
 	}
@@ -48,23 +56,21 @@ public:
 	virtual bool next() = 0;
 
 protected:
-	std::vector<T> mKUplet;
+	const size_t mK;
+
+	std::vector<size_t> mKUplet;
 };
 
 
-template <typename T>
-class Combination : public EnumerativeCombinatorics<T>
+class Combination : public EnumerativeCombinatorics
 {
 public:
 	Combination(size_t n, size_t k)
-		: EnumerativeCombinatorics<T>(k),
+		: EnumerativeCombinatorics(k),
 		  mN(n),
-		  mK(k),
 		  mBitmask(k, 1), // K leading 1's
 		  mNextAvailable(k > 0)
 	{
-		static_assert(std::is_arithmetic<T>::value && !std::is_same<T, bool>::value, "Type should be non-boolean arithmetic");
-
 		if (mK > mN)
 		{
 			throw std::invalid_argument("Combinations<T>::Combinations(): k > n: " + shlublu::String::xtos(mK) + " > " + shlublu::String::xtos(mN));
@@ -84,15 +90,9 @@ public:
 	}
 
 
-	virtual size_t k() const 
-	{ 
-		return mK; 
-	}
-
-
 	virtual size_t number() const
 	{
-		return number(mN, mK);
+		return number(mN, k());
 	}
 
 
@@ -102,13 +102,13 @@ public:
 
 		if (ret)
 		{
-			EnumerativeCombinatorics<T>::mKUplet.clear();
+			mKUplet.clear();
 
-			for (size_t i = 0; i < mN && EnumerativeCombinatorics<T>::mKUplet.size() < mK; ++i) // [0..N-1] integers
+			for (size_t i = 0; i < mN && mKUplet.size() < k(); ++i) // [0..N-1] integers
 			{
 				if (mBitmask[i])
 				{
-					EnumerativeCombinatorics<T>::mKUplet.push_back(T(i));
+					mKUplet.push_back(i);
 				}
 			}
 
@@ -127,19 +127,17 @@ public:
 
 private:
 	const size_t mN;
-	const size_t mK;
 
 	std::string mBitmask;
 	bool mNextAvailable;
 };
 
 
-template <typename T>
-class Arrangement : public EnumerativeCombinatorics<T>
+class Arrangement : public EnumerativeCombinatorics
 {
 public:
 	Arrangement(size_t n, size_t k)
-		:  EnumerativeCombinatorics<T>(k),
+		:  EnumerativeCombinatorics(k),
 		   mCombinations(n, k),
 		   mStarted(false)
 	{}
@@ -155,16 +153,16 @@ public:
 
 		if (ret)
 		{
-			ret = std::next_permutation(EnumerativeCombinatorics<T>::mKUplet.begin(), EnumerativeCombinatorics::mKUplet.end());
+			ret = std::next_permutation(mKUplet.begin(), mKUplet.end());
 		}
 
 		if (!ret)
 		{
 			mStarted = true;
 
-			mCombinations.swapKUplet(EnumerativeCombinatorics<T>::mKUplet);
+			mCombinations.swapKUplet(mKUplet);
 			ret = mCombinations.next();
-			mCombinations.swapKUplet(EnumerativeCombinatorics<T>::mKUplet);
+			mCombinations.swapKUplet(mKUplet);
 		}
 
 		return ret;
@@ -174,12 +172,6 @@ public:
 	virtual size_t n() const 
 	{ 
 		return mCombinations.n(); 
-	}
-
-
-	virtual size_t k() const 
-	{ 
-		return mCombinations.k(); 
 	}
 
 
@@ -196,7 +188,7 @@ public:
 
 
 private:
-	Combination<T> mCombinations;
+	Combination mCombinations;
 	bool mStarted;
 };
 
