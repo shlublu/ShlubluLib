@@ -11,7 +11,7 @@ see the file "LICENSE.txt", or read the [EUPL text online](https://joinup.ec.eur
 ## Table of content
 
 * [Modules and documentation](#modules-and-documentation)
-* [C++ version](#c-version)
+* [C++ version and linkage](#c-version-and-linkage)
 * [Installation from binaries](#installation-from-binaries)
   * [Download](#download)
   * [Content](#content)
@@ -56,9 +56,9 @@ in their documentation.
 Changes since former versions are tracked in the file `CHANGELOG.md`.
 
 
-## C++ version
+## C++ version and linkage
 
-This is a C++17 library. 
+This is a C++17 static linkage library. 
 
 The deprecated class template <a href="https://www.cplusplus.com/reference/locale/codecvt/">std::codecvt</a> is still used though as 
 it has no standardized replacement so far.
