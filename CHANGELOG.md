@@ -1,4 +1,4 @@
-## v0.6 - XXXX-XX-XX
+## v0.6 - unfinished - repository has been archived
 
 ### New features
 
