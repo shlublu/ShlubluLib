@@ -1,3 +1,5 @@
+## This repository has been archived on the 3rd of September 2024 ##
+
 **ShlubluLib** is a lightweight, modular, general purpose, open-source C++ library for Linux and Windows.<br /> 
 The current version is v0.6.
 
